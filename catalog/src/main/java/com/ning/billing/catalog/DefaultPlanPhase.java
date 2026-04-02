@@ -30,153 +30,157 @@ import java.net.URI;
 @XmlAccessorType(XmlAccessType.NONE)
 public class DefaultPlanPhase extends ValidatingConfig<StandaloneCatalog> implements PlanPhase {
 
-	@XmlAttribute (required=true)
-	private PhaseType type;
+    @XmlAttribute(required = true)
+    private PhaseType type;
 
-    @XmlElement(required=true)
+    @XmlElement(required = true)
     private DefaultDuration duration;
-    
-    @XmlElement(required=true)
+
+    @XmlElement(required = true)
     private BillingPeriod billingPeriod = BillingPeriod.NO_BILLING_PERIOD;
 
-	@XmlElement(required=false)
-	private DefaultInternationalPrice recurringPrice;
+    @XmlElement(required = false)
+    private DefaultInternationalPrice recurringPrice;
 
-	@XmlElement(required=false)
-	private DefaultInternationalPrice fixedPrice;
+    @XmlElement(required = false)
+    private DefaultInternationalPrice fixedPrice;
 
 //  Not supported: variable pricing
 //	@XmlElement(required=false)
 //	private InternationalPrice unitPrice;
 
-	//Not exposed in XML
-	private Plan plan;
+    //Not exposed in XML
+    private Plan plan;
 
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPlanPhase#getRecurringPrice()
-	 */
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPlanPhase#getRecurringPrice()
+     */
     @Override
-	public InternationalPrice getRecurringPrice() {
+    public InternationalPrice getRecurringPrice() {
         return recurringPrice;
     }
 
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPlanPhase#getInternationalPrice()
-	 */
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPlanPhase#getInternationalPrice()
+     */
     @Override
-	public InternationalPrice getFixedPrice() {
+    public InternationalPrice getFixedPrice() {
         return fixedPrice;
     }
 
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPlanPhase#getCohort()
-	 */
-	@Override
-	public PhaseType getPhaseType() {
-		return type;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPlanPhase#getBillCycleDuration()
-	 */
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPlanPhase#getCohort()
+     */
     @Override
-	public BillingPeriod getBillingPeriod() {
-    	return billingPeriod;
+    public PhaseType getPhaseType() {
+        return type;
     }
 
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPlanPhase#getName()
-	 */
-	@Override
-	public String getName() {
-		return plan.getName() + "-" + type.toString().toLowerCase();
-	}
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPlanPhase#getBillCycleDuration()
+     */
+    @Override
+    public BillingPeriod getBillingPeriod() {
+        return billingPeriod;
+    }
 
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPlanPhase#getPlan()
-	 */
-	@Override
-	public Plan getPlan() {
-		return plan;
-	}
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPlanPhase#getName()
+     */
+    @Override
+    public String getName() {
+        return plan.getName() + "-" + type.toString().toLowerCase();
+    }
 
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPlanPhase#getDuration()
-	 */
-	@Override
-	public Duration getDuration() {
- 		return duration;
-	}
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPlanPhase#getPlan()
+     */
+    @Override
+    public Plan getPlan() {
+        return plan;
+    }
 
-	@Override
-	public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
-		//Validation: check for nulls
-		if(billingPeriod == null) {
-			errors.add(new ValidationError(String.format("Phase %s of plan %s has a reccurring price but no billing period", type.toString(), plan.getName()), 
-					catalog.getCatalogURI(), DefaultPlanPhase.class, type.toString()));
-		}
-		
-		//Validation: if there is a recurring price there must be a billing period
-		if(recurringPrice != null && (billingPeriod == null || billingPeriod ==BillingPeriod.NO_BILLING_PERIOD)) {
-			errors.add(new ValidationError(String.format("Phase %s of plan %s has a reccurring price but no billing period", type.toString(), plan.getName()), 
-					catalog.getCatalogURI(), DefaultPlanPhase.class, type.toString()));
-		}
-		//Validation: if there is no reccuring price there should be no billing period
-		if(recurringPrice == null && billingPeriod != BillingPeriod.NO_BILLING_PERIOD) {
-			errors.add(new ValidationError(String.format("Phase %s of plan %s has no reccurring price but does have a billing period. The billing period should be set to '%s'", 
-					type.toString(), plan.getName(), BillingPeriod.NO_BILLING_PERIOD), 
-					catalog.getCatalogURI(), DefaultPlanPhase.class, type.toString()));
-		}
-		
-		//Validation: there must be at least one of reccuringPrice or fixedPrice
-		if(recurringPrice == null && fixedPrice == null) {
-			errors.add(new ValidationError(String.format("Phase %s of plan %s has neither a reccurring price or a fixed price.", 
-					type.toString(), plan.getName()), 
-					catalog.getCatalogURI(), DefaultPlanPhase.class, type.toString()));
-		}
-		return errors;
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPlanPhase#getDuration()
+     */
+    @Override
+    public Duration getDuration() {
+        return duration;
+    }
 
-	}
-	
-	@Override
-	public void initialize(StandaloneCatalog root, URI uri) {
-		if (fixedPrice != null) { fixedPrice.initialize(root, uri);  }	
-		if (recurringPrice != null) { recurringPrice.initialize(root, uri); }
-	}
-	
-	protected DefaultPlanPhase setFixedPrice(DefaultInternationalPrice price) {
-		this.fixedPrice = price;
-		return this;
-	}
+    @Override
+    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+        //Validation: check for nulls
+        if (billingPeriod == null) {
+            errors.add(new ValidationError(String.format("Phase %s of plan %s has a reccurring price but no billing period", type.toString(), plan.getName()),
+                    catalog.getCatalogURI(), DefaultPlanPhase.class, type.toString()));
+        }
 
-	protected DefaultPlanPhase setReccuringPrice(DefaultInternationalPrice price) {
-		this.recurringPrice = price;
-		return this;
-	}
+        //Validation: if there is a recurring price there must be a billing period
+        if (recurringPrice != null && (billingPeriod == null || billingPeriod == BillingPeriod.NO_BILLING_PERIOD)) {
+            errors.add(new ValidationError(String.format("Phase %s of plan %s has a reccurring price but no billing period", type.toString(), plan.getName()),
+                    catalog.getCatalogURI(), DefaultPlanPhase.class, type.toString()));
+        }
+        //Validation: if there is no reccuring price there should be no billing period
+        if (recurringPrice == null && billingPeriod != BillingPeriod.NO_BILLING_PERIOD) {
+            errors.add(new ValidationError(String.format("Phase %s of plan %s has no reccurring price but does have a billing period. The billing period should be set to '%s'",
+                    type.toString(), plan.getName(), BillingPeriod.NO_BILLING_PERIOD),
+                    catalog.getCatalogURI(), DefaultPlanPhase.class, type.toString()));
+        }
 
-	protected DefaultPlanPhase setPhaseType(PhaseType cohort) {
-		this.type = cohort;
-		return this;
-	}
+        //Validation: there must be at least one of reccuringPrice or fixedPrice
+        if (recurringPrice == null && fixedPrice == null) {
+            errors.add(new ValidationError(String.format("Phase %s of plan %s has neither a reccurring price or a fixed price.",
+                    type.toString(), plan.getName()),
+                    catalog.getCatalogURI(), DefaultPlanPhase.class, type.toString()));
+        }
+        return errors;
 
-	protected DefaultPlanPhase setBillingPeriod(BillingPeriod billingPeriod) {
-		this.billingPeriod = billingPeriod;
-		return this;
-	}
+    }
 
-	protected DefaultPlanPhase setDuration(DefaultDuration duration) {
-		this.duration = duration;
-		return this;
-	}
+    @Override
+    public void initialize(StandaloneCatalog root, URI uri) {
+        if (fixedPrice != null) {
+            fixedPrice.initialize(root, uri);
+        }
+        if (recurringPrice != null) {
+            recurringPrice.initialize(root, uri);
+        }
+    }
 
-	protected DefaultPlanPhase setPlan(Plan plan) {
-		this.plan = plan;
-		return this;
-	}
-	
-	protected DefaultPlanPhase setBillCycleDuration(BillingPeriod billingPeriod) {
-		this.billingPeriod = billingPeriod;
-		return this;
-	}
+    protected DefaultPlanPhase setFixedPrice(DefaultInternationalPrice price) {
+        this.fixedPrice = price;
+        return this;
+    }
+
+    protected DefaultPlanPhase setReccuringPrice(DefaultInternationalPrice price) {
+        this.recurringPrice = price;
+        return this;
+    }
+
+    protected DefaultPlanPhase setPhaseType(PhaseType cohort) {
+        this.type = cohort;
+        return this;
+    }
+
+    protected DefaultPlanPhase setBillingPeriod(BillingPeriod billingPeriod) {
+        this.billingPeriod = billingPeriod;
+        return this;
+    }
+
+    protected DefaultPlanPhase setDuration(DefaultDuration duration) {
+        this.duration = duration;
+        return this;
+    }
+
+    protected DefaultPlanPhase setPlan(Plan plan) {
+        this.plan = plan;
+        return this;
+    }
+
+    protected DefaultPlanPhase setBillCycleDuration(BillingPeriod billingPeriod) {
+        this.billingPeriod = billingPeriod;
+        return this;
+    }
 
 }

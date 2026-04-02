@@ -16,87 +16,72 @@
 
 package com.ning.billing.analytics;
 
+import com.ning.billing.catalog.api.PlanPhaseSpecifier;
+import com.ning.billing.entitlement.api.user.EntitlementUserApi;
+import com.ning.billing.entitlement.api.user.EntitlementUserApiException;
+import com.ning.billing.entitlement.api.user.Subscription;
+import com.ning.billing.entitlement.api.user.SubscriptionBundle;
+import org.joda.time.DateTime;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import org.joda.time.DateTime;
-import com.ning.billing.account.api.AccountData;
-import com.ning.billing.catalog.api.BillingPeriod;
-import com.ning.billing.catalog.api.PhaseType;
-import com.ning.billing.catalog.api.PlanPhaseSpecifier;
-import com.ning.billing.entitlement.api.user.EntitlementUserApi;
 
-import com.ning.billing.entitlement.api.user.EntitlementUserApiException;
-import com.ning.billing.entitlement.api.user.Subscription;
-import com.ning.billing.entitlement.api.user.SubscriptionBundle;
-
-public class MockIEntitlementUserApi implements EntitlementUserApi
-{
+public class MockIEntitlementUserApi implements EntitlementUserApi {
     private final Map<UUID, String> subscriptionBundles = new HashMap<UUID, String>();
 
-    public MockIEntitlementUserApi(final UUID bundleUUID, final String key)
-    {
+    public MockIEntitlementUserApi(final UUID bundleUUID, final String key) {
         subscriptionBundles.put(bundleUUID, key);
     }
 
     @Override
-    public SubscriptionBundle getBundleFromId(final UUID id)
-    {
+    public SubscriptionBundle getBundleFromId(final UUID id) {
         final String key = subscriptionBundles.get(id);
         if (key == null) {
             return null;
         }
 
-        return new SubscriptionBundle()
-        {
+        return new SubscriptionBundle() {
             @Override
-            public UUID getAccountId()
-            {
+            public UUID getAccountId() {
                 return UUID.randomUUID();
             }
 
             @Override
-            public UUID getId()
-            {
+            public UUID getId() {
                 return id;
             }
 
             @Override
-            public DateTime getStartDate()
-            {
+            public DateTime getStartDate() {
                 throw new UnsupportedOperationException();
             }
 
             @Override
-            public String getKey()
-            {
+            public String getKey() {
                 return key;
             }
         };
     }
 
     @Override
-    public Subscription getSubscriptionFromId(final UUID id)
-    {
+    public Subscription getSubscriptionFromId(final UUID id) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<SubscriptionBundle> getBundlesForAccount(final UUID accountId)
-    {
+    public List<SubscriptionBundle> getBundlesForAccount(final UUID accountId) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<Subscription> getSubscriptionsForBundle(final UUID bundleId)
-    {
+    public List<Subscription> getSubscriptionsForBundle(final UUID bundleId) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public SubscriptionBundle createBundleForAccount(final UUID accountId, final String bundleKey) throws EntitlementUserApiException
-    {
+    public SubscriptionBundle createBundleForAccount(final UUID accountId, final String bundleKey) throws EntitlementUserApiException {
         throw new UnsupportedOperationException();
     }
 
@@ -105,11 +90,11 @@ public class MockIEntitlementUserApi implements EntitlementUserApi
         throw new UnsupportedOperationException();
     }
 
-	@Override
-	public Subscription createSubscription(UUID bundleId, PlanPhaseSpecifier spec,
-			DateTime requestedDate) throws EntitlementUserApiException {
+    @Override
+    public Subscription createSubscription(UUID bundleId, PlanPhaseSpecifier spec,
+                                           DateTime requestedDate) throws EntitlementUserApiException {
         throw new UnsupportedOperationException();
-	}
+    }
 
     @Override
     public SubscriptionBundle getBundleForKey(String bundleKey) {

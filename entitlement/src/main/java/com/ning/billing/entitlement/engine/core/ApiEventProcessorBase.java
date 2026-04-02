@@ -68,7 +68,6 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
     }
 
 
-
     @Override
     public void startNotifications(final EventListener listener) {
 
@@ -135,7 +134,7 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
                         try {
                             doProcessEvents(sequenceId.getAndIncrement());
                         } catch (OutOfMemoryError e) {
-                            log.warn("",e);
+                            log.warn("", e);
                             throw e;
                         } catch (Throwable e) {
                             log.error(API_EVENT_THREAD_NAME + " got an exception", e);
@@ -168,7 +167,7 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
             return;
         }
 
-        synchronized(this) {
+        synchronized (this) {
             isProcessingEvents = false;
             try {
                 log.info("ApiEventProcessor requested to stop");
@@ -187,13 +186,13 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
     // This is not necessarily pretty
     //
     @Override
-    public void processAllReadyEvents(final UUID [] subscriptionsIds, final Boolean recursive, final Boolean oneEventOnly) {
+    public void processAllReadyEvents(final UUID[] subscriptionsIds, final Boolean recursive, final Boolean oneEventOnly) {
         processAllReadyEventsRecursively(subscriptionsIds, recursive, oneEventOnly);
     }
 
-    private boolean processAllReadyEventsRecursively(final UUID [] subscriptionsIds,
-            final Boolean recursive,
-            final Boolean oneEventOnly) {
+    private boolean processAllReadyEventsRecursively(final UUID[] subscriptionsIds,
+                                                     final Boolean recursive,
+                                                     final Boolean oneEventOnly) {
 
         int curSequenceId = sequenceId.getAndIncrement();
 
@@ -205,7 +204,7 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
                 break;
             }
             claimedEvents.addAll(tmpEvents);
-        } while(true);
+        } while (true);
         if (claimedEvents.size() == 0) {
             return false;
         }
@@ -249,5 +248,6 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
     }
 
     protected abstract boolean doProcessEvents(int sequenceId);
+
     protected abstract boolean doProcessEventsFromList(int sequenceId, Collection<EntitlementEvent> events);
 }

@@ -16,29 +16,31 @@
 
 package com.ning.billing.entitlement.api.migration;
 
-import java.util.UUID;
-
-import org.joda.time.DateTime;
-
 import com.ning.billing.catalog.api.PlanPhaseSpecifier;
 import com.ning.billing.catalog.api.ProductCategory;
+import org.joda.time.DateTime;
+
+import java.util.UUID;
 
 public interface EntitlementMigrationApi {
 
 
     public interface EntitlementAccountMigration {
         public UUID getAccountKey();
-        public EntitlementBundleMigration [] getBundles();
+
+        public EntitlementBundleMigration[] getBundles();
     }
 
     public interface EntitlementBundleMigration {
         public String getBundleKey();
-        public EntitlementSubscriptionMigration [] getSubscriptions();
+
+        public EntitlementSubscriptionMigration[] getSubscriptions();
     }
 
     public interface EntitlementSubscriptionMigration {
         public ProductCategory getCategory();
-        public EntitlementSubscriptionMigrationCase [] getSubscriptionCases();
+
+        public EntitlementSubscriptionMigrationCase[] getSubscriptionCases();
     }
 
     /**
@@ -47,7 +49,9 @@ public interface EntitlementMigrationApi {
      */
     public interface EntitlementSubscriptionMigrationCase {
         public PlanPhaseSpecifier getPlanPhaseSpecifer();
+
         public DateTime getEffectiveDate();
+
         public DateTime getCancelledDate();
     }
 
@@ -60,7 +64,7 @@ public interface EntitlementMigrationApi {
      *
      */
     public void migrate(EntitlementAccountMigration toBeMigrated)
-        throws EntitlementMigrationApiException;
+            throws EntitlementMigrationApiException;
 
     /**
      * Remove all the data pertaining to that acount
@@ -68,6 +72,6 @@ public interface EntitlementMigrationApi {
      * @param accountKey
      */
     public void undoMigration(UUID accountKey)
-        throws EntitlementMigrationApiException;
+            throws EntitlementMigrationApiException;
 
 }

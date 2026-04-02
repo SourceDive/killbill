@@ -16,40 +16,25 @@
 
 package com.ning.billing.entitlement.api.migration;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
+import com.ning.billing.catalog.api.*;
+import com.ning.billing.entitlement.api.ApiTestListener.NextEvent;
+import com.ning.billing.entitlement.api.TestApiBase;
+import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementAccountMigration;
+import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementBundleMigration;
+import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementSubscriptionMigration;
+import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementSubscriptionMigrationCase;
+import com.ning.billing.entitlement.api.user.Subscription;
+import com.ning.billing.entitlement.api.user.Subscription.SubscriptionState;
+import com.ning.billing.entitlement.api.user.SubscriptionBundle;
+import org.joda.time.DateTime;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import org.joda.time.DateTime;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Stage;
-import com.ning.billing.catalog.api.BillingPeriod;
-import com.ning.billing.catalog.api.Duration;
-import com.ning.billing.catalog.api.PhaseType;
-import com.ning.billing.catalog.api.PlanPhaseSpecifier;
-import com.ning.billing.catalog.api.PriceListSet;
-import com.ning.billing.catalog.api.ProductCategory;
-import com.ning.billing.entitlement.api.TestApiBase;
-import com.ning.billing.entitlement.api.ApiTestListener.NextEvent;
-import com.ning.billing.entitlement.api.migration.EntitlementMigrationApiException;
-import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementAccountMigration;
-import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementBundleMigration;
-import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementSubscriptionMigration;
-import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementSubscriptionMigrationCase;
-import com.ning.billing.entitlement.api.user.Subscription;
-import com.ning.billing.entitlement.api.user.SubscriptionBundle;
-import com.ning.billing.entitlement.api.user.Subscription.SubscriptionState;
-import com.ning.billing.entitlement.glue.MockEngineModuleSql;
+import static org.testng.Assert.*;
 
 public abstract class TestMigration extends TestApiBase {
 
@@ -236,6 +221,7 @@ public abstract class TestMigration extends TestApiBase {
                             public EntitlementSubscriptionMigrationCase[] getSubscriptionCases() {
                                 return cases.toArray(new EntitlementSubscriptionMigrationCase[cases.size()]);
                             }
+
                             @Override
                             public ProductCategory getCategory() {
                                 return ProductCategory.BASE;
@@ -245,6 +231,7 @@ public abstract class TestMigration extends TestApiBase {
                         result[0] = subscription;
                         return result;
                     }
+
                     @Override
                     public String getBundleKey() {
                         return "12345";
@@ -268,10 +255,12 @@ public abstract class TestMigration extends TestApiBase {
             public PlanPhaseSpecifier getPlanPhaseSpecifer() {
                 return new PlanPhaseSpecifier("Assault-Rifle", ProductCategory.BASE, BillingPeriod.ANNUAL, PriceListSet.DEFAULT_PRICELIST_NAME, PhaseType.EVERGREEN);
             }
+
             @Override
             public DateTime getEffectiveDate() {
                 return clock.getUTCNow().minusMonths(3);
             }
+
             @Override
             public DateTime getCancelledDate() {
                 return null;
@@ -288,10 +277,12 @@ public abstract class TestMigration extends TestApiBase {
             public PlanPhaseSpecifier getPlanPhaseSpecifer() {
                 return new PlanPhaseSpecifier("Assault-Rifle", ProductCategory.BASE, BillingPeriod.ANNUAL, PriceListSet.DEFAULT_PRICELIST_NAME, PhaseType.EVERGREEN);
             }
+
             @Override
             public DateTime getEffectiveDate() {
                 return effectiveDate;
             }
+
             @Override
             public DateTime getCancelledDate() {
                 return effectiveDate.plusYears(1);
@@ -308,10 +299,12 @@ public abstract class TestMigration extends TestApiBase {
             public PlanPhaseSpecifier getPlanPhaseSpecifer() {
                 return new PlanPhaseSpecifier("Assault-Rifle", ProductCategory.BASE, BillingPeriod.MONTHLY, PriceListSet.DEFAULT_PRICELIST_NAME, PhaseType.TRIAL);
             }
+
             @Override
             public DateTime getEffectiveDate() {
                 return trialDate;
             }
+
             @Override
             public DateTime getCancelledDate() {
                 return trialDate.plusDays(30);
@@ -322,10 +315,12 @@ public abstract class TestMigration extends TestApiBase {
             public PlanPhaseSpecifier getPlanPhaseSpecifer() {
                 return new PlanPhaseSpecifier("Assault-Rifle", ProductCategory.BASE, BillingPeriod.MONTHLY, PriceListSet.DEFAULT_PRICELIST_NAME, PhaseType.EVERGREEN);
             }
+
             @Override
             public DateTime getEffectiveDate() {
                 return trialDate.plusDays(30);
             }
+
             @Override
             public DateTime getCancelledDate() {
                 return null;
@@ -342,10 +337,12 @@ public abstract class TestMigration extends TestApiBase {
             public PlanPhaseSpecifier getPlanPhaseSpecifer() {
                 return new PlanPhaseSpecifier("Assault-Rifle", ProductCategory.BASE, BillingPeriod.MONTHLY, PriceListSet.DEFAULT_PRICELIST_NAME, PhaseType.EVERGREEN);
             }
+
             @Override
             public DateTime getEffectiveDate() {
                 return effectiveDate;
             }
+
             @Override
             public DateTime getCancelledDate() {
                 return effectiveDate.plusMonths(1);
@@ -356,10 +353,12 @@ public abstract class TestMigration extends TestApiBase {
             public PlanPhaseSpecifier getPlanPhaseSpecifer() {
                 return new PlanPhaseSpecifier("Shotgun", ProductCategory.BASE, BillingPeriod.ANNUAL, PriceListSet.DEFAULT_PRICELIST_NAME, PhaseType.EVERGREEN);
             }
+
             @Override
             public DateTime getEffectiveDate() {
                 return effectiveDate.plusMonths(1).plusDays(1);
             }
+
             @Override
             public DateTime getCancelledDate() {
                 return null;

@@ -24,8 +24,12 @@ import java.math.BigDecimal;
 public abstract class BillingModeBase implements BillingMode {
     @Override
     public BigDecimal calculateNumberOfBillingCycles(final DateTime startDate, final DateTime endDate, final DateTime targetDate, final int billingCycleDay, final BillingPeriod billingPeriod) throws InvalidDateSequenceException {
-        if (endDate.isBefore(startDate)) {throw new InvalidDateSequenceException();}
-        if (targetDate.isBefore(startDate)) {throw new InvalidDateSequenceException();}
+        if (endDate.isBefore(startDate)) {
+            throw new InvalidDateSequenceException();
+        }
+        if (targetDate.isBefore(startDate)) {
+            throw new InvalidDateSequenceException();
+        }
 
         BigDecimal precedingProRation = calculateProRationBeforeFirstBillingPeriod(startDate, billingCycleDay, billingPeriod);
 
@@ -45,7 +49,9 @@ public abstract class BillingModeBase implements BillingMode {
 
     @Override
     public BigDecimal calculateNumberOfBillingCycles(final DateTime startDate, final DateTime targetDate, final int billingCycleDay, final BillingPeriod billingPeriod) throws InvalidDateSequenceException {
-        if (targetDate.isBefore(startDate)) {throw new InvalidDateSequenceException();}
+        if (targetDate.isBefore(startDate)) {
+            throw new InvalidDateSequenceException();
+        }
 
         BigDecimal precedingProRation = calculateProRationBeforeFirstBillingPeriod(startDate, billingCycleDay, billingPeriod);
 

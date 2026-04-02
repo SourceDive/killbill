@@ -16,12 +16,11 @@
 
 package com.ning.billing.entitlement.api.migration;
 
-import org.testng.annotations.Test;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
 import com.ning.billing.entitlement.glue.MockEngineModuleSql;
+import org.testng.annotations.Test;
 
 public class TestMigrationSql extends TestMigration {
 
@@ -31,25 +30,25 @@ public class TestMigrationSql extends TestMigration {
     }
 
     @Override
-    @Test(enabled=true, groups="sql")
+    @Test(enabled = true, groups = "sql")
     public void testSingleBasePlan() {
         super.testSingleBasePlan();
     }
 
     @Override
-    @Test(enabled=true, groups="sql")
+    @Test(enabled = true, groups = "sql")
     public void testSingleBasePlanFutureCancelled() {
         super.testSingleBasePlanFutureCancelled();
     }
 
     @Override
-    @Test(enabled=true, groups="sql")
+    @Test(enabled = true, groups = "sql")
     public void testSingleBasePlanWithPendingPhase() {
         super.testSingleBasePlanWithPendingPhase();
     }
 
     @Override
-    @Test(enabled=true, groups="sql")
+    @Test(enabled = true, groups = "sql")
     public void testSingleBasePlanWithPendingChange() {
         super.testSingleBasePlanWithPendingChange();
     }

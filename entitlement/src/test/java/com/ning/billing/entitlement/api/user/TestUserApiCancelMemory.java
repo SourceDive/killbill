@@ -31,25 +31,25 @@ public class TestUserApiCancelMemory extends TestUserApiCancel {
     }
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testCancelSubscriptionIMM() {
         super.testCancelSubscriptionIMM();
     }
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testCancelSubscriptionEOTWithChargeThroughDate() {
         super.testCancelSubscriptionEOTWithChargeThroughDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testCancelSubscriptionEOTWithNoChargeThroughDate() {
         super.testCancelSubscriptionEOTWithNoChargeThroughDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testUncancel() {
         super.testUncancel();
     }

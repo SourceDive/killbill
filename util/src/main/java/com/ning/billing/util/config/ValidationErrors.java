@@ -21,27 +21,27 @@ import org.slf4j.Logger;
 import java.net.URI;
 import java.util.ArrayList;
 
-public class ValidationErrors extends ArrayList<ValidationError>{
-	private static final long serialVersionUID = 1L;
+public class ValidationErrors extends ArrayList<ValidationError> {
+    private static final long serialVersionUID = 1L;
 
-	public void add(String description, URI catalogURI,
-			Class<?> objectType, String objectName) {
-		add(new ValidationError(description, catalogURI, objectType, objectName));
-		
-	}
+    public void add(String description, URI catalogURI,
+                    Class<?> objectType, String objectName) {
+        add(new ValidationError(description, catalogURI, objectType, objectName));
 
-	public void log(Logger log) {
-		for(ValidationError error : this) {
-			error.log(log);
-		}	
-	}
-	
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		for(ValidationError error : this) {
-			builder.append(error.toString());
-		}	
-		return builder.toString();
-	}
+    }
+
+    public void log(Logger log) {
+        for (ValidationError error : this) {
+            error.log(log);
+        }
+    }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (ValidationError error : this) {
+            builder.append(error.toString());
+        }
+        return builder.toString();
+    }
 
 }

@@ -22,22 +22,22 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MockInternationalPrice extends DefaultInternationalPrice {
-	
-	MockInternationalPrice() {
-		setEffectiveDateForExistingSubscriptons(new Date());
-		setPrices(new DefaultPrice[] {
-			new DefaultPrice().setCurrency(Currency.USD).setValue(new BigDecimal(1))	
-		});
-	}
-	
-	MockInternationalPrice(Date effectiveDateForExistingSubscriptions, DefaultPrice[] price) {
-		setEffectiveDateForExistingSubscriptons(effectiveDateForExistingSubscriptions);
-		setPrices(price);
-	}
 
-	MockInternationalPrice(DefaultPrice... price) {
-		setEffectiveDateForExistingSubscriptons(new Date());
-		setPrices(price);
-	}
+    MockInternationalPrice() {
+        setEffectiveDateForExistingSubscriptons(new Date());
+        setPrices(new DefaultPrice[]{
+                new DefaultPrice().setCurrency(Currency.USD).setValue(new BigDecimal(1))
+        });
+    }
+
+    MockInternationalPrice(Date effectiveDateForExistingSubscriptions, DefaultPrice[] price) {
+        setEffectiveDateForExistingSubscriptons(effectiveDateForExistingSubscriptions);
+        setPrices(price);
+    }
+
+    MockInternationalPrice(DefaultPrice... price) {
+        setEffectiveDateForExistingSubscriptons(new Date());
+        setPrices(price);
+    }
 
 }

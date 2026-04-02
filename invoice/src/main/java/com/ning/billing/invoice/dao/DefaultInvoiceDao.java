@@ -16,8 +16,6 @@
 
 package com.ning.billing.invoice.dao;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import com.google.inject.Inject;
 import com.ning.billing.invoice.api.Invoice;
 import com.ning.billing.invoice.api.InvoiceCreationNotification;
@@ -55,44 +53,44 @@ public class DefaultInvoiceDao implements InvoiceDao {
     @Override
     public List<Invoice> get() {
         return invoiceDao.inTransaction(new Transaction<List<Invoice>, InvoiceSqlDao>() {
-             @Override
-             public List<Invoice> inTransaction(final InvoiceSqlDao invoiceDao, final TransactionStatus status) throws Exception {
-                 List<Invoice> invoices = invoiceDao.get();
+            @Override
+            public List<Invoice> inTransaction(final InvoiceSqlDao invoiceDao, final TransactionStatus status) throws Exception {
+                List<Invoice> invoices = invoiceDao.get();
 
-                 InvoiceItemSqlDao invoiceItemDao = invoiceDao.become(InvoiceItemSqlDao.class);
-                 for (Invoice invoice : invoices) {
-                     List<InvoiceItem> invoiceItems = invoiceItemDao.getInvoiceItemsByInvoice(invoice.getId().toString());
-                     invoice.add(invoiceItems);
-                 }
+                InvoiceItemSqlDao invoiceItemDao = invoiceDao.become(InvoiceItemSqlDao.class);
+                for (Invoice invoice : invoices) {
+                    List<InvoiceItem> invoiceItems = invoiceItemDao.getInvoiceItemsByInvoice(invoice.getId().toString());
+                    invoice.add(invoiceItems);
+                }
 
-                 return invoices;
-             }
+                return invoices;
+            }
         });
     }
 
     @Override
     public Invoice getById(final String invoiceId) {
         return invoiceDao.inTransaction(new Transaction<Invoice, InvoiceSqlDao>() {
-             @Override
-             public Invoice inTransaction(final InvoiceSqlDao invoiceDao, final TransactionStatus status) throws Exception {
-                 Invoice invoice = invoiceDao.getById(invoiceId);
+            @Override
+            public Invoice inTransaction(final InvoiceSqlDao invoiceDao, final TransactionStatus status) throws Exception {
+                Invoice invoice = invoiceDao.getById(invoiceId);
 
-                 if (invoice != null) {
-                     InvoiceItemSqlDao invoiceItemDao = invoiceDao.become(InvoiceItemSqlDao.class);
-                     List<InvoiceItem> invoiceItems = invoiceItemDao.getInvoiceItemsByInvoice(invoiceId);
-                     invoice.add(invoiceItems);
-                 }
+                if (invoice != null) {
+                    InvoiceItemSqlDao invoiceItemDao = invoiceDao.become(InvoiceItemSqlDao.class);
+                    List<InvoiceItem> invoiceItems = invoiceItemDao.getInvoiceItemsByInvoice(invoiceId);
+                    invoice.add(invoiceItems);
+                }
 
-                 return invoice;
-             }
+                return invoice;
+            }
         });
     }
 
     @Override
     public void create(final Invoice invoice) {
-         invoiceDao.inTransaction(new Transaction<Void, InvoiceSqlDao>() {
-             @Override
-             public Void inTransaction(final InvoiceSqlDao invoiceDao, final TransactionStatus status) throws Exception {
+        invoiceDao.inTransaction(new Transaction<Void, InvoiceSqlDao>() {
+            @Override
+            public Void inTransaction(final InvoiceSqlDao invoiceDao, final TransactionStatus status) throws Exception {
                 Invoice currentInvoice = invoiceDao.getById(invoice.getId().toString());
 
                 if (currentInvoice == null) {
@@ -104,31 +102,31 @@ public class DefaultInvoiceDao implements InvoiceDao {
 
                     InvoiceCreationNotification event;
                     event = new DefaultInvoiceCreationNotification(invoice.getId(), invoice.getAccountId(),
-                                                                  invoice.getAmountOutstanding(), invoice.getCurrency(),
-                                                                  invoice.getInvoiceDate());
+                            invoice.getAmountOutstanding(), invoice.getCurrency(),
+                            invoice.getInvoiceDate());
                     eventBus.post(event);
                 }
 
                 return null;
-             }
-         });
+            }
+        });
     }
 
     @Override
     public List<Invoice> getInvoicesBySubscription(final String subscriptionId) {
         return invoiceDao.inTransaction(new Transaction<List<Invoice>, InvoiceSqlDao>() {
-             @Override
-             public List<Invoice> inTransaction(InvoiceSqlDao invoiceDao, TransactionStatus status) throws Exception {
-                 List<Invoice> invoices = invoiceDao.getInvoicesBySubscription(subscriptionId);
+            @Override
+            public List<Invoice> inTransaction(InvoiceSqlDao invoiceDao, TransactionStatus status) throws Exception {
+                List<Invoice> invoices = invoiceDao.getInvoicesBySubscription(subscriptionId);
 
-                 InvoiceItemSqlDao invoiceItemDao = invoiceDao.become(InvoiceItemSqlDao.class);
-                 for (Invoice invoice : invoices) {
-                     List<InvoiceItem> invoiceItems = invoiceItemDao.getInvoiceItemsByInvoice(invoice.getId().toString());
-                     invoice.add(invoiceItems);
-                 }
+                InvoiceItemSqlDao invoiceItemDao = invoiceDao.become(InvoiceItemSqlDao.class);
+                for (Invoice invoice : invoices) {
+                    List<InvoiceItem> invoiceItems = invoiceItemDao.getInvoiceItemsByInvoice(invoice.getId().toString());
+                    invoice.add(invoiceItems);
+                }
 
-                 return invoices;
-             }
+                return invoices;
+            }
         });
     }
 

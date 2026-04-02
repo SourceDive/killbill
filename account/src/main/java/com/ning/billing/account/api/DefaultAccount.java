@@ -16,16 +16,17 @@
 
 package com.ning.billing.account.api;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-import org.joda.time.DateTime;
 import com.ning.billing.catalog.api.Currency;
 import com.ning.billing.util.customfield.CustomizableEntityBase;
 import com.ning.billing.util.tag.DefaultTag;
 import com.ning.billing.util.tag.DefaultTagStore;
 import com.ning.billing.util.tag.Tag;
 import com.ning.billing.util.tag.TagDescription;
+import org.joda.time.DateTime;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 public class DefaultAccount extends CustomizableEntityBase implements Account {
     public final static String OBJECT_TYPE = "Account";
@@ -128,7 +129,7 @@ public class DefaultAccount extends CustomizableEntityBase implements Account {
     @Override
     public void addTag(TagDescription description, String addedBy, DateTime dateAdded) {
         Tag tag = new DefaultTag(description, addedBy, dateAdded);
-        tags.add(tag) ;
+        tags.add(tag);
     }
 
     @Override

@@ -27,8 +27,7 @@ import java.util.List;
 
 @ExternalizedSqlViaStringTemplate3()
 @RegisterMapper(BusinessSubscriptionTransitionMapper.class)
-public interface BusinessSubscriptionTransitionDao
-{
+public interface BusinessSubscriptionTransitionDao {
     @SqlQuery
     List<BusinessSubscriptionTransition> getTransitions(@Bind("event_key") final String key);
 

@@ -27,8 +27,8 @@ public class DefaultClock implements Clock {
 
     @Override
     public DateTime getNow(DateTimeZone tz) {
-       DateTime result = new DateTime(tz);
-       return truncateMs(result);
+        DateTime result = new DateTime(tz);
+        return truncateMs(result);
     }
 
     @Override
@@ -46,20 +46,20 @@ public class DefaultClock implements Clock {
         DateTime result = input;
         for (Duration cur : durations) {
             switch (cur.getUnit()) {
-            case DAYS:
-                result = add ? result.plusDays(cur.getNumber()) : result.minusDays(cur.getNumber());
-                break;
+                case DAYS:
+                    result = add ? result.plusDays(cur.getNumber()) : result.minusDays(cur.getNumber());
+                    break;
 
-            case MONTHS:
-                result = add ? result.plusMonths(cur.getNumber()) : result.minusMonths(cur.getNumber());
-                break;
+                case MONTHS:
+                    result = add ? result.plusMonths(cur.getNumber()) : result.minusMonths(cur.getNumber());
+                    break;
 
-            case YEARS:
-                result = add ? result.plusYears(cur.getNumber()) : result.minusYears(cur.getNumber());
-                break;
-            case UNLIMITED:
-            default:
-                throw new RuntimeException("Trying to move to unlimited time period");
+                case YEARS:
+                    result = add ? result.plusYears(cur.getNumber()) : result.minusYears(cur.getNumber());
+                    break;
+                case UNLIMITED:
+                default:
+                    throw new RuntimeException("Trying to move to unlimited time period");
             }
         }
         return result;

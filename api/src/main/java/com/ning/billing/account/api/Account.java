@@ -16,9 +16,10 @@
 
 package com.ning.billing.account.api;
 
-import java.math.BigDecimal;
 import com.ning.billing.util.customfield.CustomizableEntity;
 import com.ning.billing.util.tag.Taggable;
+
+import java.math.BigDecimal;
 
 public interface Account extends AccountData, CustomizableEntity, Taggable {
     public BigDecimal getBalance();

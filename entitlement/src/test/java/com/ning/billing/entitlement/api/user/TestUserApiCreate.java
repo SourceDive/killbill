@@ -17,25 +17,18 @@
 package com.ning.billing.entitlement.api.user;
 
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
-
-import java.util.List;
-import org.joda.time.DateTime;
-import org.testng.Assert;
-
-import com.ning.billing.catalog.api.BillingPeriod;
-import com.ning.billing.catalog.api.Plan;
-import com.ning.billing.catalog.api.PlanPhase;
-import com.ning.billing.catalog.api.PriceListSet;
-import com.ning.billing.catalog.api.PhaseType;
-import com.ning.billing.catalog.api.ProductCategory;
-import com.ning.billing.entitlement.api.TestApiBase;
+import com.ning.billing.catalog.api.*;
 import com.ning.billing.entitlement.api.ApiTestListener.NextEvent;
+import com.ning.billing.entitlement.api.TestApiBase;
 import com.ning.billing.entitlement.events.EntitlementEvent;
 import com.ning.billing.entitlement.events.phase.PhaseEvent;
 import com.ning.billing.util.clock.DefaultClock;
+import org.joda.time.DateTime;
+import org.testng.Assert;
+
+import java.util.List;
+
+import static org.testng.Assert.*;
 
 public abstract class TestUserApiCreate extends TestApiBase {
 
@@ -159,7 +152,7 @@ public abstract class TestUserApiCreate extends TestApiBase {
             printEvents(events);
             assertTrue(events.size() == 1);
             assertTrue(events.get(0) instanceof PhaseEvent);
-            DateTime nextPhaseChange = ((PhaseEvent ) events.get(0)).getEffectiveDate();
+            DateTime nextPhaseChange = ((PhaseEvent) events.get(0)).getEffectiveDate();
             DateTime nextExpectedPhaseChange = DefaultClock.addDuration(subscription.getStartDate(), currentPhase.getDuration());
             assertEquals(nextPhaseChange, nextExpectedPhaseChange);
 
@@ -200,7 +193,6 @@ public abstract class TestUserApiCreate extends TestApiBase {
             assertNotNull(currentPhase);
             assertEquals(currentPhase.getPhaseType(), PhaseType.TRIAL);
             assertTrue(testListener.isCompleted(5000));
-
 
 
             // MOVE TO DISCOUNT PHASE
@@ -248,7 +240,6 @@ public abstract class TestUserApiCreate extends TestApiBase {
             Assert.fail(e.getMessage());
         }
     }
-
 
 
 }

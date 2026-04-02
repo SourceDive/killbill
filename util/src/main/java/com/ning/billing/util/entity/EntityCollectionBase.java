@@ -16,11 +16,7 @@
 
 package com.ning.billing.util.entity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class EntityCollectionBase<T extends Entity> implements EntityCollection<T> {
     protected Map<String, T> entities = new HashMap<String, T>();

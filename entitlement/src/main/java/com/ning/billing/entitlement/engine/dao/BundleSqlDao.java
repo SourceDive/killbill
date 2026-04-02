@@ -85,7 +85,7 @@ public interface BundleSqlDao extends Transactional<BundleSqlDao>, CloseMe, Tran
 
         @Override
         public SubscriptionBundle map(int arg, ResultSet r,
-                StatementContext ctx) throws SQLException {
+                                      StatementContext ctx) throws SQLException {
 
             UUID id = UUID.fromString(r.getString("id"));
             String name = r.getString("name");

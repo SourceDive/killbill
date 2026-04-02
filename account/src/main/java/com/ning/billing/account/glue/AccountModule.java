@@ -22,7 +22,6 @@ import com.ning.billing.account.api.AccountUserApi;
 import com.ning.billing.account.api.DefaultAccountService;
 import com.ning.billing.account.api.user.DefaultAccountUserApi;
 import com.ning.billing.account.dao.AccountDao;
-import com.ning.billing.account.dao.AccountSqlDao;
 import com.ning.billing.account.dao.DefaultAccountDao;
 import org.skife.config.ConfigurationObjectFactory;
 

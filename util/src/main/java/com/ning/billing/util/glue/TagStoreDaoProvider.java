@@ -21,19 +21,16 @@ import com.google.inject.Provider;
 import com.ning.billing.util.tag.dao.TagStoreDao;
 import org.skife.jdbi.v2.IDBI;
 
-public class TagStoreDaoProvider implements Provider<TagStoreDao>
-{
+public class TagStoreDaoProvider implements Provider<TagStoreDao> {
     private final IDBI dbi;
 
     @Inject
-    public TagStoreDaoProvider(final IDBI dbi)
-    {
+    public TagStoreDaoProvider(final IDBI dbi) {
         this.dbi = dbi;
     }
 
     @Override
-    public TagStoreDao get()
-    {
+    public TagStoreDao get() {
         return dbi.onDemand(TagStoreDao.class);
     }
 }

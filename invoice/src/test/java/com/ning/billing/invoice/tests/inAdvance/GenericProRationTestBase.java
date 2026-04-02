@@ -26,10 +26,11 @@ import java.math.BigDecimal;
 public abstract class GenericProRationTestBase extends ProRationInAdvanceTestBase {
     /**
      * used for testing cancellation in less than a single billing period
+     *
      * @return BigDecimal the number of days in the billing period beginning 2011/1/1
      */
     protected abstract BigDecimal getDaysInTestPeriod();
-    
+
     @Test
     public void testSinglePlan_OnStartDate() throws InvalidDateSequenceException {
         DateTime startDate = buildDateTime(2011, 2, 15);
@@ -119,7 +120,7 @@ public abstract class GenericProRationTestBase extends ProRationInAdvanceTestBas
             testCalculateNumberOfBillingCycles(startDate, oneCycleLater.plusDays(1), 31, expectedValue);
         }
     }
-    
+
     // tests for cancellation in less than one period, beginning Jan 1
     @Test
     public void testCancelledBeforeOnePeriod_TargetDateInStartDate() throws InvalidDateSequenceException {

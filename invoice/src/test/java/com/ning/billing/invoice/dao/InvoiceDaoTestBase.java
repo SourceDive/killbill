@@ -16,15 +16,16 @@
 
 package com.ning.billing.invoice.dao;
 
-import java.io.IOException;
-import org.apache.commons.io.IOUtils;
-import org.testng.annotations.BeforeClass;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
 import com.ning.billing.invoice.glue.InvoiceModuleMock;
 import com.ning.billing.util.eventbus.DefaultEventBusService;
 import com.ning.billing.util.eventbus.EventBusService;
+import org.apache.commons.io.IOUtils;
+import org.testng.annotations.BeforeClass;
+
+import java.io.IOException;
 
 import static org.testng.Assert.fail;
 
@@ -49,8 +50,7 @@ public abstract class InvoiceDaoTestBase {
 
             EventBusService busService = injector.getInstance(EventBusService.class);
             ((DefaultEventBusService) busService).startBus();
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             fail(t.toString());
         }
     }

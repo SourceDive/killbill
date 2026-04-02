@@ -103,14 +103,14 @@ public interface SubscriptionSqlDao extends Transactional<SubscriptionSqlDao>, C
             long activeVersion = r.getLong("active_version");
 
             SubscriptionData subscription = new SubscriptionData(new SubscriptionBuilder()
-            .setId(id)
-            .setBundleId(bundleId)
-            .setCategory(category)
-            .setBundleStartDate(bundleStartDate)
-            .setStartDate(startDate)
-            .setActiveVersion(activeVersion)
-            .setChargedThroughDate(ctd)
-            .setPaidThroughDate(ptd));
+                    .setId(id)
+                    .setBundleId(bundleId)
+                    .setCategory(category)
+                    .setBundleStartDate(bundleStartDate)
+                    .setStartDate(startDate)
+                    .setActiveVersion(activeVersion)
+                    .setChargedThroughDate(ctd)
+                    .setPaidThroughDate(ptd));
             return subscription;
         }
     }

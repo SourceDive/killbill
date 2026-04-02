@@ -31,21 +31,18 @@ import org.skife.jdbi.v2.tweak.SQLLog;
 
 import java.util.concurrent.TimeUnit;
 
-public class DBIProvider implements Provider<DBI>
-{
+public class DBIProvider implements Provider<DBI> {
     private final MetricsRegistry metricsRegistry;
     private final DbiConfig config;
 
     @Inject
-    public DBIProvider(final MetricsRegistry metricsRegistry, final DbiConfig config)
-    {
+    public DBIProvider(final MetricsRegistry metricsRegistry, final DbiConfig config) {
         this.metricsRegistry = metricsRegistry;
         this.config = config;
     }
 
     @Override
-    public DBI get()
-    {
+    public DBI get() {
         final BoneCPConfig dbConfig = new BoneCPConfig();
         dbConfig.setJdbcUrl(config.getJdbcUrl());
         dbConfig.setUsername(config.getUsername());

@@ -16,11 +16,12 @@
 
 package com.ning.billing.invoice.api.user;
 
-import java.math.BigDecimal;
-import java.util.UUID;
-import org.joda.time.DateTime;
 import com.ning.billing.catalog.api.Currency;
 import com.ning.billing.invoice.api.InvoiceCreationNotification;
+import org.joda.time.DateTime;
+
+import java.math.BigDecimal;
+import java.util.UUID;
 
 public class DefaultInvoiceCreationNotification implements InvoiceCreationNotification {
     private final UUID invoiceId;

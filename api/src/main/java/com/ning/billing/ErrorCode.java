@@ -45,24 +45,24 @@ public enum ErrorCode {
     ENT_UNCANCEL_BAD_STATE(1070, "Subscription %s was not in a cancelled state"),
 
     /*
-    *
-    * Range 2000 : CATALOG
-    *
-    */
+     *
+     * Range 2000 : CATALOG
+     *
+     */
 
     /*
-    * Rules exceptions
-    */
+     * Rules exceptions
+     */
 
     /* Plan change is disallowed by the catalog */
     CAT_ILLEGAL_CHANGE_REQUEST(2001, "Attempting to change plan from (product: '%s', billing period: '%s', " +
-    		"pricelist '%s') to (product: '%s', billing period: '%s', pricelist '%s'). This transition is not allowed by catalog rules"),
+            "pricelist '%s') to (product: '%s', billing period: '%s', pricelist '%s'). This transition is not allowed by catalog rules"),
 
-	/*
-	 * Price list
-	 */
+    /*
+     * Price list
+     */
 
-	/*Attempt to reference a price that is not present - should only happen if it is a currency not available in the catalog */
+    /*Attempt to reference a price that is not present - should only happen if it is a currency not available in the catalog */
     CAT_NO_PRICE_FOR_CURRENCY(2010, "This price does not have a value for the currency '%s'."),
 
     /* Price value explicitly set to NULL meaning there is no price available in that currency */
@@ -71,27 +71,26 @@ public enum ErrorCode {
     /*
      * Plans
      */
-    CAT_PLAN_NOT_FOUND(2020,"Could not find a plan matching: (product: '%s', billing period: '%s', pricelist '%s')"),
-    CAT_NO_SUCH_PLAN(2021,"Could not find any plans named '%s'"),
+    CAT_PLAN_NOT_FOUND(2020, "Could not find a plan matching: (product: '%s', billing period: '%s', pricelist '%s')"),
+    CAT_NO_SUCH_PLAN(2021, "Could not find any plans named '%s'"),
 
     /*
      * Products
      */
-    CAT_NO_SUCH_PRODUCT(2030,"Could not find any plans named '%s'"),
+    CAT_NO_SUCH_PRODUCT(2030, "Could not find any plans named '%s'"),
 
     /*
      * Phases
      */
-    CAT_NO_SUCH_PHASE(2040,"Could not find any phases named '%s'"),
+    CAT_NO_SUCH_PHASE(2040, "Could not find any phases named '%s'"),
 
-   /*
-    *
-    * Range 3000 : ACCOUNT
-    *
-    */
+    /*
+     *
+     * Range 3000 : ACCOUNT
+     *
+     */
     ACCOUNT_ALREADY_EXISTS(3000, "Account already exists for key %s"),
-    ACCOUNT_INVALID_NAME(3001, "An invalid name was specified when creating or updating an account.")
-    ;
+    ACCOUNT_INVALID_NAME(3001, "An invalid name was specified when creating or updating an account.");
 
     private int code;
     private String format;

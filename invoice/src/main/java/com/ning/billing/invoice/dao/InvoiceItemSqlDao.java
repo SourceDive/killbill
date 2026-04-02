@@ -19,12 +19,10 @@ package com.ning.billing.invoice.dao;
 import com.ning.billing.catalog.api.Currency;
 import com.ning.billing.invoice.api.InvoiceItem;
 import com.ning.billing.invoice.model.DefaultInvoiceItem;
-import com.ning.billing.util.entity.EntityCollectionDao;
 import com.ning.billing.util.entity.EntityDao;
 import org.joda.time.DateTime;
 import org.skife.jdbi.v2.SQLStatement;
 import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import org.skife.jdbi.v2.sqlobject.stringtemplate.ExternalizedSqlViaStringTemplate3;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
@@ -95,7 +93,7 @@ public interface InvoiceItemSqlDao extends EntityDao<InvoiceItem> {
             BigDecimal rate = result.getBigDecimal("rate");
             Currency currency = Currency.valueOf(result.getString("currency"));
 
-            return new DefaultInvoiceItem(id, invoiceId, subscriptionId, startDate, endDate, description, amount, rate , currency);
+            return new DefaultInvoiceItem(id, invoiceId, subscriptionId, startDate, endDate, description, amount, rate, currency);
         }
     }
 }

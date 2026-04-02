@@ -30,22 +30,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class BusinessAccountRecorder
-{
+public class BusinessAccountRecorder {
     private static final Logger log = LoggerFactory.getLogger(BusinessAccountRecorder.class);
 
     private final BusinessAccountDao dao;
     private final AccountUserApi accountApi;
 
     @Inject
-    public BusinessAccountRecorder(final BusinessAccountDao dao, final AccountUserApi accountApi)
-    {
+    public BusinessAccountRecorder(final BusinessAccountDao dao, final AccountUserApi accountApi) {
         this.dao = dao;
         this.accountApi = accountApi;
     }
 
-    public void accountCreated(final AccountData data)
-    {
+    public void accountCreated(final AccountData data) {
         final Account account = accountApi.getAccountByKey(data.getExternalKey());
 
         final List<String> tags = new ArrayList<String>();
@@ -55,23 +52,22 @@ public class BusinessAccountRecorder
 
         // TODO Need payment and invoice api to fill most fields
         final BusinessAccount bac = new BusinessAccount(
-            account.getExternalKey(),
-            null, // TODO
-            tags,
-            null, // TODO
-            null, // TODO
-            null, // TODO
-            null, // TODO
-            null, // TODO
-            null // TODO
+                account.getExternalKey(),
+                null, // TODO
+                tags,
+                null, // TODO
+                null, // TODO
+                null, // TODO
+                null, // TODO
+                null, // TODO
+                null // TODO
         );
 
         log.info("ACCOUNT CREATION " + bac);
         dao.createAccount(bac);
     }
 
-    public void accountUpdated(final UUID accountId, final List<ChangedField> changedFields)
-    {
+    public void accountUpdated(final UUID accountId, final List<ChangedField> changedFields) {
         // None of the fields updated interest us so far - see DefaultAccountChangeNotification
         // TODO We'll need notifications for tags changes eventually
     }

@@ -81,7 +81,9 @@ public @interface LifecycleHandlerType {
             STARTUP_POST_EVENT_REGISTRATION,
             SHUTDOWN_PRE_EVENT_UNREGISTRATION,
             SHUTDOWN_POST_EVENT_UNREGISTRATION
-        };
+        }
+
+        ;
 
         private Sequence seq;
 

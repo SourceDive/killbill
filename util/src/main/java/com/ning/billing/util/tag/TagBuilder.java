@@ -16,8 +16,9 @@
 
 package com.ning.billing.util.tag;
 
-import java.util.UUID;
 import org.joda.time.DateTime;
+
+import java.util.UUID;
 
 public class TagBuilder {
     private UUID id = UUID.randomUUID();

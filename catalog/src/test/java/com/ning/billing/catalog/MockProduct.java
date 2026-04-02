@@ -20,9 +20,9 @@ import com.ning.billing.catalog.api.ProductCategory;
 
 public class MockProduct extends DefaultProduct {
 
-	public MockProduct() {
-		setName("TestProduct");
-		setCatagory(ProductCategory.BASE);
-		setCatalogName("Ning");
-	}
+    public MockProduct() {
+        setName("TestProduct");
+        setCatagory(ProductCategory.BASE);
+        setCatalogName("Ning");
+    }
 }

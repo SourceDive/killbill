@@ -16,22 +16,19 @@
 
 package com.ning.billing.analytics;
 
-import com.ning.billing.catalog.api.*;
 import com.ning.billing.entitlement.api.user.Subscription;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TestBusinessSubscriptionEvent
-{
+public class TestBusinessSubscriptionEvent {
     private Product product;
     private Plan plan;
     private PlanPhase phase;
     private Subscription isubscription;
 
     @BeforeMethod(alwaysRun = true)
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         product = new MockProduct("platinium", "subscription", ProductCategory.BASE);
         plan = new MockPlan("platinum-monthly", product);
         phase = new MockPhase(PhaseType.EVERGREEN, plan, MockDuration.UNLIMITED(), 25.95);
@@ -39,8 +36,7 @@ public class TestBusinessSubscriptionEvent
     }
 
     @Test(groups = "fast")
-    public void testValueOf() throws Exception
-    {
+    public void testValueOf() throws Exception {
         BusinessSubscriptionEvent event;
 
         event = BusinessSubscriptionEvent.valueOf("ADD_ADD_ON");
@@ -61,8 +57,7 @@ public class TestBusinessSubscriptionEvent
     }
 
     @Test(groups = "fast")
-    public void testFromISubscription() throws Exception
-    {
+    public void testFromISubscription() throws Exception {
         BusinessSubscriptionEvent event;
 
         event = BusinessSubscriptionEvent.subscriptionCreated(isubscription.getCurrentPlan());
@@ -105,8 +100,7 @@ public class TestBusinessSubscriptionEvent
     }
 
     @Test(groups = "fast")
-    public void testEquals() throws Exception
-    {
+    public void testEquals() throws Exception {
         final BusinessSubscriptionEvent event = BusinessSubscriptionEvent.subscriptionChanged(isubscription.getCurrentPlan());
         Assert.assertSame(event, event);
         Assert.assertEquals(event, event);

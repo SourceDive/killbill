@@ -52,25 +52,25 @@ public abstract class EventBase implements EntitlementEvent {
     }
 
     public EventBase(UUID subscriptionId, DateTime requestedDate,
-            DateTime effectiveDate, DateTime processedDate,
-            long activeVersion, boolean isActive) {
+                     DateTime effectiveDate, DateTime processedDate,
+                     long activeVersion, boolean isActive) {
         this(subscriptionId, requestedDate, effectiveDate, processedDate, activeVersion, isActive, null, null, EventLifecycleState.AVAILABLE);
     }
 
     private EventBase(UUID subscriptionId, DateTime requestedDate,
-            DateTime effectiveDate, DateTime processedDate,
-            long activeVersion, boolean isActive,
-            UUID processingOwner, DateTime nextAvailableProcessingTime,
-            EventLifecycleState processingState) {
+                      DateTime effectiveDate, DateTime processedDate,
+                      long activeVersion, boolean isActive,
+                      UUID processingOwner, DateTime nextAvailableProcessingTime,
+                      EventLifecycleState processingState) {
         this(UUID.randomUUID(), subscriptionId, requestedDate, effectiveDate, processedDate, activeVersion, isActive,
                 processingOwner, nextAvailableProcessingTime, processingState);
     }
 
     public EventBase(UUID id, UUID subscriptionId, DateTime requestedDate,
-            DateTime effectiveDate, DateTime processedDate,
-            long activeVersion, boolean isActive,
-            UUID processingOwner, DateTime nextAvailableProcessingTime,
-            EventLifecycleState processingState) {
+                     DateTime effectiveDate, DateTime processedDate,
+                     long activeVersion, boolean isActive,
+                     UUID processingOwner, DateTime nextAvailableProcessingTime,
+                     EventLifecycleState processingState) {
         this.uuid = id;
         this.subscriptionId = subscriptionId;
         this.requestedDate = requestedDate;
@@ -177,19 +177,19 @@ public abstract class EventBase implements EntitlementEvent {
             return false;
         }
 
-        switch(processingState) {
-        case AVAILABLE:
-            break;
-        case IN_PROCESSING:
-            // Somebody already got the event, not available yet
-            if (nextAvailableProcessingTime.isAfter(now)) {
+        switch (processingState) {
+            case AVAILABLE:
+                break;
+            case IN_PROCESSING:
+                // Somebody already got the event, not available yet
+                if (nextAvailableProcessingTime.isAfter(now)) {
+                    return false;
+                }
+                break;
+            case PROCESSED:
                 return false;
-            }
-            break;
-        case PROCESSED:
-            return false;
-        default:
-            throw new EntitlementError(String.format("Unkwnon IEvent processing state %s", processingState));
+            default:
+                throw new EntitlementError(String.format("Unkwnon IEvent processing state %s", processingState));
         }
         return effectiveDate.isBefore(now);
     }
@@ -233,10 +233,10 @@ public abstract class EventBase implements EntitlementEvent {
 
     @Override
     public boolean equals(Object other) {
-      if (! (other instanceof EntitlementEvent)) {
-          return false;
-      }
-      return (this.compareTo((EntitlementEvent) other) == 0);
+        if (!(other instanceof EntitlementEvent)) {
+            return false;
+        }
+        return (this.compareTo((EntitlementEvent) other) == 0);
     }
 
     @Override

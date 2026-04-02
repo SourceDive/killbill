@@ -130,7 +130,7 @@ public class SubscriptionData implements Subscription {
 
 
     @Override
-    public void cancel(DateTime requestedDate, boolean eot) throws EntitlementUserApiException  {
+    public void cancel(DateTime requestedDate, boolean eot) throws EntitlementUserApiException {
         apiService.cancel(this, requestedDate, eot);
     }
 
@@ -141,7 +141,7 @@ public class SubscriptionData implements Subscription {
 
     @Override
     public void changePlan(String productName, BillingPeriod term,
-            String priceList, DateTime requestedDate) throws EntitlementUserApiException {
+                           String priceList, DateTime requestedDate) throws EntitlementUserApiException {
         apiService.changePlan(this, productName, term, priceList, requestedDate);
     }
 
@@ -151,7 +151,7 @@ public class SubscriptionData implements Subscription {
     }
 
     @Override
-    public void resume() throws EntitlementUserApiException  {
+    public void resume() throws EntitlementUserApiException {
         throw new EntitlementUserApiException(ErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -268,7 +268,7 @@ public class SubscriptionData implements Subscription {
         for (SubscriptionTransitionData cur : transitions) {
             if (cur.getEffectiveTransitionTime().isBefore(clock.getUTCNow()) ||
                     cur.getEventType() == EventType.PHASE ||
-                        cur.getApiEventType() != ApiEventType.CANCEL) {
+                    cur.getApiEventType() != ApiEventType.CANCEL) {
                 continue;
             }
             return true;
@@ -345,49 +345,49 @@ public class SubscriptionData implements Subscription {
 
             switch (cur.getType()) {
 
-            case PHASE:
-                PhaseEvent phaseEV = (PhaseEvent) cur;
-                nextPhaseName = phaseEV.getPhase();
-                break;
+                case PHASE:
+                    PhaseEvent phaseEV = (PhaseEvent) cur;
+                    nextPhaseName = phaseEV.getPhase();
+                    break;
 
-            case API_USER:
-                ApiEvent userEV = (ApiEvent) cur;
-                apiEventType = userEV.getEventType();
-                switch(apiEventType) {
-                case MIGRATE_ENTITLEMENT:
-                case CREATE:
-                    nextState = SubscriptionState.ACTIVE;
-                    nextPlanName = userEV.getEventPlan();
-                    nextPhaseName = userEV.getEventPlanPhase();
-                    nextPriceList = userEV.getPriceList();
+                case API_USER:
+                    ApiEvent userEV = (ApiEvent) cur;
+                    apiEventType = userEV.getEventType();
+                    switch (apiEventType) {
+                        case MIGRATE_ENTITLEMENT:
+                        case CREATE:
+                            nextState = SubscriptionState.ACTIVE;
+                            nextPlanName = userEV.getEventPlan();
+                            nextPhaseName = userEV.getEventPlanPhase();
+                            nextPriceList = userEV.getPriceList();
+                            break;
+                        case CHANGE:
+                            nextPlanName = userEV.getEventPlan();
+                            nextPhaseName = userEV.getEventPlanPhase();
+                            nextPriceList = userEV.getPriceList();
+                            break;
+                        case PAUSE:
+                            nextState = SubscriptionState.PAUSED;
+                            break;
+                        case RESUME:
+                            nextState = SubscriptionState.ACTIVE;
+                            break;
+                        case CANCEL:
+                            nextState = SubscriptionState.CANCELLED;
+                            nextPlanName = null;
+                            nextPhaseName = null;
+                            break;
+                        case UNCANCEL:
+                            break;
+                        default:
+                            throw new EntitlementError(String.format("Unexpected UserEvent type = %s",
+                                    userEV.getEventType().toString()));
+                    }
                     break;
-                case CHANGE:
-                    nextPlanName = userEV.getEventPlan();
-                    nextPhaseName = userEV.getEventPlanPhase();
-                    nextPriceList = userEV.getPriceList();
-                    break;
-                case PAUSE:
-                    nextState = SubscriptionState.PAUSED;
-                    break;
-                case RESUME:
-                    nextState = SubscriptionState.ACTIVE;
-                    break;
-                case CANCEL:
-                    nextState = SubscriptionState.CANCELLED;
-                    nextPlanName = null;
-                    nextPhaseName = null;
-                    break;
-                case UNCANCEL:
-                    break;
+
                 default:
-                    throw new EntitlementError(String.format("Unexpected UserEvent type = %s",
-                            userEV.getEventType().toString()));
-                }
-                break;
-
-            default:
-                throw new EntitlementError(String.format("Unexpected Event type = %s",
-                        cur.getType()));
+                    throw new EntitlementError(String.format("Unexpected Event type = %s",
+                            cur.getType()));
             }
 
             Plan previousPlan = null;
@@ -403,21 +403,21 @@ public class SubscriptionData implements Subscription {
                 log.error(String.format("Failed to build transition for subscription %s", id), e);
             }
             SubscriptionTransitionData transition =
-                new SubscriptionTransitionData(cur.getId(),
-                        id,
-                        bundleId,
-                        cur.getType(),
-                        apiEventType,
-                        cur.getRequestedDate(),
-                        cur.getEffectiveDate(),
-                        previousState,
-                        previousPlan,
-                        previousPhase,
-                        previousPriceList,
-                        nextState,
-                        nextPlan,
-                        nextPhase,
-                        nextPriceList);
+                    new SubscriptionTransitionData(cur.getId(),
+                            id,
+                            bundleId,
+                            cur.getType(),
+                            apiEventType,
+                            cur.getRequestedDate(),
+                            cur.getEffectiveDate(),
+                            previousState,
+                            previousPlan,
+                            previousPhase,
+                            previousPriceList,
+                            nextState,
+                            nextPlan,
+                            nextPhase,
+                            nextPriceList);
             transitions.add(transition);
 
             previousState = nextState;

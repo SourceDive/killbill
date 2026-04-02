@@ -16,22 +16,8 @@
 
 package com.ning.billing.entitlement.api.migration;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
-
-import org.joda.time.DateTime;
-
 import com.google.inject.Inject;
-import com.ning.billing.catalog.api.CatalogApiException;
 import com.ning.billing.catalog.api.CatalogService;
-import com.ning.billing.catalog.api.Duration;
-import com.ning.billing.catalog.api.PhaseType;
-import com.ning.billing.catalog.api.Plan;
-import com.ning.billing.catalog.api.PlanPhase;
-import com.ning.billing.catalog.api.PlanPhaseSpecifier;
 import com.ning.billing.catalog.api.ProductCategory;
 import com.ning.billing.entitlement.alignment.MigrationPlanAligner;
 import com.ning.billing.entitlement.alignment.TimedMigration;
@@ -52,7 +38,9 @@ import com.ning.billing.entitlement.events.user.ApiEventChange;
 import com.ning.billing.entitlement.events.user.ApiEventMigrate;
 import com.ning.billing.entitlement.exceptions.EntitlementError;
 import com.ning.billing.util.clock.Clock;
-import com.ning.billing.util.clock.DefaultClock;
+import org.joda.time.DateTime;
+
+import java.util.*;
 
 public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
 
@@ -65,10 +53,10 @@ public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
 
     @Inject
     public DefaultEntitlementMigrationApi(MigrationPlanAligner migrationAligner,
-            SubscriptionFactory factory,
-            CatalogService catalogService,
-            EntitlementDao dao,
-            Clock clock) {
+                                          SubscriptionFactory factory,
+                                          CatalogService catalogService,
+                                          EntitlementDao dao,
+                                          Clock clock) {
         this.dao = dao;
         this.migrationAligner = migrationAligner;
         this.factory = factory;
@@ -78,7 +66,7 @@ public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
 
     @Override
     public void migrate(EntitlementAccountMigration toBeMigrated)
-    throws EntitlementMigrationApiException {
+            throws EntitlementMigrationApiException {
         AccountMigrationData accountMigrationData = createAccountMigrationData(toBeMigrated);
         dao.migrate(toBeMigrated.getAccountKey(), accountMigrationData);
     }
@@ -89,7 +77,7 @@ public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
     }
 
     private AccountMigrationData createAccountMigrationData(EntitlementAccountMigration toBeMigrated)
-    throws EntitlementMigrationApiException  {
+            throws EntitlementMigrationApiException {
 
         final UUID accountId = toBeMigrated.getAccountKey();
         final DateTime now = clock.getUTCNow();
@@ -104,17 +92,17 @@ public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
             for (EntitlementSubscriptionMigration curSub : curBundle.getSubscriptions()) {
                 SubscriptionMigrationData data = null;
                 switch (curSub.getCategory()) {
-                case BASE:
-                    data = createBaseSubscriptionMigrationData(bundleData.getId(), curSub.getCategory(), curSub.getSubscriptionCases(), now);
-                    break;
-                case ADD_ON:
-                    // Not implemented yet
-                    break;
-                case STANDALONE:
-                    // Not implemented yet
-                    break;
-                default:
-                    throw new EntitlementMigrationApiException(String.format("Unkown product type ", curSub.getCategory()));
+                    case BASE:
+                        data = createBaseSubscriptionMigrationData(bundleData.getId(), curSub.getCategory(), curSub.getSubscriptionCases(), now);
+                        break;
+                    case ADD_ON:
+                        // Not implemented yet
+                        break;
+                    case STANDALONE:
+                        // Not implemented yet
+                        break;
+                    default:
+                        throw new EntitlementMigrationApiException(String.format("Unkown product type ", curSub.getCategory()));
                 }
                 if (data != null) {
                     bundleSubscriptionData.add(data);
@@ -128,23 +116,23 @@ public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
     }
 
     private SubscriptionMigrationData createBaseSubscriptionMigrationData(UUID bundleId, ProductCategory productCategory,
-            EntitlementSubscriptionMigrationCase [] input, DateTime now)
-        throws EntitlementMigrationApiException {
+                                                                          EntitlementSubscriptionMigrationCase[] input, DateTime now)
+            throws EntitlementMigrationApiException {
 
-        TimedMigration [] events = migrationAligner.getEventsMigration(input, now);
-        DateTime migrationStartDate= events[0].getEventTime();
-        List<EntitlementEvent> emptyEvents =  Collections.emptyList();
+        TimedMigration[] events = migrationAligner.getEventsMigration(input, now);
+        DateTime migrationStartDate = events[0].getEventTime();
+        List<EntitlementEvent> emptyEvents = Collections.emptyList();
         SubscriptionData subscriptionData = factory.createSubscription(new SubscriptionBuilder()
-            .setId(UUID.randomUUID())
-            .setBundleId(bundleId)
-            .setCategory(productCategory)
-            .setBundleStartDate(migrationStartDate)
-            .setStartDate(migrationStartDate),
-            emptyEvents);
+                        .setId(UUID.randomUUID())
+                        .setBundleId(bundleId)
+                        .setCategory(productCategory)
+                        .setBundleStartDate(migrationStartDate)
+                        .setStartDate(migrationStartDate),
+                emptyEvents);
         return new SubscriptionMigrationData(subscriptionData, toEvents(subscriptionData, now, events));
     }
 
-    private List<EntitlementEvent> toEvents(SubscriptionData subscriptionData, DateTime now, TimedMigration [] migrationEvents) {
+    private List<EntitlementEvent> toEvents(SubscriptionData subscriptionData, DateTime now, TimedMigration[] migrationEvents) {
 
         List<EntitlementEvent> events = new ArrayList<EntitlementEvent>(migrationEvents.length);
         for (TimedMigration cur : migrationEvents) {
@@ -156,28 +144,28 @@ public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
             } else if (cur.getEventType() == EventType.API_USER) {
 
                 ApiEventBuilder builder = new ApiEventBuilder()
-                .setSubscriptionId(subscriptionData.getId())
-                .setEventPlan((cur.getPlan() != null) ? cur.getPlan().getName() : null)
-                .setEventPlanPhase((cur.getPhase() != null) ? cur.getPhase().getName() : null)
-                .setEventPriceList(cur.getPriceList())
-                .setActiveVersion(subscriptionData.getActiveVersion())
-                .setEffectiveDate(cur.getEventTime())
-                .setProcessedDate(now)
-                .setRequestedDate(now);
+                        .setSubscriptionId(subscriptionData.getId())
+                        .setEventPlan((cur.getPlan() != null) ? cur.getPlan().getName() : null)
+                        .setEventPlanPhase((cur.getPhase() != null) ? cur.getPhase().getName() : null)
+                        .setEventPriceList(cur.getPriceList())
+                        .setActiveVersion(subscriptionData.getActiveVersion())
+                        .setEffectiveDate(cur.getEventTime())
+                        .setProcessedDate(now)
+                        .setRequestedDate(now);
 
-                switch(cur.getApiEventType()) {
-                case MIGRATE_ENTITLEMENT:
-                    events.add(new ApiEventMigrate(builder));
-                    break;
+                switch (cur.getApiEventType()) {
+                    case MIGRATE_ENTITLEMENT:
+                        events.add(new ApiEventMigrate(builder));
+                        break;
 
-                case CHANGE:
-                    events.add(new ApiEventChange(builder));
-                    break;
-                case CANCEL:
-                    events.add(new ApiEventCancel(builder));
-                    break;
-                default:
-                    throw new EntitlementError(String.format("Unexpected type of api migration event %s", cur.getApiEventType()));
+                    case CHANGE:
+                        events.add(new ApiEventChange(builder));
+                        break;
+                    case CANCEL:
+                        events.add(new ApiEventCancel(builder));
+                        break;
+                    default:
+                        throw new EntitlementError(String.format("Unexpected type of api migration event %s", cur.getApiEventType()));
                 }
             } else {
                 throw new EntitlementError(String.format("Unexpected type of migration event %s", cur.getEventType()));

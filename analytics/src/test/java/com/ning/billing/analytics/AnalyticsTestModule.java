@@ -26,11 +26,9 @@ import com.ning.billing.util.glue.TagStoreModule;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.IDBI;
 
-public class AnalyticsTestModule extends AnalyticsModule
-{
+public class AnalyticsTestModule extends AnalyticsModule {
     @Override
-    protected void configure()
-    {
+    protected void configure() {
         super.configure();
 
         // Need to configure a few more things for the EventBus

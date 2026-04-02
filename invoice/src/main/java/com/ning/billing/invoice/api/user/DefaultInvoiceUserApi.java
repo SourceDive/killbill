@@ -20,11 +20,8 @@ import com.google.inject.Inject;
 import com.ning.billing.catalog.api.Currency;
 import com.ning.billing.invoice.api.Invoice;
 import com.ning.billing.invoice.api.InvoiceUserApi;
-import com.ning.billing.invoice.dao.DefaultInvoiceDao;
 import com.ning.billing.invoice.dao.InvoiceDao;
-import com.ning.billing.util.eventbus.EventBus;
 import org.joda.time.DateTime;
-import org.skife.jdbi.v2.IDBI;
 
 import java.math.BigDecimal;
 import java.util.List;

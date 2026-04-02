@@ -16,11 +16,6 @@
 
 package com.ning.billing.account.dao;
 
-import java.util.List;
-import java.util.UUID;
-import org.skife.jdbi.v2.IDBI;
-import org.skife.jdbi.v2.Transaction;
-import org.skife.jdbi.v2.TransactionStatus;
 import com.google.inject.Inject;
 import com.ning.billing.account.api.Account;
 import com.ning.billing.account.api.AccountChangeNotification;
@@ -33,6 +28,12 @@ import com.ning.billing.util.customfield.dao.FieldStoreDao;
 import com.ning.billing.util.eventbus.EventBus;
 import com.ning.billing.util.tag.Tag;
 import com.ning.billing.util.tag.dao.TagStoreDao;
+import org.skife.jdbi.v2.IDBI;
+import org.skife.jdbi.v2.Transaction;
+import org.skife.jdbi.v2.TransactionStatus;
+
+import java.util.List;
+import java.util.UUID;
 
 public class DefaultAccountDao implements AccountDao {
     private final AccountSqlDao accountDao;

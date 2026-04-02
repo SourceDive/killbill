@@ -18,7 +18,7 @@ package com.ning.billing.lifecycle;
 
 public interface KillbillService {
 
-    public static class ServiceException extends Exception  {
+    public static class ServiceException extends Exception {
 
         private static final long serialVersionUID = 176191207L;
 

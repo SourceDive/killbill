@@ -52,11 +52,11 @@ public class Lifecycle {
         this.handlersByLevel = Multimaps.newSetMultimap(new ConcurrentHashMap<LifecycleLevel, Collection<LifecycleHandler<? extends KillbillService>>>(),
 
                 new Supplier<Set<LifecycleHandler<? extends KillbillService>>>() {
-            @Override
-            public Set<LifecycleHandler<? extends KillbillService>> get() {
-                return new CopyOnWriteArraySet<LifecycleHandler<? extends KillbillService>>();
-            }
-        });
+                    @Override
+                    public Set<LifecycleHandler<? extends KillbillService>> get() {
+                        return new CopyOnWriteArraySet<LifecycleHandler<? extends KillbillService>>();
+                    }
+                });
         this.injector = injector;
 
         init();
@@ -115,7 +115,7 @@ public class Lifecycle {
     private Set<? extends KillbillService> findServices() {
 
         Set<KillbillService> result = new HashSet<KillbillService>();
-        Set<Class<? extends KillbillService>> services =  serviceFinder.getServices();
+        Set<Class<? extends KillbillService>> services = serviceFinder.getServices();
         for (Class<? extends KillbillService> cur : services) {
             log.debug("Found service {}", cur.getName());
             try {
@@ -143,7 +143,7 @@ public class Lifecycle {
             LifecycleHandlerType annotation = method.getAnnotation(LifecycleHandlerType.class);
             if (annotation != null) {
                 LifecycleLevel level = annotation.value();
-                LifecycleHandler<? extends KillbillService> handler = new  LifecycleHandler<KillbillService>(service, method);
+                LifecycleHandler<? extends KillbillService> handler = new LifecycleHandler<KillbillService>(service, method);
                 methodsInService.put(level, handler);
             }
         }

@@ -34,37 +34,37 @@ import java.util.Date;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class TestVersionedCatalog {
-	private final VersionedCatalogLoader loader = new VersionedCatalogLoader(new DefaultClock());
+    private final VersionedCatalogLoader loader = new VersionedCatalogLoader(new DefaultClock());
 
-	@Test(enabled=true)
-	public void testAddCatalog() throws MalformedURLException, IOException, SAXException, InvalidConfigException, JAXBException, TransformerException, URISyntaxException, ServiceException {
-		VersionedCatalog vc = loader.load(Resources.getResource("versionedCatalog").toString());
-		vc.add(new StandaloneCatalog(new Date()));
-		assertEquals(5, vc.size());
-	}
-	
-	@Test(enabled=true)
-	public void testApplyEffectiveDate() throws MalformedURLException, IOException, SAXException, InvalidConfigException, JAXBException, TransformerException, URISyntaxException, ServiceException {
-		VersionedCatalog vc = loader.load(Resources.getResource("versionedCatalog").toString());
-		Date d = new Date(1L);
-		vc.configureEffectiveDate(d);
-		assertEquals(new Date(0), vc.getEffectiveDate()); // Start at the begining of time
-		
-		DateTime dt = new DateTime("2011-01-01T00:00:00+00:00");
-		d = new Date(dt.getMillis() + 1000);
-		vc.configureEffectiveDate(d);
-		assertEquals(dt.toDate(),vc.getEffectiveDate());
-		
-		dt = new DateTime("2011-02-02T00:00:00+00:00");
-		d = new Date(dt.getMillis() + 1000);
-		vc.configureEffectiveDate(d);
-		assertEquals(dt.toDate(),vc.getEffectiveDate());
-		
-		dt = new DateTime("2011-03-03T00:00:00+00:00");
-		d = new Date(dt.getMillis() + 1000);
-		vc.configureEffectiveDate(d);
-		assertEquals(dt.toDate(),vc.getEffectiveDate());
-		
-	}
+    @Test(enabled = true)
+    public void testAddCatalog() throws MalformedURLException, IOException, SAXException, InvalidConfigException, JAXBException, TransformerException, URISyntaxException, ServiceException {
+        VersionedCatalog vc = loader.load(Resources.getResource("versionedCatalog").toString());
+        vc.add(new StandaloneCatalog(new Date()));
+        assertEquals(5, vc.size());
+    }
+
+    @Test(enabled = true)
+    public void testApplyEffectiveDate() throws MalformedURLException, IOException, SAXException, InvalidConfigException, JAXBException, TransformerException, URISyntaxException, ServiceException {
+        VersionedCatalog vc = loader.load(Resources.getResource("versionedCatalog").toString());
+        Date d = new Date(1L);
+        vc.configureEffectiveDate(d);
+        assertEquals(new Date(0), vc.getEffectiveDate()); // Start at the begining of time
+
+        DateTime dt = new DateTime("2011-01-01T00:00:00+00:00");
+        d = new Date(dt.getMillis() + 1000);
+        vc.configureEffectiveDate(d);
+        assertEquals(dt.toDate(), vc.getEffectiveDate());
+
+        dt = new DateTime("2011-02-02T00:00:00+00:00");
+        d = new Date(dt.getMillis() + 1000);
+        vc.configureEffectiveDate(d);
+        assertEquals(dt.toDate(), vc.getEffectiveDate());
+
+        dt = new DateTime("2011-03-03T00:00:00+00:00");
+        d = new Date(dt.getMillis() + 1000);
+        vc.configureEffectiveDate(d);
+        assertEquals(dt.toDate(), vc.getEffectiveDate());
+
+    }
 
 }

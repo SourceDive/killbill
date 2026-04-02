@@ -25,12 +25,10 @@ import static com.ning.billing.entitlement.api.user.Subscription.SubscriptionSta
 /**
  * Describe an event associated with a transition between two BusinessSubscription
  */
-public class BusinessSubscriptionEvent
-{
+public class BusinessSubscriptionEvent {
     private static final String MISC = "MISC";
 
-    public enum EventType
-    {
+    public enum EventType {
         ADD,
         CANCEL,
         CHANGE,
@@ -43,8 +41,7 @@ public class BusinessSubscriptionEvent
     private final EventType eventType;
     private final ProductCategory category;
 
-    public static BusinessSubscriptionEvent valueOf(final String eventString)
-    {
+    public static BusinessSubscriptionEvent valueOf(final String eventString) {
         for (final EventType possibleEventType : EventType.values()) {
             if (!eventString.startsWith(possibleEventType.toString().toUpperCase())) {
                 continue;
@@ -54,8 +51,7 @@ public class BusinessSubscriptionEvent
 
             if (categoryString.equals(MISC)) {
                 return new BusinessSubscriptionEvent(possibleEventType, null);
-            }
-            else {
+            } else {
                 return new BusinessSubscriptionEvent(possibleEventType, ProductCategory.valueOf(categoryString));
             }
         }
@@ -63,65 +59,53 @@ public class BusinessSubscriptionEvent
         throw new IllegalArgumentException("Unable to parse event string: " + eventString);
     }
 
-    public BusinessSubscriptionEvent(final EventType eventType, final ProductCategory category)
-    {
+    public BusinessSubscriptionEvent(final EventType eventType, final ProductCategory category) {
         this.eventType = eventType;
         this.category = category;
     }
 
-    public ProductCategory getCategory()
-    {
+    public ProductCategory getCategory() {
         return category;
     }
 
-    public EventType getEventType()
-    {
+    public EventType getEventType() {
         return eventType;
     }
 
-    public static BusinessSubscriptionEvent subscriptionCreated(final Plan plan)
-    {
+    public static BusinessSubscriptionEvent subscriptionCreated(final Plan plan) {
         return eventFromType(EventType.ADD, plan);
     }
 
-    public static BusinessSubscriptionEvent subscriptionCancelled(final Plan plan)
-    {
+    public static BusinessSubscriptionEvent subscriptionCancelled(final Plan plan) {
         return eventFromType(EventType.CANCEL, plan);
     }
 
-    public static BusinessSubscriptionEvent subscriptionChanged(final Plan plan)
-    {
+    public static BusinessSubscriptionEvent subscriptionChanged(final Plan plan) {
         return eventFromType(EventType.CHANGE, plan);
     }
 
-    public static BusinessSubscriptionEvent subscriptionPaused(final Plan plan)
-    {
+    public static BusinessSubscriptionEvent subscriptionPaused(final Plan plan) {
         return eventFromType(EventType.PAUSE, plan);
     }
 
-    public static BusinessSubscriptionEvent subscriptionResumed(final Plan plan)
-    {
+    public static BusinessSubscriptionEvent subscriptionResumed(final Plan plan) {
         return eventFromType(EventType.RESUME, plan);
     }
 
-    public static BusinessSubscriptionEvent subscriptionPhaseChanged(final Plan plan, final SubscriptionState state)
-    {
+    public static BusinessSubscriptionEvent subscriptionPhaseChanged(final Plan plan, final SubscriptionState state) {
         if (state != null && state.equals(SubscriptionState.CANCELLED)) {
             return eventFromType(EventType.SYSTEM_CANCEL, plan);
-        }
-        else {
+        } else {
             return eventFromType(EventType.SYSTEM_CHANGE, plan);
         }
     }
 
-    private static BusinessSubscriptionEvent eventFromType(final EventType eventType, final Plan plan)
-    {
+    private static BusinessSubscriptionEvent eventFromType(final EventType eventType, final Plan plan) {
         final ProductCategory category = getTypeFromSubscription(plan);
         return new BusinessSubscriptionEvent(eventType, category);
     }
 
-    private static ProductCategory getTypeFromSubscription(final Plan plan)
-    {
+    private static ProductCategory getTypeFromSubscription(final Plan plan) {
         if (plan != null && plan.getProduct() != null) {
             final Product product = plan.getProduct();
             if (product.getCatalogName() != null && product.getCategory() != null) {
@@ -133,14 +117,12 @@ public class BusinessSubscriptionEvent
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return eventType.toString() + "_" + (category == null ? MISC : category.toString().toUpperCase());
     }
 
     @Override
-    public boolean equals(final Object o)
-    {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -161,8 +143,7 @@ public class BusinessSubscriptionEvent
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int result = eventType != null ? eventType.hashCode() : 0;
         result = 31 * result + (category != null ? category.hashCode() : 0);
         return result;

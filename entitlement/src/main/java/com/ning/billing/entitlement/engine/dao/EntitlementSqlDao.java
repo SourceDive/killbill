@@ -22,11 +22,7 @@ import com.ning.billing.config.EntitlementConfig;
 import com.ning.billing.entitlement.api.migration.AccountMigrationData;
 import com.ning.billing.entitlement.api.migration.AccountMigrationData.BundleMigrationData;
 import com.ning.billing.entitlement.api.migration.AccountMigrationData.SubscriptionMigrationData;
-import com.ning.billing.entitlement.api.user.Subscription;
-import com.ning.billing.entitlement.api.user.SubscriptionBundle;
-import com.ning.billing.entitlement.api.user.SubscriptionBundleData;
-import com.ning.billing.entitlement.api.user.SubscriptionData;
-import com.ning.billing.entitlement.api.user.SubscriptionFactory;
+import com.ning.billing.entitlement.api.user.*;
 import com.ning.billing.entitlement.api.user.SubscriptionFactory.SubscriptionBuilder;
 import com.ning.billing.entitlement.events.EntitlementEvent;
 import com.ning.billing.entitlement.events.EntitlementEvent.EventType;
@@ -103,8 +99,8 @@ public class EntitlementSqlDao implements EntitlementDao {
 
         List<Subscription> subscriptions = subscriptionsDao.getSubscriptionsFromBundleId(bundleId.toString());
         for (Subscription cur : subscriptions) {
-            if (((SubscriptionData)cur).getCategory() == ProductCategory.BASE) {
-                return  buildSubscription(cur);
+            if (((SubscriptionData) cur).getCategory() == ProductCategory.BASE) {
+                return buildSubscription(cur);
             }
         }
         return null;
@@ -117,7 +113,7 @@ public class EntitlementSqlDao implements EntitlementDao {
 
     @Override
     public List<Subscription> getSubscriptionsForKey(String bundleKey) {
-        SubscriptionBundle bundle =  bundlesDao.getBundleFromKey(bundleKey);
+        SubscriptionBundle bundle = bundlesDao.getBundleFromKey(bundleKey);
         if (bundle == null) {
             return Collections.emptyList();
         }
@@ -126,8 +122,8 @@ public class EntitlementSqlDao implements EntitlementDao {
 
     @Override
     public void updateSubscription(SubscriptionData subscription) {
-        Date ctd = (subscription.getChargedThroughDate() != null)  ? subscription.getChargedThroughDate().toDate() : null;
-        Date ptd = (subscription.getPaidThroughDate() != null)  ? subscription.getPaidThroughDate().toDate() : null;
+        Date ctd = (subscription.getChargedThroughDate() != null) ? subscription.getChargedThroughDate().toDate() : null;
+        Date ptd = (subscription.getPaidThroughDate() != null) ? subscription.getPaidThroughDate().toDate() : null;
         subscriptionsDao.updateSubscription(subscription.getId().toString(), subscription.getActiveVersion(), ctd, ptd);
     }
 
@@ -137,7 +133,7 @@ public class EntitlementSqlDao implements EntitlementDao {
 
             @Override
             public Void inTransaction(EventSqlDao dao,
-                    TransactionStatus status) throws Exception {
+                                      TransactionStatus status) throws Exception {
                 cancelNextPhaseEventFromTransaction(subscriptionId, dao);
                 dao.insertEvent(nextPhase);
                 return null;
@@ -171,7 +167,7 @@ public class EntitlementSqlDao implements EntitlementDao {
 
             @Override
             public List<EntitlementEvent> inTransaction(EventSqlDao dao,
-                    TransactionStatus status) throws Exception {
+                                                        TransactionStatus status) throws Exception {
 
                 List<EntitlementEvent> claimedEvents = new ArrayList<EntitlementEvent>();
                 List<EntitlementEvent> input = dao.getReadyEvents(now, config.getDaoMaxReadyEvents());
@@ -204,7 +200,7 @@ public class EntitlementSqlDao implements EntitlementDao {
 
             @Override
             public Void inTransaction(EventSqlDao dao,
-                    TransactionStatus status) throws Exception {
+                                      TransactionStatus status) throws Exception {
                 // STEPH Same here batch would nice
                 for (EntitlementEvent cur : cleared) {
                     dao.clearEvent(cur.getId().toString(), ownerId.toString());
@@ -217,13 +213,13 @@ public class EntitlementSqlDao implements EntitlementDao {
 
     @Override
     public void createSubscription(final SubscriptionData subscription,
-            final List<EntitlementEvent> initialEvents) {
+                                   final List<EntitlementEvent> initialEvents) {
 
         subscriptionsDao.inTransaction(new Transaction<Void, SubscriptionSqlDao>() {
 
             @Override
             public Void inTransaction(SubscriptionSqlDao dao,
-                    TransactionStatus status) throws Exception {
+                                      TransactionStatus status) throws Exception {
 
                 dao.insertSubscription(subscription);
                 // STEPH batch as well
@@ -242,7 +238,7 @@ public class EntitlementSqlDao implements EntitlementDao {
         eventsDao.inTransaction(new Transaction<Void, EventSqlDao>() {
             @Override
             public Void inTransaction(EventSqlDao dao,
-                    TransactionStatus status) throws Exception {
+                                      TransactionStatus status) throws Exception {
                 cancelNextChangeEventFromTransaction(subscriptionId, dao);
                 cancelNextPhaseEventFromTransaction(subscriptionId, dao);
                 dao.insertEvent(cancelEvent);
@@ -258,7 +254,7 @@ public class EntitlementSqlDao implements EntitlementDao {
 
             @Override
             public Void inTransaction(EventSqlDao dao,
-                    TransactionStatus status) throws Exception {
+                                      TransactionStatus status) throws Exception {
 
                 UUID existingCancelId = null;
                 Date now = clock.getUTCNow().toDate();
@@ -289,7 +285,7 @@ public class EntitlementSqlDao implements EntitlementDao {
         eventsDao.inTransaction(new Transaction<Void, EventSqlDao>() {
             @Override
             public Void inTransaction(EventSqlDao dao,
-                    TransactionStatus status) throws Exception {
+                                      TransactionStatus status) throws Exception {
                 cancelNextChangeEventFromTransaction(subscriptionId, dao);
                 cancelNextPhaseEventFromTransaction(subscriptionId, dao);
                 for (EntitlementEvent cur : changeEvents) {
@@ -315,7 +311,7 @@ public class EntitlementSqlDao implements EntitlementDao {
         List<EntitlementEvent> events = dao.getFutureActiveEventForSubscription(subscriptionId.toString(), now);
         for (EntitlementEvent cur : events) {
             if (cur.getType() == type &&
-                    (apiType == null || apiType == ((ApiEvent) cur).getEventType() )) {
+                    (apiType == null || apiType == ((ApiEvent) cur).getEventType())) {
                 if (futureEventId != null) {
                     throw new EntitlementError(
                             String.format("Found multiple future events for type %s for subscriptions %s",
@@ -341,7 +337,7 @@ public class EntitlementSqlDao implements EntitlementDao {
         List<Subscription> result = new ArrayList<Subscription>(input.size());
         for (Subscription cur : input) {
             List<EntitlementEvent> events = eventsDao.getEventsForSubscription(cur.getId().toString());
-            Subscription reloaded =   factory.createSubscription(new SubscriptionBuilder((SubscriptionData) cur), events);
+            Subscription reloaded = factory.createSubscription(new SubscriptionBuilder((SubscriptionData) cur), events);
             result.add(reloaded);
         }
         return result;
@@ -354,7 +350,7 @@ public class EntitlementSqlDao implements EntitlementDao {
 
             @Override
             public Void inTransaction(EventSqlDao transEventDao,
-                    TransactionStatus status) throws Exception {
+                                      TransactionStatus status) throws Exception {
 
                 SubscriptionSqlDao transSubDao = transEventDao.become(SubscriptionSqlDao.class);
                 BundleSqlDao transBundleDao = transEventDao.become(BundleSqlDao.class);
@@ -385,7 +381,7 @@ public class EntitlementSqlDao implements EntitlementDao {
 
             @Override
             public Void inTransaction(EventSqlDao transEventDao,
-                    TransactionStatus status) throws Exception {
+                                      TransactionStatus status) throws Exception {
 
                 SubscriptionSqlDao transSubDao = transEventDao.become(SubscriptionSqlDao.class);
                 BundleSqlDao transBundleDao = transEventDao.become(BundleSqlDao.class);

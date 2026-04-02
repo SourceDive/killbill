@@ -25,31 +25,31 @@ import org.testng.annotations.Test;
 
 public class TestCatalogService {
 
-	@Test
-	public void testCatalogServiceDirectory() throws ServiceException {
-		DefaultCatalogService service = new DefaultCatalogService(new CatalogConfig() {
-			@Override
-			public String getCatalogURI() {
-				return "file:src/test/resources/versionedCatalog";
-			}
-			
-		}, new VersionedCatalogLoader(new DefaultClock()));
-		service.loadCatalog();
-		Assert.assertNotNull(service.getCatalog());
-		Assert.assertEquals(service.getCatalog().getCatalogName(), "WeaponsHireSmall");
-	}
-	
-	@Test
-	public void testCatalogServiceFile() throws ServiceException {
-		DefaultCatalogService service = new DefaultCatalogService(new CatalogConfig() {
-			@Override
-			public String getCatalogURI() {
-				return "file:src/test/resources/WeaponsHire.xml";
-			}
-			
-		}, new VersionedCatalogLoader(new DefaultClock()));
-		service.loadCatalog();
-		Assert.assertNotNull(service.getCatalog());
-		Assert.assertEquals(service.getCatalog().getCatalogName(), "Firearms");
-	}
+    @Test
+    public void testCatalogServiceDirectory() throws ServiceException {
+        DefaultCatalogService service = new DefaultCatalogService(new CatalogConfig() {
+            @Override
+            public String getCatalogURI() {
+                return "file:src/test/resources/versionedCatalog";
+            }
+
+        }, new VersionedCatalogLoader(new DefaultClock()));
+        service.loadCatalog();
+        Assert.assertNotNull(service.getCatalog());
+        Assert.assertEquals(service.getCatalog().getCatalogName(), "WeaponsHireSmall");
+    }
+
+    @Test
+    public void testCatalogServiceFile() throws ServiceException {
+        DefaultCatalogService service = new DefaultCatalogService(new CatalogConfig() {
+            @Override
+            public String getCatalogURI() {
+                return "file:src/test/resources/WeaponsHire.xml";
+            }
+
+        }, new VersionedCatalogLoader(new DefaultClock()));
+        service.loadCatalog();
+        Assert.assertNotNull(service.getCatalog());
+        Assert.assertEquals(service.getCatalog().getCatalogName(), "Firearms");
+    }
 }

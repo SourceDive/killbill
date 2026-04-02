@@ -16,23 +16,23 @@
 
 package com.ning.billing.catalog.rules;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import com.ning.billing.catalog.api.PlanAlignmentCreate;
 
-public class CaseCreateAlignment extends CaseStandardNaming<PlanAlignmentCreate>{
+import javax.xml.bind.annotation.XmlElement;
 
-	@XmlElement(required=true)
-	private PlanAlignmentCreate alignment;
+public class CaseCreateAlignment extends CaseStandardNaming<PlanAlignmentCreate> {
 
-	@Override
-	protected PlanAlignmentCreate getResult() {
-		return alignment;
-	}
+    @XmlElement(required = true)
+    private PlanAlignmentCreate alignment;
 
-	protected CaseCreateAlignment setAlignment(PlanAlignmentCreate alignment) {
-		this.alignment = alignment;
-		return this;
-	}
-	
+    @Override
+    protected PlanAlignmentCreate getResult() {
+        return alignment;
+    }
+
+    protected CaseCreateAlignment setAlignment(PlanAlignmentCreate alignment) {
+        this.alignment = alignment;
+        return this;
+    }
+
 }

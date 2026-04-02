@@ -27,41 +27,41 @@ import javax.xml.bind.annotation.XmlElement;
 
 public abstract class CasePhase<T> extends CaseStandardNaming<T> {
 
-	@XmlElement(required=false)
-	private PhaseType phaseType;	
-	
-	public T getResult(PlanPhaseSpecifier specifier, StandaloneCatalog c) throws CatalogApiException {
-		if ((phaseType       == null || 
-				specifier.getPhaseType() == null || specifier.getPhaseType() == phaseType) &&
-				satisfiesCase(new PlanSpecifier(specifier), c)
-				) {
-			return getResult(); 
-		}
-		return null;
-	}
-	
-	public static <K> K getResult(CasePhase<K>[] cases, PlanPhaseSpecifier planSpec, StandaloneCatalog catalog) throws CatalogApiException {
-    	if(cases != null) {
-    		for(CasePhase<K> cp : cases) {
-    			K result = cp.getResult(planSpec, catalog);
-    			if(result != null) { 
-    				return result; 
-    			}        					
-    		}
-    	}
+    @XmlElement(required = false)
+    private PhaseType phaseType;
+
+    public T getResult(PlanPhaseSpecifier specifier, StandaloneCatalog c) throws CatalogApiException {
+        if ((phaseType == null ||
+                specifier.getPhaseType() == null || specifier.getPhaseType() == phaseType) &&
+                satisfiesCase(new PlanSpecifier(specifier), c)
+        ) {
+            return getResult();
+        }
         return null;
-        
     }
 
-	@Override
-	public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
-		return errors;
-	}
+    public static <K> K getResult(CasePhase<K>[] cases, PlanPhaseSpecifier planSpec, StandaloneCatalog catalog) throws CatalogApiException {
+        if (cases != null) {
+            for (CasePhase<K> cp : cases) {
+                K result = cp.getResult(planSpec, catalog);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
 
-	protected CasePhase<T> setPhaseType(PhaseType phaseType) {
-		this.phaseType = phaseType;
-		return this;
-	}
-	
-	
+    }
+
+    @Override
+    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+        return errors;
+    }
+
+    protected CasePhase<T> setPhaseType(PhaseType phaseType) {
+        this.phaseType = phaseType;
+        return this;
+    }
+
+
 }

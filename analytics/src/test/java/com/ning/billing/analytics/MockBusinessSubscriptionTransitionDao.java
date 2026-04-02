@@ -25,19 +25,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MockBusinessSubscriptionTransitionDao implements BusinessSubscriptionTransitionDao
-{
+public class MockBusinessSubscriptionTransitionDao implements BusinessSubscriptionTransitionDao {
     private final Map<String, List<BusinessSubscriptionTransition>> content = new HashMap<String, List<BusinessSubscriptionTransition>>();
 
     @Override
-    public List<BusinessSubscriptionTransition> getTransitions(@Bind("event_key") final String key)
-    {
+    public List<BusinessSubscriptionTransition> getTransitions(@Bind("event_key") final String key) {
         return content.get(key);
     }
 
     @Override
-    public int createTransition(@BusinessSubscriptionTransitionBinder final BusinessSubscriptionTransition transition)
-    {
+    public int createTransition(@BusinessSubscriptionTransitionBinder final BusinessSubscriptionTransition transition) {
         if (content.get(transition.getKey()) == null) {
             content.put(transition.getKey(), new ArrayList<BusinessSubscriptionTransition>());
         }
@@ -46,7 +43,6 @@ public class MockBusinessSubscriptionTransitionDao implements BusinessSubscripti
     }
 
     @Override
-    public void test()
-    {
+    public void test() {
     }
 }

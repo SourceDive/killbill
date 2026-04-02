@@ -32,7 +32,7 @@ public class TestUserApiCancelSql extends TestUserApiCancel {
         return Guice.createInjector(Stage.DEVELOPMENT, new MockEngineModuleSql());
     }
 
-    @Test(enabled= true, groups={"stress"})
+    @Test(enabled = true, groups = {"stress"})
     public void stressTest() {
         for (int i = 0; i < MAX_STRESS_ITERATIONS; i++) {
             cleanupTest();
@@ -48,25 +48,25 @@ public class TestUserApiCancelSql extends TestUserApiCancel {
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testCancelSubscriptionIMM() {
         super.testCancelSubscriptionIMM();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testCancelSubscriptionEOTWithChargeThroughDate() {
         super.testCancelSubscriptionEOTWithChargeThroughDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testCancelSubscriptionEOTWithNoChargeThroughDate() {
         super.testCancelSubscriptionEOTWithNoChargeThroughDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testUncancel() {
         super.testUncancel();
     }

@@ -17,12 +17,12 @@
 package com.ning.billing.catalog.api;
 
 public enum BillingPeriod {
-	MONTHLY(1),
-	QUARTERLY(3),
-	//SEMI_ANNUAL(6), ** not yet supported
-	ANNUAL(12),
-	//BI_ANNUAL(24); ** not yet supported
-	NO_BILLING_PERIOD(0);
+    MONTHLY(1),
+    QUARTERLY(3),
+    //SEMI_ANNUAL(6), ** not yet supported
+    ANNUAL(12),
+    //BI_ANNUAL(24); ** not yet supported
+    NO_BILLING_PERIOD(0);
 
     private final int numberOfMonths;
 

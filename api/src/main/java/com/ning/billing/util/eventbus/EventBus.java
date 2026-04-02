@@ -23,7 +23,7 @@ import org.skife.jdbi.v2.sqlobject.mixins.Transmogrifier;
 /**
  *
  * EventBus API based on the guava EventBus API
- *
+ * <p>
  * The API also provides an API to send events from within a transaction
  * with the guarantee that the event will be delivered if and only if
  * the transaction completes. If the implementation is not based on a
@@ -40,6 +40,7 @@ public interface EventBus {
         public EventBusException() {
             super();
         }
+
         public EventBusException(String message, Throwable cause) {
             super(message, cause);
         }
@@ -67,8 +68,7 @@ public interface EventBus {
      * Handler methods need to be Annotated with {@link Subscribe}
      *
      * @param handlerInstance
-     *
-     *  @throws EventBusException if bus not been started yet
+     * @throws EventBusException if bus not been started yet
      */
     public void register(Object handlerInstance) throws EventBusException;
 
@@ -86,8 +86,7 @@ public interface EventBus {
      * Post an event asynchronously
      *
      * @param event to be posted
-     *
-     *  @throws EventBusException if bus not been started yet
+     * @throws EventBusException if bus not been started yet
      */
     public void post(EventBusNotification event) throws EventBusException;
 
@@ -96,11 +95,9 @@ public interface EventBus {
      * Post an event from within a transaction.
      * Guarantees that the event is persisted on disk from within the same transaction
      *
-     *
      * @param event to be posted
-     * @param dao a valid DAO object obtained through the DBI.onDemand() API.
-     *
-     *  @throws EventBusException if bus not been started yet
+     * @param dao   a valid DAO object obtained through the DBI.onDemand() API.
+     * @throws EventBusException if bus not been started yet
      */
     public void postFromTransaction(EventBusNotification event, Transmogrifier dao) throws EventBusException;
 

@@ -17,21 +17,14 @@
 package com.ning.billing.entitlement.alignment;
 
 
-import org.joda.time.DateTime;
-
 import com.google.inject.Inject;
-import com.ning.billing.catalog.api.CatalogApiException;
-import com.ning.billing.catalog.api.CatalogService;
-import com.ning.billing.catalog.api.Duration;
-import com.ning.billing.catalog.api.PhaseType;
-import com.ning.billing.catalog.api.Plan;
-import com.ning.billing.catalog.api.PlanPhase;
-import com.ning.billing.catalog.api.PlanPhaseSpecifier;
-import com.ning.billing.entitlement.api.migration.EntitlementMigrationApiException;
+import com.ning.billing.catalog.api.*;
 import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi.EntitlementSubscriptionMigrationCase;
+import com.ning.billing.entitlement.api.migration.EntitlementMigrationApiException;
 import com.ning.billing.entitlement.events.EntitlementEvent.EventType;
 import com.ning.billing.entitlement.events.user.ApiEventType;
 import com.ning.billing.util.clock.DefaultClock;
+import org.joda.time.DateTime;
 
 public class MigrationPlanAligner {
 
@@ -43,17 +36,17 @@ public class MigrationPlanAligner {
     }
 
 
-    public TimedMigration [] getEventsMigration(EntitlementSubscriptionMigrationCase [] input, DateTime now)
-        throws EntitlementMigrationApiException {
+    public TimedMigration[] getEventsMigration(EntitlementSubscriptionMigrationCase[] input, DateTime now)
+            throws EntitlementMigrationApiException {
 
         try {
-            TimedMigration [] events = null;
+            TimedMigration[] events = null;
             Plan plan0 = catalogService.getCatalog().findPlan(input[0].getPlanPhaseSpecifer().getProductName(),
                     input[0].getPlanPhaseSpecifer().getBillingPeriod(), input[0].getPlanPhaseSpecifer().getPriceListName());
 
             Plan plan1 = (input.length > 1) ? catalogService.getCatalog().findPlan(input[1].getPlanPhaseSpecifer().getProductName(),
                     input[1].getPlanPhaseSpecifer().getBillingPeriod(), input[1].getPlanPhaseSpecifer().getPriceListName()) :
-                        null;
+                    null;
 
             DateTime migrationStartDate = now;
 
@@ -114,16 +107,16 @@ public class MigrationPlanAligner {
         }
     }
 
-    private TimedMigration [] getEventsOnRegularMigration(Plan plan, PlanPhase initialPhase, String priceList, DateTime effectiveDate) {
-        TimedMigration [] result = new TimedMigration[1];
+    private TimedMigration[] getEventsOnRegularMigration(Plan plan, PlanPhase initialPhase, String priceList, DateTime effectiveDate) {
+        TimedMigration[] result = new TimedMigration[1];
         result[0] = new TimedMigration(effectiveDate, EventType.API_USER, ApiEventType.MIGRATE_ENTITLEMENT, plan, initialPhase, priceList);
         return result;
     }
 
-    private TimedMigration [] getEventsOnFuturePhaseChangeMigration(Plan plan, PlanPhase initialPhase, String priceList, DateTime effectiveDate, DateTime effectiveDateForNextPhase)
-        throws EntitlementMigrationApiException {
+    private TimedMigration[] getEventsOnFuturePhaseChangeMigration(Plan plan, PlanPhase initialPhase, String priceList, DateTime effectiveDate, DateTime effectiveDateForNextPhase)
+            throws EntitlementMigrationApiException {
 
-        TimedMigration [] result = new TimedMigration[2];
+        TimedMigration[] result = new TimedMigration[2];
         result[0] = new TimedMigration(effectiveDate, EventType.API_USER, ApiEventType.MIGRATE_ENTITLEMENT, plan, initialPhase, priceList);
         boolean foundCurrent = false;
         PlanPhase nextPhase = null;
@@ -138,21 +131,21 @@ public class MigrationPlanAligner {
         }
         if (nextPhase == null) {
             throw new EntitlementMigrationApiException(String.format("Cannot find next phase for Plan %s and current Phase %s",
-                        plan.getName(), initialPhase.getName()));
+                    plan.getName(), initialPhase.getName()));
         }
         result[1] = new TimedMigration(effectiveDateForNextPhase, EventType.PHASE, null, plan, nextPhase, priceList);
         return result;
     }
 
-    private TimedMigration [] getEventsOnFuturePlanChangeMigration(Plan currentPlan, PlanPhase currentPhase, Plan newPlan, PlanPhase newPhase, String priceList, DateTime effectiveDate, DateTime effectiveDateForChangePlan) {
-        TimedMigration [] result = new TimedMigration[2];
+    private TimedMigration[] getEventsOnFuturePlanChangeMigration(Plan currentPlan, PlanPhase currentPhase, Plan newPlan, PlanPhase newPhase, String priceList, DateTime effectiveDate, DateTime effectiveDateForChangePlan) {
+        TimedMigration[] result = new TimedMigration[2];
         result[0] = new TimedMigration(effectiveDate, EventType.API_USER, ApiEventType.MIGRATE_ENTITLEMENT, currentPlan, currentPhase, priceList);
         result[1] = new TimedMigration(effectiveDateForChangePlan, EventType.API_USER, ApiEventType.CHANGE, newPlan, newPhase, priceList);
         return result;
     }
 
-    private TimedMigration [] getEventsOnFuturePlanCancelMigration(Plan plan, PlanPhase initialPhase, String priceList, DateTime effectiveDate, DateTime effectiveDateForCancellation) {
-        TimedMigration [] result = new TimedMigration[2];
+    private TimedMigration[] getEventsOnFuturePlanCancelMigration(Plan plan, PlanPhase initialPhase, String priceList, DateTime effectiveDate, DateTime effectiveDateForCancellation) {
+        TimedMigration[] result = new TimedMigration[2];
         result[0] = new TimedMigration(effectiveDate, EventType.API_USER, ApiEventType.MIGRATE_ENTITLEMENT, plan, initialPhase, priceList);
         result[1] = new TimedMigration(effectiveDateForCancellation, EventType.API_USER, ApiEventType.CANCEL, null, null, null);
         return result;
@@ -161,7 +154,7 @@ public class MigrationPlanAligner {
 
     // STEPH should be in catalog
     private PlanPhase getPlanPhase(Plan plan, PhaseType phaseType) throws EntitlementMigrationApiException {
-        for (PlanPhase cur: plan.getAllPhases()) {
+        for (PlanPhase cur : plan.getAllPhases()) {
             if (cur.getPhaseType() == phaseType) {
                 return cur;
             }
@@ -169,15 +162,15 @@ public class MigrationPlanAligner {
         throw new EntitlementMigrationApiException(String.format("Cannot find PlanPhase from Plan %s and type %s", plan.getName(), phaseType));
     }
 
-    private boolean isRegularMigratedSubscription(EntitlementSubscriptionMigrationCase [] input) {
+    private boolean isRegularMigratedSubscription(EntitlementSubscriptionMigrationCase[] input) {
         return (input.length == 1 && input[0].getCancelledDate() == null);
     }
 
-    private boolean isRegularFutureCancelledMigratedSubscription(EntitlementSubscriptionMigrationCase [] input) {
+    private boolean isRegularFutureCancelledMigratedSubscription(EntitlementSubscriptionMigrationCase[] input) {
         return (input.length == 1 && input[0].getCancelledDate() != null);
     }
 
-    private boolean isPhaseChangeMigratedSubscription(EntitlementSubscriptionMigrationCase [] input) {
+    private boolean isPhaseChangeMigratedSubscription(EntitlementSubscriptionMigrationCase[] input) {
         if (input.length != 2) {
             return false;
         }
@@ -185,11 +178,11 @@ public class MigrationPlanAligner {
                 !isSamePhase(input[0].getPlanPhaseSpecifer(), input[1].getPlanPhaseSpecifer()));
     }
 
-    private boolean isPlanChangeMigratedSubscription(EntitlementSubscriptionMigrationCase [] input) {
+    private boolean isPlanChangeMigratedSubscription(EntitlementSubscriptionMigrationCase[] input) {
         if (input.length != 2) {
             return false;
         }
-        return ! isSamePlan(input[0].getPlanPhaseSpecifer(), input[1].getPlanPhaseSpecifer());
+        return !isSamePlan(input[0].getPlanPhaseSpecifer(), input[1].getPlanPhaseSpecifer());
     }
 
     private boolean isSamePlan(PlanPhaseSpecifier plan0, PlanPhaseSpecifier plan1) {

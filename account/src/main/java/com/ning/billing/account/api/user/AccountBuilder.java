@@ -89,6 +89,6 @@ public class AccountBuilder {
 
     public DefaultAccount build() {
         return new DefaultAccount(id, externalKey, email, name, firstNameLength,
-                                  phone, currency, billingCycleDay, paymentProviderName, balance);
+                phone, currency, billingCycleDay, paymentProviderName, balance);
     }
 }

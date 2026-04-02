@@ -40,7 +40,6 @@ import com.ning.billing.util.clock.DefaultClock;
 import org.skife.config.ConfigurationObjectFactory;
 
 
-
 public class EntitlementModule extends AbstractModule {
 
 

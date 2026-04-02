@@ -23,6 +23,7 @@ import java.util.List;
 /**
  * provides consistent semantics for entity collections
  * note: this is intended to be extended by an interface which provides @ExternalizedSqlViaStringTemplate3 and mappers
+ *
  * @param <T>
  */
 public interface EntityCollectionDao<T extends Entity> {

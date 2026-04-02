@@ -16,10 +16,11 @@
 
 package com.ning.billing.entitlement.api.user;
 
+import com.ning.billing.catalog.api.PlanPhaseSpecifier;
+import org.joda.time.DateTime;
+
 import java.util.List;
 import java.util.UUID;
-import org.joda.time.DateTime;
-import com.ning.billing.catalog.api.PlanPhaseSpecifier;
 
 
 public interface EntitlementUserApi {
@@ -37,9 +38,9 @@ public interface EntitlementUserApi {
     public List<Subscription> getSubscriptionsForKey(String bundleKey);
 
     public SubscriptionBundle createBundleForAccount(UUID accountId, String bundleKey)
-        throws EntitlementUserApiException;
+            throws EntitlementUserApiException;
 
     public Subscription createSubscription(UUID bundleId, PlanPhaseSpecifier spec, DateTime requestedDate)
-        throws EntitlementUserApiException;
+            throws EntitlementUserApiException;
 
 }

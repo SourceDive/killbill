@@ -24,8 +24,8 @@ import com.ning.billing.catalog.api.BillingPeriod;
 import com.ning.billing.catalog.api.Duration;
 import com.ning.billing.catalog.api.PlanPhase;
 import com.ning.billing.catalog.api.PriceListSet;
-import com.ning.billing.entitlement.api.TestApiBase;
 import com.ning.billing.entitlement.api.ApiTestListener.NextEvent;
+import com.ning.billing.entitlement.api.TestApiBase;
 import com.ning.billing.entitlement.glue.MockEngineModuleMemory;
 import com.ning.billing.util.clock.DefaultClock;
 import org.joda.time.DateTime;
@@ -46,7 +46,7 @@ public class TestUserApiError extends TestApiBase {
     }
 
 
-    @Test(enabled=true)
+    @Test(enabled = true)
     public void testCreateSubscriptionBadCatalog() {
         // WRONG PRODUTCS
         tCreateSubscriptionInternal(bundle.getId(), null, BillingPeriod.ANNUAL, PriceListSet.DEFAULT_PRICELIST_NAME, ErrorCode.CAT_NO_SUCH_PRODUCT);
@@ -63,17 +63,17 @@ public class TestUserApiError extends TestApiBase {
 
     }
 
-    @Test(enabled=true)
+    @Test(enabled = true)
     public void testCreateSubscriptionNoBundle() {
         tCreateSubscriptionInternal(null, "Shotgun", BillingPeriod.ANNUAL, PriceListSet.DEFAULT_PRICELIST_NAME, ErrorCode.ENT_CREATE_NO_BUNDLE);
     }
 
-    @Test(enabled=false)
+    @Test(enabled = false)
     public void testCreateSubscriptionNoBP() {
         //tCreateSubscriptionInternal(bundle.getId(), "Shotgun", BillingPeriod.ANNUAL, IPriceListSet.DEFAULT_PRICELIST_NAME, ErrorCode.ENT_CREATE_NO_BP);
     }
 
-    @Test(enabled=true)
+    @Test(enabled = true)
     public void testCreateSubscriptionBPExists() {
         try {
             createSubscription("Shotgun", BillingPeriod.ANNUAL, PriceListSet.DEFAULT_PRICELIST_NAME);
@@ -85,7 +85,7 @@ public class TestUserApiError extends TestApiBase {
     }
 
     private void tCreateSubscriptionInternal(UUID bundleId, String productName,
-            BillingPeriod term, String planSet, ErrorCode expected)  {
+                                             BillingPeriod term, String planSet, ErrorCode expected) {
         try {
             entitlementApi.createSubscription(bundleId,
                     getProductSpecifier(productName, planSet, term, null),
@@ -102,7 +102,7 @@ public class TestUserApiError extends TestApiBase {
     }
 
 
-    @Test(enabled=true)
+    @Test(enabled = true)
     public void testChangeSubscriptionNonActive() {
         try {
             Subscription subscription = createSubscription("Shotgun", BillingPeriod.ANNUAL, PriceListSet.DEFAULT_PRICELIST_NAME);
@@ -126,7 +126,7 @@ public class TestUserApiError extends TestApiBase {
     }
 
 
-    @Test(enabled=true)
+    @Test(enabled = true)
     public void testChangeSubscriptionFutureCancelled() {
         try {
             Subscription subscription = createSubscription("Shotgun", BillingPeriod.MONTHLY, PriceListSet.DEFAULT_PRICELIST_NAME);
@@ -157,11 +157,11 @@ public class TestUserApiError extends TestApiBase {
     }
 
 
-    @Test(enabled=false)
+    @Test(enabled = false)
     public void testCancelBadState() {
     }
 
-    @Test(enabled=true)
+    @Test(enabled = true)
     public void testUncancelBadState() {
         try {
             Subscription subscription = createSubscription("Shotgun", BillingPeriod.MONTHLY, PriceListSet.DEFAULT_PRICELIST_NAME);

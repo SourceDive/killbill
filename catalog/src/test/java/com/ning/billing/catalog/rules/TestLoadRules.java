@@ -16,18 +16,16 @@
 
 package com.ning.billing.catalog.rules;
 
-import java.io.File;
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import com.ning.billing.catalog.StandaloneCatalog;
 import com.ning.billing.catalog.api.BillingPeriod;
-import com.ning.billing.catalog.api.Plan;
 import com.ning.billing.catalog.api.PlanAlignmentCreate;
 import com.ning.billing.catalog.api.PlanSpecifier;
 import com.ning.billing.catalog.api.ProductCategory;
 import com.ning.billing.util.config.XMLLoader;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.io.File;
 
 public class TestLoadRules {
 
@@ -36,16 +34,16 @@ public class TestLoadRules {
         StandaloneCatalog catalog = XMLLoader.getObjectFromUri(new File("src/test/resources/WeaponsHireSmall.xml").toURI(), StandaloneCatalog.class);
         Assert.assertNotNull(catalog);
         PlanRules rules = catalog.getPlanRules();
-        
-        PlanSpecifier specifier = new PlanSpecifier("Laser-Scope", ProductCategory.ADD_ON , BillingPeriod.MONTHLY,
+
+        PlanSpecifier specifier = new PlanSpecifier("Laser-Scope", ProductCategory.ADD_ON, BillingPeriod.MONTHLY,
                 "DEFAULT");
-        
-        PlanAlignmentCreate alignment=  rules.getPlanCreateAlignment(specifier, catalog);
+
+        PlanAlignmentCreate alignment = rules.getPlanCreateAlignment(specifier, catalog);
         Assert.assertEquals(alignment, PlanAlignmentCreate.START_OF_SUBSCRIPTION);
-        
-        PlanSpecifier specifier2 = new PlanSpecifier("Extra-Ammo", ProductCategory.ADD_ON , BillingPeriod.MONTHLY,
+
+        PlanSpecifier specifier2 = new PlanSpecifier("Extra-Ammo", ProductCategory.ADD_ON, BillingPeriod.MONTHLY,
                 "DEFAULT");
-        
+
         PlanAlignmentCreate alignment2 = rules.getPlanCreateAlignment(specifier2, catalog);
         Assert.assertEquals(alignment2, PlanAlignmentCreate.START_OF_BUNDLE);
     }

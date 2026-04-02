@@ -18,5 +18,5 @@ package com.ning.billing.util.notification;
 
 public interface INotificationHandler<T extends INotification> {
 
-	public void handle(T notification);
+    public void handle(T notification);
 }

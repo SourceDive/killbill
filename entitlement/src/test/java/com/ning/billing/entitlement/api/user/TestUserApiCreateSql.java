@@ -30,31 +30,31 @@ public class TestUserApiCreateSql extends TestUserApiCreate {
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testCreateWithRequestedDate() {
         super.testCreateWithRequestedDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testCreateWithInitialPhase() {
         super.testCreateWithInitialPhase();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testSimpleCreateSubscription() {
         super.testSimpleCreateSubscription();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     protected void testSimpleSubscriptionThroughPhases() {
         super.testSimpleSubscriptionThroughPhases();
     }
 
     @Override
-    @Test(enabled=false, groups={"sql"})
+    @Test(enabled = false, groups = {"sql"})
     protected void testSubscriptionWithAddOn() {
         super.testSubscriptionWithAddOn();
     }

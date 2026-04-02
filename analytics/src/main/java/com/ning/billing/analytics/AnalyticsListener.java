@@ -23,14 +23,12 @@ import com.ning.billing.account.api.AccountChangeNotification;
 import com.ning.billing.account.api.AccountCreationNotification;
 import com.ning.billing.entitlement.api.user.SubscriptionTransition;
 
-public class AnalyticsListener
-{
+public class AnalyticsListener {
     private final BusinessSubscriptionTransitionRecorder bstRecorder;
     private final BusinessAccountRecorder bacRecorder;
 
     @Inject
-    public AnalyticsListener(final BusinessSubscriptionTransitionRecorder bstRecorder, final BusinessAccountRecorder bacRecorder)
-    {
+    public AnalyticsListener(final BusinessSubscriptionTransitionRecorder bstRecorder, final BusinessAccountRecorder bacRecorder) {
         this.bstRecorder = bstRecorder;
         this.bacRecorder = bacRecorder;
     }
@@ -40,10 +38,10 @@ public class AnalyticsListener
         switch (event.getTransitionType()) {
             case MIGRATE_ENTITLEMENT:
                 // TODO do nothing for now
-            break;
+                break;
             case CREATE:
                 bstRecorder.subscriptionCreated(event);
-            break;
+                break;
             case CANCEL:
                 bstRecorder.subscriptionCancelled(event);
                 break;
@@ -67,14 +65,12 @@ public class AnalyticsListener
     }
 
     @Subscribe
-    public void handleAccountCreation(final AccountCreationNotification event)
-    {
+    public void handleAccountCreation(final AccountCreationNotification event) {
         bacRecorder.accountCreated(event.getData());
     }
 
     @Subscribe
-    public void handleAccountChange(final AccountChangeNotification event)
-    {
+    public void handleAccountChange(final AccountChangeNotification event) {
         if (!event.hasChanges()) {
             return;
         }

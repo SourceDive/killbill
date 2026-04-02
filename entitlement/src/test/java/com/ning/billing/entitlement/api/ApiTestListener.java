@@ -53,31 +53,31 @@ public class ApiTestListener {
     @Subscribe
     public void handleEntitlementEvent(SubscriptionTransition event) {
         switch (event.getTransitionType()) {
-        case MIGRATE_ENTITLEMENT:
-            subscriptionMigrated(event);
-            break;
-        case CREATE:
-            subscriptionCreated(event);
-            break;
-        case CANCEL:
-            subscriptionCancelled(event);
-            break;
-        case CHANGE:
-            subscriptionChanged(event);
-            break;
-        case PAUSE:
-            subscriptionPaused(event);
-            break;
-        case RESUME:
-            subscriptionResumed(event);
-            break;
-        case UNCANCEL:
-            break;
-        case PHASE:
-            subscriptionPhaseChanged(event);
-            break;
-        default:
-            throw new RuntimeException("Unexpected event type " + event.getRequestedTransitionTime());
+            case MIGRATE_ENTITLEMENT:
+                subscriptionMigrated(event);
+                break;
+            case CREATE:
+                subscriptionCreated(event);
+                break;
+            case CANCEL:
+                subscriptionCancelled(event);
+                break;
+            case CHANGE:
+                subscriptionChanged(event);
+                break;
+            case PAUSE:
+                subscriptionPaused(event);
+                break;
+            case RESUME:
+                subscriptionResumed(event);
+                break;
+            case UNCANCEL:
+                break;
+            case PHASE:
+                subscriptionPhaseChanged(event);
+                break;
+            default:
+                throw new RuntimeException("Unexpected event type " + event.getRequestedTransitionTime());
         }
 
     }

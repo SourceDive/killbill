@@ -188,7 +188,7 @@ public class ProRationTests extends ProRationInAdvanceTestBase {
         DateTime startDate = buildDateTime(2011, 2, 7);
         DateTime changeDate = buildDateTime(2011, 2, 15);
         DateTime targetDate = buildDateTime(2011, 9, 21);
-        
+
         BigDecimal expectedValue;
 
         expectedValue = EIGHT.divide(EIGHTY_NINE, NUMBER_OF_DECIMALS, ROUNDING_METHOD);

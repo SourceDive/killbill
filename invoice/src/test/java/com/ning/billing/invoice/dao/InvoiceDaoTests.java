@@ -16,24 +16,21 @@
 
 package com.ning.billing.invoice.dao;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.testng.annotations.Test;
 import com.ning.billing.catalog.api.Currency;
 import com.ning.billing.invoice.api.Invoice;
 import com.ning.billing.invoice.api.InvoiceItem;
 import com.ning.billing.invoice.model.DefaultInvoice;
 import com.ning.billing.invoice.model.DefaultInvoiceItem;
 import com.ning.billing.util.clock.DefaultClock;
+import org.joda.time.DateTime;
+import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static org.testng.Assert.*;
 
 @Test(groups = {"invoicing", "invoicing-invoiceDao"})
 public class InvoiceDaoTests extends InvoiceDaoTestBase {
@@ -132,11 +129,11 @@ public class InvoiceDaoTests extends InvoiceDaoTestBase {
     public void testGetInvoicesForPaymentWithNoResults() {
         DateTime notionalDate = new DateTime();
         DateTime targetDate = new DateTime(2011, 10, 6, 0, 0, 0, 0);
-        
+
         // determine the number of existing invoices available for payment (to avoid side effects from other tests)
         List<UUID> invoices = invoiceDao.getInvoicesForPayment(notionalDate.toDate(), NUMBER_OF_DAY_BETWEEN_RETRIES);
         int existingInvoiceCount = invoices.size();
-        
+
         UUID accountId = UUID.randomUUID();
         Invoice invoice = new DefaultInvoice(accountId, targetDate, Currency.USD);
 
@@ -223,7 +220,7 @@ public class InvoiceDaoTests extends InvoiceDaoTestBase {
     }
 
     private List<Invoice> getInvoicesDueForPaymentAttempt(List<Invoice> invoices, DateTime date) {
-        List<Invoice> invoicesDue= new ArrayList<Invoice>();
+        List<Invoice> invoicesDue = new ArrayList<Invoice>();
 
         for (Invoice invoice : invoices) {
             if (invoice.isDueForPayment(date, NUMBER_OF_DAY_BETWEEN_RETRIES)) {
@@ -238,10 +235,14 @@ public class InvoiceDaoTests extends InvoiceDaoTestBase {
     public void testGetInvoicesBySubscription() {
         UUID accountId = UUID.randomUUID();
 
-        UUID subscriptionId1 = UUID.randomUUID(); BigDecimal rate1 = new BigDecimal("17.0");
-        UUID subscriptionId2 = UUID.randomUUID(); BigDecimal rate2 = new BigDecimal("42.0");
-        UUID subscriptionId3 = UUID.randomUUID(); BigDecimal rate3 = new BigDecimal("3.0");
-        UUID subscriptionId4 = UUID.randomUUID(); BigDecimal rate4 = new BigDecimal("12.0");
+        UUID subscriptionId1 = UUID.randomUUID();
+        BigDecimal rate1 = new BigDecimal("17.0");
+        UUID subscriptionId2 = UUID.randomUUID();
+        BigDecimal rate2 = new BigDecimal("42.0");
+        UUID subscriptionId3 = UUID.randomUUID();
+        BigDecimal rate3 = new BigDecimal("3.0");
+        UUID subscriptionId4 = UUID.randomUUID();
+        BigDecimal rate4 = new BigDecimal("12.0");
 
         DateTime targetDate = new DateTime(2011, 5, 23, 0, 0, 0, 0);
 
@@ -298,5 +299,5 @@ public class InvoiceDaoTests extends InvoiceDaoTestBase {
         List<Invoice> items4 = invoiceDao.getInvoicesBySubscription(subscriptionId4.toString());
         assertEquals(items4.size(), 1);
     }
-    
+
 }

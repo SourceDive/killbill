@@ -31,7 +31,7 @@ public class TestUserApiChangePlanSql extends TestUserApiChangePlan {
         return Guice.createInjector(Stage.DEVELOPMENT, new MockEngineModuleSql());
     }
 
-    @Test(enabled= true, groups={"stress"})
+    @Test(enabled = true, groups = {"stress"})
     public void stressTest() {
         for (int i = 0; i < MAX_STRESS_ITERATIONS; i++) {
             cleanupTest();
@@ -53,38 +53,38 @@ public class TestUserApiChangePlanSql extends TestUserApiChangePlan {
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testChangePlanBundleAlignEOTWithNoChargeThroughDate() {
         super.testChangePlanBundleAlignEOTWithNoChargeThroughDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testChangePlanBundleAlignEOTWithChargeThroughDate() {
         super.testChangePlanBundleAlignEOTWithChargeThroughDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testChangePlanBundleAlignIMM() {
         super.testChangePlanBundleAlignIMM();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testMultipleChangeLastIMM() {
         super.testMultipleChangeLastIMM();
     }
 
     @Override
-    @Test(enabled=true, groups={"sql"})
+    @Test(enabled = true, groups = {"sql"})
     public void testMultipleChangeLastEOT() {
         super.testMultipleChangeLastEOT();
     }
 
     // rescue not implemented yet
     @Override
-    @Test(enabled=false, groups={"sql"})
+    @Test(enabled = false, groups = {"sql"})
     public void testChangePlanChangePlanAlignEOTWithChargeThroughDate() {
         super.testChangePlanChangePlanAlignEOTWithChargeThroughDate();
     }

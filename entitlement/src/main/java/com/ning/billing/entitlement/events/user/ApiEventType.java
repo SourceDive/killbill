@@ -22,31 +22,45 @@ import com.ning.billing.entitlement.api.user.SubscriptionTransition.Subscription
 public enum ApiEventType {
     MIGRATE_ENTITLEMENT {
         @Override
-        public SubscriptionTransitionType getSubscriptionTransitionType() { return SubscriptionTransitionType.MIGRATE_ENTITLEMENT; }
+        public SubscriptionTransitionType getSubscriptionTransitionType() {
+            return SubscriptionTransitionType.MIGRATE_ENTITLEMENT;
+        }
     },
     CREATE {
         @Override
-        public SubscriptionTransitionType getSubscriptionTransitionType() { return SubscriptionTransitionType.CREATE; }
+        public SubscriptionTransitionType getSubscriptionTransitionType() {
+            return SubscriptionTransitionType.CREATE;
+        }
     },
     CHANGE {
         @Override
-        public SubscriptionTransitionType getSubscriptionTransitionType() { return SubscriptionTransitionType.CHANGE; }
+        public SubscriptionTransitionType getSubscriptionTransitionType() {
+            return SubscriptionTransitionType.CHANGE;
+        }
     },
     PAUSE {
         @Override
-        public SubscriptionTransitionType getSubscriptionTransitionType() { return SubscriptionTransitionType.PAUSE; }
+        public SubscriptionTransitionType getSubscriptionTransitionType() {
+            return SubscriptionTransitionType.PAUSE;
+        }
     },
     RESUME {
         @Override
-        public SubscriptionTransitionType getSubscriptionTransitionType() { return SubscriptionTransitionType.RESUME; }
+        public SubscriptionTransitionType getSubscriptionTransitionType() {
+            return SubscriptionTransitionType.RESUME;
+        }
     },
     CANCEL {
         @Override
-        public SubscriptionTransitionType getSubscriptionTransitionType() { return SubscriptionTransitionType.CANCEL; }
+        public SubscriptionTransitionType getSubscriptionTransitionType() {
+            return SubscriptionTransitionType.CANCEL;
+        }
     },
     UNCANCEL {
         @Override
-        public SubscriptionTransitionType getSubscriptionTransitionType() { return SubscriptionTransitionType.UNCANCEL; }
+        public SubscriptionTransitionType getSubscriptionTransitionType() {
+            return SubscriptionTransitionType.UNCANCEL;
+        }
     };
 
     // Used to map from internal events to User visible events (both user and phase)

@@ -52,14 +52,14 @@ public class SubscriptionFactory {
 
     public static class SubscriptionBuilder {
 
-        private  UUID id;
-        private  UUID bundleId;
-        private  DateTime startDate;
-        private  DateTime bundleStartDate;
-        private  Long activeVersion;
-        private  ProductCategory category;
-        private  DateTime chargedThroughDate;
-        private  DateTime paidThroughDate;
+        private UUID id;
+        private UUID bundleId;
+        private DateTime startDate;
+        private DateTime bundleStartDate;
+        private Long activeVersion;
+        private ProductCategory category;
+        private DateTime chargedThroughDate;
+        private DateTime paidThroughDate;
 
         public SubscriptionBuilder() {
             this.activeVersion = SubscriptionEvents.INITIAL_VERSION;
@@ -81,30 +81,37 @@ public class SubscriptionFactory {
             this.id = id;
             return this;
         }
+
         public SubscriptionBuilder setBundleId(UUID bundleId) {
             this.bundleId = bundleId;
             return this;
         }
+
         public SubscriptionBuilder setStartDate(DateTime startDate) {
             this.startDate = startDate;
             return this;
         }
+
         public SubscriptionBuilder setBundleStartDate(DateTime bundleStartDate) {
             this.bundleStartDate = bundleStartDate;
             return this;
         }
+
         public SubscriptionBuilder setActiveVersion(long activeVersion) {
             this.activeVersion = activeVersion;
             return this;
         }
+
         public SubscriptionBuilder setChargedThroughDate(DateTime chargedThroughDate) {
             this.chargedThroughDate = chargedThroughDate;
             return this;
         }
+
         public SubscriptionBuilder setPaidThroughDate(DateTime paidThroughDate) {
             this.paidThroughDate = paidThroughDate;
             return this;
         }
+
         public SubscriptionBuilder setCategory(ProductCategory category) {
             this.category = category;
             return this;
@@ -113,27 +120,35 @@ public class SubscriptionFactory {
         public UUID getId() {
             return id;
         }
+
         public UUID getBundleId() {
             return bundleId;
         }
+
         public DateTime getStartDate() {
             return startDate;
         }
+
         public DateTime getBundleStartDate() {
             return bundleStartDate;
         }
+
         public Long getActiveVersion() {
             return activeVersion;
         }
+
         public ProductCategory getCategory() {
             return category;
         }
+
         public DateTime getChargedThroughDate() {
             return chargedThroughDate;
         }
+
         public DateTime getPaidThroughDate() {
             return paidThroughDate;
         }
+
         private void checkAllFieldsSet() {
             for (Field cur : SubscriptionBuilder.class.getDeclaredFields()) {
                 try {

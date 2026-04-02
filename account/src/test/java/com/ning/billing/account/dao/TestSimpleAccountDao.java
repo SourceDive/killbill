@@ -16,25 +16,24 @@
 
 package com.ning.billing.account.dao;
 
-import java.util.List;
-import java.util.UUID;
-import org.joda.time.DateTime;
-import org.testng.annotations.Test;
 import com.ning.billing.account.api.Account;
 import com.ning.billing.account.api.AccountApiException;
 import com.ning.billing.account.api.AccountData;
 import com.ning.billing.account.api.DefaultAccount;
-import com.ning.billing.util.tag.DefaultTagDescription;
-import com.ning.billing.util.tag.Tag;
-import com.ning.billing.util.tag.TagDescription;
 import com.ning.billing.account.api.user.AccountBuilder;
 import com.ning.billing.catalog.api.Currency;
 import com.ning.billing.util.clock.DefaultClock;
+import com.ning.billing.util.tag.DefaultTagDescription;
+import com.ning.billing.util.tag.Tag;
+import com.ning.billing.util.tag.TagDescription;
 import com.ning.billing.util.tag.dao.TagDescriptionDao;
+import org.joda.time.DateTime;
+import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import java.util.List;
+import java.util.UUID;
+
+import static org.testng.Assert.*;
 
 @Test(groups = {"account-dao"})
 public class TestSimpleAccountDao extends AccountDaoTestBase {
@@ -51,7 +50,7 @@ public class TestSimpleAccountDao extends AccountDaoTestBase {
 
         int firstNameLength = firstName.length();
         return new AccountBuilder().externalKey(thisKey).name(name).phone(phone).firstNameLength(firstNameLength)
-                                   .email(thisEmail).currency(Currency.USD).build();
+                .email(thisEmail).currency(Currency.USD).build();
     }
 
     public void testBasic() {
@@ -151,30 +150,37 @@ public class TestSimpleAccountDao extends AccountDaoTestBase {
             public String getExternalKey() {
                 return account.getExternalKey();
             }
+
             @Override
             public String getName() {
                 return "Jane Doe";
             }
+
             @Override
             public int getFirstNameLength() {
                 return 4;
             }
+
             @Override
             public String getEmail() {
                 return account.getEmail();
             }
+
             @Override
             public String getPhone() {
                 return account.getPhone();
             }
+
             @Override
             public int getBillCycleDay() {
                 return account.getBillCycleDay();
             }
+
             @Override
             public Currency getCurrency() {
                 return account.getCurrency();
             }
+
             @Override
             public String getPaymentProviderName() {
                 return account.getPaymentProviderName();

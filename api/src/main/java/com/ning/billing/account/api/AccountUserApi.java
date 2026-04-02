@@ -16,10 +16,11 @@
 
 package com.ning.billing.account.api;
 
-import java.util.List;
-import java.util.UUID;
 import com.ning.billing.util.customfield.CustomField;
 import com.ning.billing.util.tag.Tag;
+
+import java.util.List;
+import java.util.UUID;
 
 public interface AccountUserApi {
 

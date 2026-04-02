@@ -16,7 +16,6 @@
 
 package com.ning.billing.beatrix.lifecycle;
 
-import com.google.inject.*;
 import com.ning.billing.lifecycle.KillbillService;
 import com.ning.billing.lifecycle.LifecycleHandlerType;
 import com.ning.billing.lifecycle.LifecycleHandlerType.LifecycleLevel;
@@ -57,7 +56,7 @@ public class TestLifecycle {
         }
     }
 
-    public static class Service1 extends ServiceBase implements KillbillService  {
+    public static class Service1 extends ServiceBase implements KillbillService {
 
         @LifecycleHandlerType(LifecycleLevel.INIT_BUS)
         public void initBus() {
@@ -116,7 +115,6 @@ public class TestLifecycle {
     }
 
 
-
     @BeforeClass
     public void setup() {
         final Injector g = Guice.createInjector(Stage.DEVELOPMENT, new TestLifecycleModule());
@@ -125,7 +123,7 @@ public class TestLifecycle {
         lifecycle = g.getInstance(Lifecycle.class);
     }
 
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testLifecycle() {
         s1.reset();
         s2.reset();
@@ -154,6 +152,7 @@ public class TestLifecycle {
         public LifecycleNoWarn(Injector injector) {
             super(injector);
         }
+
         @Override
         protected void logWarn(String msg, Exception e) {
         }

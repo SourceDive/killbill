@@ -23,8 +23,7 @@ import org.joda.time.DateTime;
  * <p/>
  * The key is unique identifier that ties sets of subscriptions together.
  */
-public class BusinessSubscriptionTransition
-{
+public class BusinessSubscriptionTransition {
     private final String key;
     private final String accountKey;
     private final DateTime requestedTimestamp;
@@ -32,8 +31,7 @@ public class BusinessSubscriptionTransition
     private final BusinessSubscription previousSubscription;
     private final BusinessSubscription nextSubscription;
 
-    public BusinessSubscriptionTransition(final String key, final String accountKey, final DateTime requestedTimestamp, final BusinessSubscriptionEvent event, final BusinessSubscription previousSubscription, final BusinessSubscription nextsubscription)
-    {
+    public BusinessSubscriptionTransition(final String key, final String accountKey, final DateTime requestedTimestamp, final BusinessSubscriptionEvent event, final BusinessSubscription previousSubscription, final BusinessSubscription nextsubscription) {
         if (key == null) {
             throw new IllegalArgumentException("An event must have an key");
         }
@@ -55,39 +53,32 @@ public class BusinessSubscriptionTransition
         this.nextSubscription = nextsubscription;
     }
 
-    public BusinessSubscriptionEvent getEvent()
-    {
+    public BusinessSubscriptionEvent getEvent() {
         return event;
     }
 
-    public String getKey()
-    {
+    public String getKey() {
         return key;
     }
 
-    public String getAccountKey()
-    {
+    public String getAccountKey() {
         return accountKey;
     }
 
-    public BusinessSubscription getNextSubscription()
-    {
+    public BusinessSubscription getNextSubscription() {
         return nextSubscription;
     }
 
-    public BusinessSubscription getPreviousSubscription()
-    {
+    public BusinessSubscription getPreviousSubscription() {
         return previousSubscription;
     }
 
-    public DateTime getRequestedTimestamp()
-    {
+    public DateTime getRequestedTimestamp() {
         return requestedTimestamp;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("BusinessSubscriptionTransition");
         sb.append("{event=").append(event);
@@ -101,8 +92,7 @@ public class BusinessSubscriptionTransition
     }
 
     @Override
-    public boolean equals(final Object o)
-    {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -135,8 +125,7 @@ public class BusinessSubscriptionTransition
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int result = key != null ? key.hashCode() : 0;
         result = 31 * result + (accountKey != null ? accountKey.hashCode() : 0);
         result = 31 * result + (requestedTimestamp != null ? requestedTimestamp.hashCode() : 0);

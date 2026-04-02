@@ -73,13 +73,13 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
         String planName = "World Domination";
         String phaseName = "Build Space Laser";
         BillingEvent event = new DefaultBillingEvent(subscriptionId, startDate, planName, phaseName,
-                                               new InternationalPriceMock(TEN), BillingPeriod.MONTHLY,
-                                               1, BillingModeType.IN_ADVANCE);
+                new InternationalPriceMock(TEN), BillingPeriod.MONTHLY,
+                1, BillingModeType.IN_ADVANCE);
 
         events.add(event);
 
         InvoiceItemList existingInvoiceItems = new InvoiceItemList();
-        
+
         DateTime targetDate = buildDateTime(2011, 10, 3);
         UUID accountId = UUID.randomUUID();
         Invoice invoice = generator.generateInvoice(accountId, events, existingInvoiceItems, targetDate, Currency.USD);
@@ -99,14 +99,14 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
         String phaseName = "Build Space Laser";
         BigDecimal rate = TEN;
         BillingEvent event = new DefaultBillingEvent(subscriptionId, startDate, planName, phaseName,
-                                               new InternationalPriceMock(rate), BillingPeriod.MONTHLY,
-                                               15, BillingModeType.IN_ADVANCE);
+                new InternationalPriceMock(rate), BillingPeriod.MONTHLY,
+                15, BillingModeType.IN_ADVANCE);
 
         events.add(event);
 
         InvoiceItemList existingInvoiceItems = new InvoiceItemList();
-        
-        DateTime targetDate = buildDateTime(2011, 10, 3);        
+
+        DateTime targetDate = buildDateTime(2011, 10, 3);
         UUID accountId = UUID.randomUUID();
         Invoice invoice = generator.generateInvoice(accountId, events, existingInvoiceItems, targetDate, Currency.USD);
 
@@ -124,15 +124,15 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
         BillingEventSet events = new BillingEventSet();
 
         BillingEvent event1 = new DefaultBillingEvent(UUID.randomUUID(), buildDateTime(2011, 9, 1),
-                                               "World Domination", "Build Space Laser",
-                                               new InternationalPriceMock(FIVE), BillingPeriod.MONTHLY,
-                                               1, BillingModeType.IN_ADVANCE);
+                "World Domination", "Build Space Laser",
+                new InternationalPriceMock(FIVE), BillingPeriod.MONTHLY,
+                1, BillingModeType.IN_ADVANCE);
         events.add(event1);
 
         BillingEvent event2 = new DefaultBillingEvent(UUID.randomUUID(), buildDateTime(2011, 10, 1),
-                                               "Groceries", "Pick Up Milk",
-                                               new InternationalPriceMock(TEN), BillingPeriod.MONTHLY,
-                                               1, BillingModeType.IN_ADVANCE);
+                "Groceries", "Pick Up Milk",
+                new InternationalPriceMock(TEN), BillingPeriod.MONTHLY,
+                1, BillingModeType.IN_ADVANCE);
         events.add(event2);
 
         InvoiceItemList existingInvoiceItems = new InvoiceItemList();
@@ -151,15 +151,15 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
 
         UUID subscriptionId = UUID.randomUUID();
         BillingEvent event1 = new DefaultBillingEvent(subscriptionId, buildDateTime(2011, 9, 1),
-                                               "World Domination", "Build Space Laser",
-                                               new InternationalPriceMock(FIVE), BillingPeriod.MONTHLY,
-                                               1, BillingModeType.IN_ADVANCE);
+                "World Domination", "Build Space Laser",
+                new InternationalPriceMock(FIVE), BillingPeriod.MONTHLY,
+                1, BillingModeType.IN_ADVANCE);
         events.add(event1);
 
         BillingEvent event2 = new DefaultBillingEvent(subscriptionId, buildDateTime(2011, 10, 15),
-                                               "World Domination", "Incinerate James Bond",
-                                               new InternationalPriceMock(TEN), BillingPeriod.MONTHLY,
-                                               15, BillingModeType.IN_ADVANCE);
+                "World Domination", "Incinerate James Bond",
+                new InternationalPriceMock(TEN), BillingPeriod.MONTHLY,
+                15, BillingModeType.IN_ADVANCE);
         events.add(event2);
 
         InvoiceItemList existingInvoiceItems = new InvoiceItemList();
@@ -189,21 +189,21 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
 
         UUID subscriptionId = UUID.randomUUID();
         BillingEvent event1 = new DefaultBillingEvent(subscriptionId, buildDateTime(2011, 9, 1),
-                                               "World Domination", "Build Space Laser",
-                                               new InternationalPriceMock(FIVE), BillingPeriod.MONTHLY,
-                                               1, BillingModeType.IN_ADVANCE);
+                "World Domination", "Build Space Laser",
+                new InternationalPriceMock(FIVE), BillingPeriod.MONTHLY,
+                1, BillingModeType.IN_ADVANCE);
         events.add(event1);
 
         BillingEvent event2 = new DefaultBillingEvent(subscriptionId, buildDateTime(2011, 10, 1),
-                                               "World Domination", "Incinerate James Bond",
-                                               new InternationalPriceMock(TEN), BillingPeriod.MONTHLY,
-                                               1, BillingModeType.IN_ADVANCE);
+                "World Domination", "Incinerate James Bond",
+                new InternationalPriceMock(TEN), BillingPeriod.MONTHLY,
+                1, BillingModeType.IN_ADVANCE);
         events.add(event2);
 
         BillingEvent event3 = new DefaultBillingEvent(subscriptionId, buildDateTime(2011, 11, 1),
-                                               "World Domination", "Cackle Gleefully",
-                                               new InternationalPriceMock(THIRTY), BillingPeriod.MONTHLY,
-                                               1, BillingModeType.IN_ADVANCE);
+                "World Domination", "Cackle Gleefully",
+                new InternationalPriceMock(THIRTY), BillingPeriod.MONTHLY,
+                1, BillingModeType.IN_ADVANCE);
         events.add(event3);
 
         InvoiceItemList existingInvoiceItems = new InvoiceItemList();
@@ -225,14 +225,14 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
 
         BigDecimal rate = FIVE;
         BillingEvent event1 = new DefaultBillingEvent(subscriptionId, startDate,
-                                               "World Domination", "Build Space Laser",
-                                               new InternationalPriceMock(rate), BillingPeriod.MONTHLY,
-                                               1, BillingModeType.IN_ADVANCE);
+                "World Domination", "Build Space Laser",
+                new InternationalPriceMock(rate), BillingPeriod.MONTHLY,
+                1, BillingModeType.IN_ADVANCE);
         events.add(event1);
 
         InvoiceItemList existingInvoiceItems = new InvoiceItemList();
         InvoiceItem invoiceItem = new DefaultInvoiceItem(UUID.randomUUID(), subscriptionId, startDate, buildDateTime(2012, 1, 1), "",
-                                                 rate.multiply(FOUR), rate, Currency.USD);
+                rate.multiply(FOUR), rate, Currency.USD);
         existingInvoiceItems.add(invoiceItem);
 
         DateTime targetDate = buildDateTime(2011, 12, 3);
@@ -254,21 +254,26 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
 
         UUID subscriptionId1 = UUID.randomUUID();
         String planName1 = "Change from trial to discount with immediate cancellation";
-        String plan1PhaseName1 = "Trial"; String plan1PhaseName2 = "Discount"; String plan1phase3 = "Cancel";
+        String plan1PhaseName1 = "Trial";
+        String plan1PhaseName2 = "Discount";
+        String plan1phase3 = "Cancel";
         DateTime plan1StartDate = buildDateTime(2011, 1, 5);
         DateTime plan1PhaseChangeDate = buildDateTime(2011, 4, 5);
         DateTime plan1CancelDate = buildDateTime(2011, 4, 29);
 
         UUID subscriptionId2 = UUID.randomUUID();
         String planName2 = "Change phase from trial to discount to evergreen";
-        String plan2PhaseName1 = "Trial"; String plan2PhaseName2 = "Discount"; String plan2PhaseName3 = "Evergreen";
+        String plan2PhaseName1 = "Trial";
+        String plan2PhaseName2 = "Discount";
+        String plan2PhaseName3 = "Evergreen";
         DateTime plan2StartDate = buildDateTime(2011, 3, 10);
         DateTime plan2PhaseChangeToDiscountDate = buildDateTime(2011, 6, 10);
         DateTime plan2PhaseChangeToEvergreenDate = buildDateTime(2011, 9, 10);
 
         UUID subscriptionId3 = UUID.randomUUID();
         String planName3 = "Upgrade with immediate change, BCD = 31";
-        String plan3PhaseName1 = "Evergreen monthly"; String plan3PhaseName2 = "Evergreen annual";
+        String plan3PhaseName1 = "Evergreen monthly";
+        String plan3PhaseName2 = "Evergreen annual";
         DateTime plan3StartDate = buildDateTime(2011, 5, 20);
         DateTime plan3UpgradeToAnnualDate = buildDateTime(2011, 7, 31);
 
@@ -281,7 +286,8 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
 
         UUID subscriptionId5 = UUID.randomUUID();
         String planName5 = "Add-on";
-        String plan5PhaseName1 = "Evergreen"; String plan5PhaseName2 = "Cancel";
+        String plan5PhaseName1 = "Evergreen";
+        String plan5PhaseName2 = "Cancel";
         DateTime plan5StartDate = buildDateTime(2011, 6, 21);
         DateTime plan5CancelDate = buildDateTime(2011, 10, 7);
 
@@ -296,7 +302,7 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
 
         // on 2/5/2011, invoice subscription 1 (trial)
         expectedAmount = EIGHT;
-        testInvoiceGeneration(events, invoiceItems, buildDateTime(2011, 2, 5) , 1, expectedAmount);
+        testInvoiceGeneration(events, invoiceItems, buildDateTime(2011, 2, 5), 1, expectedAmount);
 
         // on 3/5/2011, invoice subscription 1 (trial)
         expectedAmount = EIGHT;
@@ -392,23 +398,23 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
         testInvoiceGeneration(events, invoiceItems, plan5CancelDate, 3, expectedAmount);
 
         // on 10/10/2011, invoice plan 2 (evergreen)
-        expectedAmount = FORTY ;
+        expectedAmount = FORTY;
         testInvoiceGeneration(events, invoiceItems, buildDateTime(2011, 10, 10), 1, expectedAmount);
     }
 
     private DefaultBillingEvent createBillingEvent(UUID subscriptionId, DateTime startDate, String planName, String planPhaseName,
-                                            BigDecimal rate, int billCycleDay) {
+                                                   BigDecimal rate, int billCycleDay) {
         return new DefaultBillingEvent(subscriptionId, startDate, planName, planPhaseName,
-                                new InternationalPriceMock(rate), BillingPeriod.MONTHLY,
-                                billCycleDay, BillingModeType.IN_ADVANCE);
+                new InternationalPriceMock(rate), BillingPeriod.MONTHLY,
+                billCycleDay, BillingModeType.IN_ADVANCE);
 
     }
 
     private DefaultBillingEvent createAnnualBillingEvent(UUID subscriptionId, DateTime startDate, String planName, String planPhaseName,
-                                                  BigDecimal rate, int billCycleDay) {
+                                                         BigDecimal rate, int billCycleDay) {
         return new DefaultBillingEvent(subscriptionId, startDate, planName, planPhaseName,
-                                new InternationalPriceMock(rate), BillingPeriod.ANNUAL,
-                                billCycleDay, BillingModeType.IN_ADVANCE);
+                new InternationalPriceMock(rate), BillingPeriod.ANNUAL,
+                billCycleDay, BillingModeType.IN_ADVANCE);
 
     }
 

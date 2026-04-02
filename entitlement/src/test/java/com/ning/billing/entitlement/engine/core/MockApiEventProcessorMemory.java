@@ -38,11 +38,11 @@ public class MockApiEventProcessorMemory extends ApiEventProcessorBase {
     @Override
     protected boolean doProcessEvents(int sequenceId) {
 
-        List<EntitlementEvent> events =  dao.getEventsReady(apiProcessorId, sequenceId);
+        List<EntitlementEvent> events = dao.getEventsReady(apiProcessorId, sequenceId);
         if (events.size() == 0) {
             return false;
         }
-        log.info(String.format("doProcessEvents : Got %d event(s)", events.size() ));
+        log.info(String.format("doProcessEvents : Got %d event(s)", events.size()));
         for (EntitlementEvent cur : events) {
             log.info(String.format("doProcessEvents :  (clock = %s) CALLING Engine with event %s", clock.getUTCNow(), cur));
             listener.processEventReady(cur);
@@ -57,7 +57,7 @@ public class MockApiEventProcessorMemory extends ApiEventProcessorBase {
 
     @Override
     protected boolean doProcessEventsFromList(int sequenceId,
-            Collection<EntitlementEvent> events) {
+                                              Collection<EntitlementEvent> events) {
         throw new EntitlementError("Method not implemented");
     }
 }

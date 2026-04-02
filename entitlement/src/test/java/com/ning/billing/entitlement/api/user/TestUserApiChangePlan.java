@@ -16,41 +16,29 @@
 
 package com.ning.billing.entitlement.api.user;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import com.ning.billing.catalog.api.*;
+import com.ning.billing.entitlement.api.ApiTestListener.NextEvent;
+import com.ning.billing.entitlement.api.TestApiBase;
+import com.ning.billing.entitlement.events.EntitlementEvent;
+import com.ning.billing.entitlement.events.user.ApiEvent;
+import com.ning.billing.util.clock.DefaultClock;
+import org.joda.time.DateTime;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
-import org.testng.Assert;
-
-import com.ning.billing.catalog.api.BillingPeriod;
-import com.ning.billing.catalog.api.Duration;
-import com.ning.billing.catalog.api.Plan;
-import com.ning.billing.catalog.api.PlanPhase;
-import com.ning.billing.catalog.api.PriceListSet;
-import com.ning.billing.catalog.api.PhaseType;
-import com.ning.billing.catalog.api.ProductCategory;
-import com.ning.billing.entitlement.api.TestApiBase;
-
-import com.ning.billing.entitlement.api.ApiTestListener.NextEvent;
-import com.ning.billing.entitlement.events.EntitlementEvent;
-import com.ning.billing.entitlement.events.user.ApiEvent;
-import com.ning.billing.util.clock.DefaultClock;
+import static org.testng.Assert.*;
 
 public abstract class TestUserApiChangePlan extends TestApiBase {
 
 
-
     private void checkChangePlan(SubscriptionData subscription, String expProduct, ProductCategory expCategory,
-            BillingPeriod expBillingPeriod, PhaseType expPhase) {
+                                 BillingPeriod expBillingPeriod, PhaseType expPhase) {
 
         Plan currentPlan = subscription.getCurrentPlan();
         assertNotNull(currentPlan);
-        assertEquals(currentPlan.getProduct().getName(),expProduct);
+        assertEquals(currentPlan.getProduct().getName(), expProduct);
         assertEquals(currentPlan.getProduct().getCategory(), expCategory);
         assertEquals(currentPlan.getBillingPeriod(), expBillingPeriod);
 
@@ -60,14 +48,13 @@ public abstract class TestUserApiChangePlan extends TestApiBase {
     }
 
 
-
     protected void testChangePlanBundleAlignEOTWithNoChargeThroughDate() {
         tChangePlanBundleAlignEOTWithNoChargeThroughDate("Shotgun", BillingPeriod.MONTHLY, PriceListSet.DEFAULT_PRICELIST_NAME, "Pistol", BillingPeriod.MONTHLY, PriceListSet.DEFAULT_PRICELIST_NAME);
     }
 
 
     private void tChangePlanBundleAlignEOTWithNoChargeThroughDate(String fromProd, BillingPeriod fromTerm, String fromPlanSet,
-        String toProd, BillingPeriod toTerm, String toPlanSet) {
+                                                                  String toProd, BillingPeriod toTerm, String toPlanSet) {
 
         log.info("Starting testChangePlanBundleAlignEOTWithNoChargeThroughDateReal");
 
@@ -105,7 +92,7 @@ public abstract class TestUserApiChangePlan extends TestApiBase {
     }
 
     private void testChangePlanBundleAlignEOTWithChargeThroughDate(String fromProd, BillingPeriod fromTerm, String fromPlanSet,
-            String toProd, BillingPeriod toTerm, String toPlanSet) {
+                                                                   String toProd, BillingPeriod toTerm, String toPlanSet) {
 
         log.info("Starting testChangeSubscriptionEOTWithChargeThroughDate");
         try {
@@ -171,7 +158,7 @@ public abstract class TestUserApiChangePlan extends TestApiBase {
 
 
     private void tChangePlanBundleAlignIMM(String fromProd, BillingPeriod fromTerm, String fromPlanSet,
-            String toProd, BillingPeriod toTerm, String toPlanSet) {
+                                           String toProd, BillingPeriod toTerm, String toPlanSet) {
 
         log.info("Starting testChangePlanBundleAlignIMM");
 
@@ -212,7 +199,7 @@ public abstract class TestUserApiChangePlan extends TestApiBase {
     }
 
     private void tChangePlanChangePlanAlignEOTWithChargeThroughDate(String fromProd, BillingPeriod fromTerm, String fromPlanSet,
-            String toProd, BillingPeriod toTerm, String toPlanSet) {
+                                                                    String toProd, BillingPeriod toTerm, String toPlanSet) {
 
         log.info("Starting testChangePlanBundleAlignEOTWithChargeThroughDate");
 
@@ -260,7 +247,7 @@ public abstract class TestUserApiChangePlan extends TestApiBase {
             assertTrue(testListener.isCompleted(2000));
 
             // CHECK CORRECT PRODUCT, PHASE, PLAN SET
-            String currentProduct =  subscription.getCurrentPlan().getProduct().getName();
+            String currentProduct = subscription.getCurrentPlan().getProduct().getName();
             assertNotNull(currentProduct);
             assertEquals(currentProduct, toProd);
             currentPhase = subscription.getCurrentPhase();
@@ -393,7 +380,6 @@ public abstract class TestUserApiChangePlan extends TestApiBase {
             currentPhase = subscription.getCurrentPhase();
             assertNotNull(currentPhase);
             assertEquals(currentPhase.getPhaseType(), PhaseType.DISCOUNT);
-
 
 
             // MOVE TO NEXT PHASE

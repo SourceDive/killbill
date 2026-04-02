@@ -21,36 +21,41 @@ import java.net.URI;
 
 
 public class ValidationError {
-	private final String description;
-	private final URI sourceURI;
-	private final Class<?> objectType;
-	private final String objectName;
-	public ValidationError(String description, URI sourceURI,
-			Class<?> objectType, String objectName) {
-		super();
-		this.description = description;
-		this.sourceURI = sourceURI;
-		this.objectType = objectType;
-		this.objectName = objectName;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public URI getSourceURI() {
-		return sourceURI;
-	}
-	public Class<?> getObjectType() {
-		return objectType;
-	}
-	public String getObjectName() {
-		return objectName;
-	}
-	
-	public void log(Logger log) {
-		log.error(String.format("%s [%s] (%s:%s)", description, sourceURI, objectType, objectName));
-	}
-	
-	public String toString() {
-		return String.format("%s [%s] (%s:%s)\n", description, sourceURI, objectType, objectName);
-	}
+    private final String description;
+    private final URI sourceURI;
+    private final Class<?> objectType;
+    private final String objectName;
+
+    public ValidationError(String description, URI sourceURI,
+                           Class<?> objectType, String objectName) {
+        super();
+        this.description = description;
+        this.sourceURI = sourceURI;
+        this.objectType = objectType;
+        this.objectName = objectName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public URI getSourceURI() {
+        return sourceURI;
+    }
+
+    public Class<?> getObjectType() {
+        return objectType;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void log(Logger log) {
+        log.error(String.format("%s [%s] (%s:%s)", description, sourceURI, objectType, objectName));
+    }
+
+    public String toString() {
+        return String.format("%s [%s] (%s:%s)\n", description, sourceURI, objectType, objectName);
+    }
 }

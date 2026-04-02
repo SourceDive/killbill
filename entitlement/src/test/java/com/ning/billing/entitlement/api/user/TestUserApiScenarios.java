@@ -41,7 +41,7 @@ public class TestUserApiScenarios extends TestApiBase {
         return Guice.createInjector(Stage.DEVELOPMENT, new MockEngineModuleSql());
     }
 
-    @Test(enabled=true)
+    @Test(enabled = true)
     public void testChangeIMMCancelUncancelChangeEOT() {
 
         log.info("Starting testChangeIMMCancelUncancelChangeEOT");
@@ -90,7 +90,7 @@ public class TestUserApiScenarios extends TestApiBase {
         }
     }
 
-    @Test(enabled=false)
+    @Test(enabled = false)
     private void testChangeEOTCancelUncancelChangeIMM() {
 
     }

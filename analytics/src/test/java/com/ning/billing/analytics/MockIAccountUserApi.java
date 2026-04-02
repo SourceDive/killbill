@@ -16,12 +16,7 @@
 
 package com.ning.billing.analytics;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.List;
-import java.util.UUID;
 import com.ning.billing.account.api.Account;
-import com.ning.billing.account.api.AccountApiException;
 import com.ning.billing.account.api.AccountData;
 import com.ning.billing.account.api.AccountUserApi;
 import com.ning.billing.account.api.DefaultAccount;
@@ -29,20 +24,20 @@ import com.ning.billing.catalog.api.Currency;
 import com.ning.billing.util.customfield.CustomField;
 import com.ning.billing.util.tag.Tag;
 
-public class MockIAccountUserApi implements AccountUserApi
-{
+import java.util.List;
+import java.util.UUID;
+
+public class MockIAccountUserApi implements AccountUserApi {
     private final AccountData account;
     private final UUID id;
 
-    public MockIAccountUserApi(final String accountKey, final Currency currency)
-    {
+    public MockIAccountUserApi(final String accountKey, final Currency currency) {
         this.id = UUID.randomUUID();
         account = new MockAccount(id, accountKey, currency);
     }
 
     @Override
-    public Account createAccount(final AccountData data, final List<CustomField> fields, final List<Tag> tags)
-    {
+    public Account createAccount(final AccountData data, final List<CustomField> fields, final List<Tag> tags) {
         throw new UnsupportedOperationException();
     }
 
@@ -52,8 +47,7 @@ public class MockIAccountUserApi implements AccountUserApi
     }
 
     @Override
-    public Account getAccountByKey(final String key)
-    {
+    public Account getAccountByKey(final String key) {
         throw new UnsupportedOperationException();
     }
 
@@ -63,8 +57,7 @@ public class MockIAccountUserApi implements AccountUserApi
     }
 
     @Override
-    public List<Account> getAccounts()
-    {
+    public List<Account> getAccounts() {
         throw new UnsupportedOperationException();
     }
 

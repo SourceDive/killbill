@@ -30,26 +30,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusinessAccountMapper implements ResultSetMapper<BusinessAccount>
-{
+public class BusinessAccountMapper implements ResultSetMapper<BusinessAccount> {
     private final Splitter splitter = Splitter.on(";").trimResults().omitEmptyStrings();
 
     @Override
-    public BusinessAccount map(final int index, final ResultSet r, final StatementContext ctx) throws SQLException
-    {
+    public BusinessAccount map(final int index, final ResultSet r, final StatementContext ctx) throws SQLException {
         final List<String> tags = new ArrayList<String>();
         Iterables.addAll(tags, splitter.split(r.getString(5)));
 
         final BusinessAccount account = new BusinessAccount(
-            r.getString(1),
-            BigDecimal.valueOf(r.getDouble(4)),
-            tags,
-            new DateTime(r.getLong(6), DateTimeZone.UTC),
-            BigDecimal.valueOf(r.getDouble(7)),
-            r.getString(8),
-            r.getString(9),
-            r.getString(10),
-            r.getString(11)
+                r.getString(1),
+                BigDecimal.valueOf(r.getDouble(4)),
+                tags,
+                new DateTime(r.getLong(6), DateTimeZone.UTC),
+                BigDecimal.valueOf(r.getDouble(7)),
+                r.getString(8),
+                r.getString(9),
+                r.getString(10),
+                r.getString(11)
         );
         account.setCreatedDt(new DateTime(r.getLong(2), DateTimeZone.UTC));
         account.setUpdatedDt(new DateTime(r.getLong(3), DateTimeZone.UTC));

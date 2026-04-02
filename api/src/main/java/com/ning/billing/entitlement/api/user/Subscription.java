@@ -28,19 +28,19 @@ import java.util.UUID;
 public interface Subscription {
 
     public void cancel(DateTime requestedDate, boolean eot)
-    throws EntitlementUserApiException;
+            throws EntitlementUserApiException;
 
     public void uncancel()
-    throws EntitlementUserApiException;
+            throws EntitlementUserApiException;
 
     public void changePlan(String productName, BillingPeriod term, String planSet, DateTime requestedDate)
-        throws EntitlementUserApiException ;
+            throws EntitlementUserApiException;
 
     public void pause()
-        throws EntitlementUserApiException ;
+            throws EntitlementUserApiException;
 
     public void resume()
-        throws EntitlementUserApiException ;
+            throws EntitlementUserApiException;
 
 
     public enum SubscriptionState {

@@ -26,8 +26,9 @@ import java.math.BigDecimal;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
-public abstract class ProRationTestBase extends InvoicingTestBase{
+public abstract class ProRationTestBase extends InvoicingTestBase {
     protected abstract BillingMode getBillingMode();
+
     protected abstract BillingPeriod getBillingPeriod();
 
     protected void testCalculateNumberOfBillingCycles(DateTime startDate, DateTime targetDate, int billingCycleDay, BigDecimal expectedValue) throws InvalidDateSequenceException {

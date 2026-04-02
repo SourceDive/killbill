@@ -32,112 +32,112 @@ import java.util.Date;
 @XmlAccessorType(XmlAccessType.NONE)
 public class DefaultInternationalPrice extends ValidatingConfig<StandaloneCatalog> implements InternationalPrice {
 
-	//TODO MDW Validation - effectiveDateForExistingSubscriptons > catalog effectiveDate 
-	@XmlElement(required=false)
-	private Date effectiveDateForExistingSubscriptons;
+    //TODO MDW Validation - effectiveDateForExistingSubscriptons > catalog effectiveDate
+    @XmlElement(required = false)
+    private Date effectiveDateForExistingSubscriptons;
 
-	//TODO: Must have a price point for every configured currency
-	//TODO: No prices is a zero cost plan
-	@XmlElement(name="price")
-	private DefaultPrice[] prices;
-
-
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IInternationalPrice#getPrices()
-	 */
-	@Override
-	public Price[] getPrices() {
-		return prices;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IInternationalPrice#getEffectiveDateForExistingSubscriptons()
-	 */
-	@Override
-	public Date getEffectiveDateForExistingSubscriptons() {
-		return effectiveDateForExistingSubscriptons;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IInternationalPrice#getPrice(com.ning.billing.catalog.api.Currency)
-	 */
-	@Override 
-	public BigDecimal getPrice(Currency currency) throws CatalogApiException {
-		for(Price p : prices) {
-			if(p.getCurrency() == currency) {
-				return p.getValue();
-			}
-		}
-		throw new CatalogApiException(ErrorCode.CAT_NO_PRICE_FOR_CURRENCY, currency);
-	}
+    //TODO: Must have a price point for every configured currency
+    //TODO: No prices is a zero cost plan
+    @XmlElement(name = "price")
+    private DefaultPrice[] prices;
 
 
-	protected void setEffectiveDateForExistingSubscriptons(
-			Date effectiveDateForExistingSubscriptons) {
-		this.effectiveDateForExistingSubscriptons = effectiveDateForExistingSubscriptons;
-	}
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IInternationalPrice#getPrices()
+     */
+    @Override
+    public Price[] getPrices() {
+        return prices;
+    }
 
-	protected DefaultInternationalPrice setPrices(DefaultPrice[] prices) {
-		this.prices = prices;
-		return this;
-	}
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IInternationalPrice#getEffectiveDateForExistingSubscriptons()
+     */
+    @Override
+    public Date getEffectiveDateForExistingSubscriptons() {
+        return effectiveDateForExistingSubscriptons;
+    }
 
-
-	@Override
-	public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors)  {
-		Currency[] supportedCurrencies = catalog.getSupportedCurrencies();
-		for (Price p : prices) {
-			Currency currency = p.getCurrency();
-			if(!currencyIsSupported(currency, supportedCurrencies)) {
-				errors.add("Unsupported currency: " + currency, catalog.getCatalogURI(), this.getClass(), "");
-			}
-			try {
-				if(p.getValue().doubleValue() < 0.0) {
-					errors.add("Negative value for price in currency: " + currency, catalog.getCatalogURI(), this.getClass(), "");
-				}
-			} catch (CurrencyValueNull e) {
-				// No currency => nothing to check, ignore exception
-			}
-		}
-		if(effectiveDateForExistingSubscriptons != null &&
-				catalog.getEffectiveDate().getTime() > effectiveDateForExistingSubscriptons.getTime()) {
-			errors.add(new ValidationError(String.format("Price effective date %s is before catalog effective date '%s'",
-					effectiveDateForExistingSubscriptons,
-					catalog.getEffectiveDate().getTime()), 
-					catalog.getCatalogURI(), DefaultInternationalPrice.class, ""));
-		}
-		
-		return errors;
-	}
-	
-	private boolean currencyIsSupported(Currency currency, Currency[] supportedCurrencies) {
-		for (Currency c : supportedCurrencies) {
-			if(c == currency) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IInternationalPrice#getPrice(com.ning.billing.catalog.api.Currency)
+     */
+    @Override
+    public BigDecimal getPrice(Currency currency) throws CatalogApiException {
+        for (Price p : prices) {
+            if (p.getCurrency() == currency) {
+                return p.getValue();
+            }
+        }
+        throw new CatalogApiException(ErrorCode.CAT_NO_PRICE_FOR_CURRENCY, currency);
+    }
 
 
-	@Override
-	public void initialize(StandaloneCatalog root, URI uri) {
-		if(prices == null) {
-			prices = getZeroPrice(root);
-		}
-		super.initialize(root, uri);
-	}
+    protected void setEffectiveDateForExistingSubscriptons(
+            Date effectiveDateForExistingSubscriptons) {
+        this.effectiveDateForExistingSubscriptons = effectiveDateForExistingSubscriptons;
+    }
 
-	private synchronized DefaultPrice[] getZeroPrice(StandaloneCatalog root) {
-		Currency[] currencies = root.getSupportedCurrencies();
-		DefaultPrice[] zeroPrice = new DefaultPrice[currencies.length];
-		for(int i = 0; i < currencies.length; i++) {
-			zeroPrice[i] = new DefaultPrice();
-			zeroPrice[i].setCurrency(currencies[i]);
-			zeroPrice[i].setValue(new BigDecimal(0));
-		}
+    protected DefaultInternationalPrice setPrices(DefaultPrice[] prices) {
+        this.prices = prices;
+        return this;
+    }
 
-		return zeroPrice;
-	}
+
+    @Override
+    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+        Currency[] supportedCurrencies = catalog.getSupportedCurrencies();
+        for (Price p : prices) {
+            Currency currency = p.getCurrency();
+            if (!currencyIsSupported(currency, supportedCurrencies)) {
+                errors.add("Unsupported currency: " + currency, catalog.getCatalogURI(), this.getClass(), "");
+            }
+            try {
+                if (p.getValue().doubleValue() < 0.0) {
+                    errors.add("Negative value for price in currency: " + currency, catalog.getCatalogURI(), this.getClass(), "");
+                }
+            } catch (CurrencyValueNull e) {
+                // No currency => nothing to check, ignore exception
+            }
+        }
+        if (effectiveDateForExistingSubscriptons != null &&
+                catalog.getEffectiveDate().getTime() > effectiveDateForExistingSubscriptons.getTime()) {
+            errors.add(new ValidationError(String.format("Price effective date %s is before catalog effective date '%s'",
+                    effectiveDateForExistingSubscriptons,
+                    catalog.getEffectiveDate().getTime()),
+                    catalog.getCatalogURI(), DefaultInternationalPrice.class, ""));
+        }
+
+        return errors;
+    }
+
+    private boolean currencyIsSupported(Currency currency, Currency[] supportedCurrencies) {
+        for (Currency c : supportedCurrencies) {
+            if (c == currency) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    @Override
+    public void initialize(StandaloneCatalog root, URI uri) {
+        if (prices == null) {
+            prices = getZeroPrice(root);
+        }
+        super.initialize(root, uri);
+    }
+
+    private synchronized DefaultPrice[] getZeroPrice(StandaloneCatalog root) {
+        Currency[] currencies = root.getSupportedCurrencies();
+        DefaultPrice[] zeroPrice = new DefaultPrice[currencies.length];
+        for (int i = 0; i < currencies.length; i++) {
+            zeroPrice[i] = new DefaultPrice();
+            zeroPrice[i].setCurrency(currencies[i]);
+            zeroPrice[i].setValue(new BigDecimal(0));
+        }
+
+        return zeroPrice;
+    }
 
 }

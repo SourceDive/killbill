@@ -18,8 +18,8 @@ package com.ning.billing.catalog.api;
 
 public interface Duration {
 
-	public abstract TimeUnit getUnit();
+    public abstract TimeUnit getUnit();
 
-	public abstract int getNumber();
+    public abstract int getNumber();
 
 }

@@ -16,14 +16,6 @@
 
 package com.ning.billing.util.tag.dao;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.UUID;
 import com.ning.billing.util.entity.EntityDao;
 import com.ning.billing.util.tag.DefaultTagDescription;
 import com.ning.billing.util.tag.TagDescription;
@@ -37,6 +29,11 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import org.skife.jdbi.v2.sqlobject.stringtemplate.ExternalizedSqlViaStringTemplate3;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
+
+import java.lang.annotation.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.UUID;
 
 @ExternalizedSqlViaStringTemplate3
 @RegisterMapper(TagDescriptionDao.TagDescriptionMapper.class)

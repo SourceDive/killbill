@@ -16,12 +16,11 @@
 
 package com.ning.billing.entitlement.api.migration;
 
-import org.testng.annotations.Test;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
 import com.ning.billing.entitlement.glue.MockEngineModuleMemory;
+import org.testng.annotations.Test;
 
 public class TestMigrationMemory extends TestMigration {
     @Override
@@ -30,25 +29,25 @@ public class TestMigrationMemory extends TestMigration {
     }
 
     @Override
-    @Test(enabled=true, groups="fast")
+    @Test(enabled = true, groups = "fast")
     public void testSingleBasePlan() {
         super.testSingleBasePlan();
     }
 
     @Override
-    @Test(enabled=true, groups="fast")
+    @Test(enabled = true, groups = "fast")
     public void testSingleBasePlanFutureCancelled() {
         super.testSingleBasePlanFutureCancelled();
     }
 
     @Override
-    @Test(enabled=true, groups="fast")
+    @Test(enabled = true, groups = "fast")
     public void testSingleBasePlanWithPendingPhase() {
         super.testSingleBasePlanWithPendingPhase();
     }
 
     @Override
-    @Test(enabled=true, groups="fast")
+    @Test(enabled = true, groups = "fast")
     public void testSingleBasePlanWithPendingChange() {
         super.testSingleBasePlanWithPendingChange();
     }

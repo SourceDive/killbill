@@ -25,8 +25,7 @@ import org.skife.jdbi.v2.sqlobject.stringtemplate.ExternalizedSqlViaStringTempla
 
 @ExternalizedSqlViaStringTemplate3()
 @RegisterMapper(BusinessAccountMapper.class)
-public interface BusinessAccountDao
-{
+public interface BusinessAccountDao {
     @SqlQuery
     BusinessAccount getAccount(@Bind("account_key") final String key);
 

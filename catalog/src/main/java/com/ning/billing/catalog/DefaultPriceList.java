@@ -26,69 +26,70 @@ import com.ning.billing.util.config.ValidationErrors;
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class DefaultPriceList extends ValidatingConfig<StandaloneCatalog> implements PriceList  {
+public class DefaultPriceList extends ValidatingConfig<StandaloneCatalog> implements PriceList {
 
-	@XmlAttribute(required=true)
-	@XmlID
-	private String name;
+    @XmlAttribute(required = true)
+    @XmlID
+    private String name;
 
-	@XmlElementWrapper(name="plans", required=true)
-	@XmlElement(name="plan", required=true)
-	@XmlIDREF
+    @XmlElementWrapper(name = "plans", required = true)
+    @XmlElement(name = "plan", required = true)
+    @XmlIDREF
     private DefaultPlan[] plans;
-	
-	public DefaultPriceList(){}
 
-	public DefaultPriceList(DefaultPlan[] plans, String name) {
-		this.plans = plans;
-		this.name = name;
-	}
+    public DefaultPriceList() {
+    }
 
-	protected DefaultPlan[] getPlans() {
-		return plans;
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPriceList#getName()
-	 */
-	@Override
-	public String getName() {
+    public DefaultPriceList(DefaultPlan[] plans, String name) {
+        this.plans = plans;
+        this.name = name;
+    }
+
+    protected DefaultPlan[] getPlans() {
+        return plans;
+    }
+
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPriceList#getName()
+     */
+    @Override
+    public String getName() {
         return name;
     }
 
-	/* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IPriceList#findPlan(com.ning.billing.catalog.api.IProduct, com.ning.billing.catalog.api.BillingPeriod)
-	 */
-	@Override
-	public DefaultPlan findPlan(Product product, BillingPeriod period) {
+    /* (non-Javadoc)
+     * @see com.ning.billing.catalog.IPriceList#findPlan(com.ning.billing.catalog.api.IProduct, com.ning.billing.catalog.api.BillingPeriod)
+     */
+    @Override
+    public DefaultPlan findPlan(Product product, BillingPeriod period) {
         for (DefaultPlan cur : getPlans()) {
-            if (cur.getProduct().equals(product) && 
-            		(cur.getBillingPeriod() == null || cur.getBillingPeriod().equals(period))) {
+            if (cur.getProduct().equals(product) &&
+                    (cur.getBillingPeriod() == null || cur.getBillingPeriod().equals(period))) {
                 return cur;
             }
         }
         return null;
     }
 
-	@Override
-	public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
-		 for (DefaultPlan cur : getPlans()) {
-			 int numPlans = findNumberOfPlans(cur.getProduct(), cur.getBillingPeriod());
-			 if ( numPlans > 1 ) {
-				 errors.add(new ValidationError(
-						 String.format("There are %d plans in pricelist %s and have the same product/billingPeriod (%s, %s)", 
-								 numPlans, getName(), cur.getProduct().getName(), cur.getBillingPeriod()), catalog.getCatalogURI(),
-								 DefaultPriceListSet.class, getName()));
-			 }
-		 }
-		return errors;
-	}
-	
-	private int findNumberOfPlans(Product product, BillingPeriod period) {
-		int count = 0;
+    @Override
+    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
         for (DefaultPlan cur : getPlans()) {
-            if (cur.getProduct().equals(product) && 
-            		(cur.getBillingPeriod() == null || cur.getBillingPeriod().equals(period))) {
+            int numPlans = findNumberOfPlans(cur.getProduct(), cur.getBillingPeriod());
+            if (numPlans > 1) {
+                errors.add(new ValidationError(
+                        String.format("There are %d plans in pricelist %s and have the same product/billingPeriod (%s, %s)",
+                                numPlans, getName(), cur.getProduct().getName(), cur.getBillingPeriod()), catalog.getCatalogURI(),
+                        DefaultPriceListSet.class, getName()));
+            }
+        }
+        return errors;
+    }
+
+    private int findNumberOfPlans(Product product, BillingPeriod period) {
+        int count = 0;
+        for (DefaultPlan cur : getPlans()) {
+            if (cur.getProduct().equals(product) &&
+                    (cur.getBillingPeriod() == null || cur.getBillingPeriod().equals(period))) {
                 count++;
             }
         }

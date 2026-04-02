@@ -16,10 +16,6 @@
 
 package com.ning.billing.entitlement.engine.core;
 
-import org.joda.time.DateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.inject.Inject;
 import com.ning.billing.config.EntitlementConfig;
 import com.ning.billing.entitlement.alignment.PlanAligner;
@@ -45,6 +41,9 @@ import com.ning.billing.lifecycle.LifecycleHandlerType.LifecycleLevel;
 import com.ning.billing.util.clock.Clock;
 import com.ning.billing.util.eventbus.EventBus;
 import com.ning.billing.util.eventbus.EventBus.EventBusException;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Engine implements EventListener, EntitlementService {
 
@@ -70,9 +69,9 @@ public class Engine implements EventListener, EntitlementService {
 
     @Inject
     public Engine(Clock clock, EntitlementDao dao, EventNotifier apiEventProcessor,
-            PlanAligner planAligner, EntitlementConfig config, DefaultEntitlementUserApi userApi,
-            DefaultEntitlementBillingApi billingApi, DefaultEntitlementTestApi testApi,
-            DefaultEntitlementMigrationApi migrationApi, EventBus eventBus) {
+                  PlanAligner planAligner, EntitlementConfig config, DefaultEntitlementUserApi userApi,
+                  DefaultEntitlementBillingApi billingApi, DefaultEntitlementTestApi testApi,
+                  DefaultEntitlementMigrationApi migrationApi, EventBus eventBus) {
         super();
         this.clock = clock;
         this.dao = dao;
@@ -162,14 +161,14 @@ public class Engine implements EventListener, EntitlementService {
     private void waitForNotificationStartCompletion() {
 
         long ini = System.nanoTime();
-        synchronized(this) {
+        synchronized (this) {
             do {
                 if (startedNotificationThread) {
                     break;
                 }
                 try {
                     this.wait(NOTIFICATION_THREAD_WAIT_INCREMENT_MS);
-                } catch (InterruptedException e ) {
+                } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     throw new EntitlementError(e);
                 }
@@ -190,7 +189,7 @@ public class Engine implements EventListener, EntitlementService {
             TimedPhase nextTimedPhase = planAligner.getNextTimedPhase(subscription.getCurrentPlan(), subscription.getInitialPhaseOnCurrentPlan().getPhaseType(), now, subscription.getCurrentPlanStart());
             PhaseEvent nextPhaseEvent = (nextTimedPhase != null) ?
                     PhaseEventData.getNextPhaseEvent(nextTimedPhase.getPhase().getName(), subscription, now, nextTimedPhase.getStartPhase()) :
-                        null;
+                    null;
             if (nextPhaseEvent != null) {
                 dao.createNextPhaseEvent(subscription.getId(), nextPhaseEvent);
             }

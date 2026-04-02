@@ -170,7 +170,7 @@ public class ProRationTests extends ProRationInAdvanceTestBase {
         DateTime startDate = buildDateTime(2011, 2, 7);
         DateTime changeDate = buildDateTime(2011, 2, 15);
         DateTime targetDate = buildDateTime(2011, 4, 21);
-        
+
         BigDecimal expectedValue;
 
         expectedValue = EIGHT.divide(TWENTY_EIGHT, NUMBER_OF_DECIMALS, ROUNDING_METHOD);
@@ -219,7 +219,7 @@ public class ProRationTests extends ProRationInAdvanceTestBase {
         expectedValue = expectedValue.add(THREE.divide(THIRTY_ONE, NUMBER_OF_DECIMALS, ROUNDING_METHOD));
         testCalculateNumberOfBillingCycles(startDate, planChangeDate, targetDate, 7, expectedValue);
 
-        expectedValue = FIVE.divide(TWENTY_EIGHT, NUMBER_OF_DECIMALS, ROUNDING_METHOD).add(TWO);  
+        expectedValue = FIVE.divide(TWENTY_EIGHT, NUMBER_OF_DECIMALS, ROUNDING_METHOD).add(TWO);
         testCalculateNumberOfBillingCycles(planChangeDate, targetDate, 15, expectedValue);
     }
 

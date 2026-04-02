@@ -34,8 +34,12 @@ import java.util.UUID;
 public class DefaultInvoiceGenerator implements InvoiceGenerator {
     @Override
     public Invoice generateInvoice(final UUID accountId, final BillingEventSet events, final InvoiceItemList existingItems, final DateTime targetDate, final Currency targetCurrency) {
-        if (events == null) {return new DefaultInvoice(accountId, targetDate, targetCurrency);}
-        if (events.size() == 0) {return new DefaultInvoice(accountId, targetDate, targetCurrency);}
+        if (events == null) {
+            return new DefaultInvoice(accountId, targetDate, targetCurrency);
+        }
+        if (events.size() == 0) {
+            return new DefaultInvoice(accountId, targetDate, targetCurrency);
+        }
 
         DefaultInvoice invoice = new DefaultInvoice(accountId, targetDate, targetCurrency);
         InvoiceItemList currentItems = generateInvoiceItems(events, invoice.getId(), targetDate, targetCurrency);
@@ -136,7 +140,7 @@ public class DefaultInvoiceGenerator implements InvoiceGenerator {
         }
     }
 
-    private BigDecimal calculateInvoiceItemAmount(BillingEvent event, DateTime targetDate, BigDecimal rate){
+    private BigDecimal calculateInvoiceItemAmount(BillingEvent event, DateTime targetDate, BigDecimal rate) {
         BillingMode billingMode = getBillingMode(event.getBillingMode());
         DateTime startDate = event.getEffectiveDate();
         int billingCycleDay = event.getBillCycleDay();

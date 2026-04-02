@@ -16,20 +16,13 @@
 
 package com.ning.billing.invoice.dao;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Stage;
 import com.ning.billing.catalog.api.Currency;
 import com.ning.billing.invoice.api.InvoiceItem;
-import com.ning.billing.invoice.glue.InvoiceModuleMock;
 import com.ning.billing.invoice.model.DefaultInvoice;
 import com.ning.billing.invoice.model.DefaultInvoiceItem;
-import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;

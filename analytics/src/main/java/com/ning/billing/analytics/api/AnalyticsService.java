@@ -23,8 +23,7 @@ import com.ning.billing.util.eventbus.EventBus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnalyticsService implements IAnalyticsService
-{
+public class AnalyticsService implements IAnalyticsService {
     private static final Logger log = LoggerFactory.getLogger(AnalyticsService.class);
 
     private static final String ANALYTICS_SERVICE = "analytics-service";
@@ -33,25 +32,21 @@ public class AnalyticsService implements IAnalyticsService
     private final EventBus eventBus;
 
     @Inject
-    public AnalyticsService(final AnalyticsListener listener, final EventBus eventBus)
-    {
+    public AnalyticsService(final AnalyticsListener listener, final EventBus eventBus) {
         this.listener = listener;
         this.eventBus = eventBus;
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return ANALYTICS_SERVICE;
     }
 
     @LifecycleHandlerType(LifecycleHandlerType.LifecycleLevel.REGISTER_EVENTS)
-    public void registerForNotifications()
-    {
+    public void registerForNotifications() {
         try {
             eventBus.register(listener);
-        }
-        catch (EventBus.EventBusException e) {
+        } catch (EventBus.EventBusException e) {
             log.error("Unable to register to the EventBus!", e);
         }
     }

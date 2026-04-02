@@ -16,25 +16,25 @@
 
 package com.ning.billing.catalog.rules;
 
+import com.ning.billing.catalog.api.ActionPolicy;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-import com.ning.billing.catalog.api.ActionPolicy;
-
 @XmlSeeAlso(CaseChange.class)
 public class CaseChangePlanPolicy extends CaseChange<ActionPolicy> {
-	
-	@XmlElement(required=true)
-	private ActionPolicy policy;
 
-	@Override
-	protected ActionPolicy getResult() {
-		return policy;
-	}
+    @XmlElement(required = true)
+    private ActionPolicy policy;
 
-	protected CaseChangePlanPolicy setPolicy(ActionPolicy policy) {
-		this.policy = policy;
-		return this;
-	}
-	
+    @Override
+    protected ActionPolicy getResult() {
+        return policy;
+    }
+
+    protected CaseChangePlanPolicy setPolicy(ActionPolicy policy) {
+        this.policy = policy;
+        return this;
+    }
+
 }

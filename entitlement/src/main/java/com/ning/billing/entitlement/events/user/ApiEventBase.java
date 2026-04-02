@@ -40,7 +40,7 @@ public class ApiEventBase extends EventBase implements ApiEvent {
 
 
     public ApiEventBase(UUID subscriptionId, DateTime bundleStartDate, DateTime processed, String planName, String phaseName,
-            String priceList, DateTime requestedDate,  ApiEventType eventType, DateTime effectiveDate, long activeVersion) {
+                        String priceList, DateTime requestedDate, ApiEventType eventType, DateTime effectiveDate, long activeVersion) {
         super(subscriptionId, requestedDate, effectiveDate, processed, activeVersion, true);
         this.eventType = eventType;
         this.eventPriceList = priceList;
@@ -49,7 +49,7 @@ public class ApiEventBase extends EventBase implements ApiEvent {
     }
 
     public ApiEventBase(UUID subscriptionId, DateTime bundleStartDate, DateTime processed,
-            DateTime requestedDate,  ApiEventType eventType, DateTime effectiveDate, long activeVersion) {
+                        DateTime requestedDate, ApiEventType eventType, DateTime effectiveDate, long activeVersion) {
         super(subscriptionId, requestedDate, effectiveDate, processed, activeVersion, true);
         this.eventType = eventType;
         this.eventPriceList = null;
@@ -59,8 +59,8 @@ public class ApiEventBase extends EventBase implements ApiEvent {
 
 
     public ApiEventBase(UUID id, UUID subscriptionId, DateTime processed, String eventPlan, String eventPhase,
-            String priceList, DateTime requestedDate,  ApiEventType eventType, DateTime effectiveDate, long activeVersion,
-            boolean isActive, UUID processingOwner, DateTime nextAvailableProcessingTime,EventLifecycleState processingState) {
+                        String priceList, DateTime requestedDate, ApiEventType eventType, DateTime effectiveDate, long activeVersion,
+                        boolean isActive, UUID processingOwner, DateTime nextAvailableProcessingTime, EventLifecycleState processingState) {
         super(id, subscriptionId, requestedDate, effectiveDate, processed, activeVersion, isActive, processingOwner, nextAvailableProcessingTime, processingState);
         this.eventType = eventType;
         this.eventPlan = eventPlan;
@@ -98,8 +98,8 @@ public class ApiEventBase extends EventBase implements ApiEvent {
     @Override
     public String toString() {
         return "ApiEventBase [ getId()= " + getId()
-        		+ " eventType=" + eventType
-        		+ ", eventPlan=" + eventPlan
+                + " eventType=" + eventType
+                + ", eventPlan=" + eventPlan
                 + ", eventPlanPhase=" + eventPlanPhase
                 + ", getEventType()=" + getEventType()
                 + ", getEventPlan()=" + getEventPlan()

@@ -16,9 +16,10 @@
 
 package com.ning.billing.util.customfield;
 
+import com.ning.billing.util.entity.EntityBase;
+
 import java.util.List;
 import java.util.UUID;
-import com.ning.billing.util.entity.EntityBase;
 
 public abstract class CustomizableEntityBase extends EntityBase implements CustomizableEntity {
     protected final FieldStore fields;

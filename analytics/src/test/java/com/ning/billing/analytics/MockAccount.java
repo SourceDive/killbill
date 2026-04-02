@@ -16,27 +16,24 @@
 
 package com.ning.billing.analytics;
 
+import com.ning.billing.account.api.Account;
+import com.ning.billing.catalog.api.Currency;
+import com.ning.billing.util.customfield.CustomField;
+import com.ning.billing.util.tag.Tag;
+import com.ning.billing.util.tag.TagDescription;
+import org.joda.time.DateTime;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import org.joda.time.DateTime;
-import com.ning.billing.account.api.Account;
-import com.ning.billing.account.api.AccountData;
-import com.ning.billing.catalog.api.Currency;
-import com.ning.billing.util.customfield.CustomField;
-import com.ning.billing.util.tag.Tag;
-import com.ning.billing.util.tag.TagDescription;
 
-public class MockAccount implements Account
-{
+public class MockAccount implements Account {
     private final UUID id;
     private final String accountKey;
     private final Currency currency;
 
-    public MockAccount(final UUID id, final String accountKey, final Currency currency)
-    {
+    public MockAccount(final UUID id, final String accountKey, final Currency currency) {
         this.id = id;
         this.accountKey = accountKey;
         this.currency = currency;
@@ -48,20 +45,17 @@ public class MockAccount implements Account
     }
 
     @Override
-    public String getEmail()
-    {
+    public String getEmail() {
         return "test@test.com";
     }
 
     @Override
-    public String getPhone()
-    {
+    public String getPhone() {
         return "408-555-6665";
     }
 
     @Override
-    public String getExternalKey()
-    {
+    public String getExternalKey() {
         return accountKey;
     }
 
@@ -71,14 +65,12 @@ public class MockAccount implements Account
     }
 
     @Override
-    public int getBillCycleDay()
-    {
+    public int getBillCycleDay() {
         return 12;
     }
 
     @Override
-    public Currency getCurrency()
-    {
+    public Currency getCurrency() {
         return currency;
     }
 
@@ -88,8 +80,7 @@ public class MockAccount implements Account
     }
 
     @Override
-    public UUID getId()
-    {
+    public UUID getId() {
         return id;
     }
 

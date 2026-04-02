@@ -19,16 +19,9 @@ package com.ning.billing.entitlement.api.user;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
-
-import com.ning.billing.catalog.api.BillingPeriod;
-import com.ning.billing.catalog.api.Duration;
-import com.ning.billing.catalog.api.Plan;
-import com.ning.billing.catalog.api.PlanPhase;
-import com.ning.billing.catalog.api.PhaseType;
-import com.ning.billing.catalog.api.ProductCategory;
-import com.ning.billing.entitlement.api.TestApiBase;
-
+import com.ning.billing.catalog.api.*;
 import com.ning.billing.entitlement.api.ApiTestListener.NextEvent;
+import com.ning.billing.entitlement.api.TestApiBase;
 import com.ning.billing.entitlement.glue.MockEngineModuleSql;
 import com.ning.billing.util.clock.DefaultClock;
 import org.joda.time.DateTime;
@@ -49,21 +42,21 @@ public class TestUserApiDemos extends TestApiBase {
     }
 
     /**
-     *  Initial demo for BP entitlement:
-     *  1. Create a Subscription
-     *  2. ChangePlan while in trial
-     *     -> Change is IMM
-     *     -> Trial is still 30 days long
-     *  3. Move through 2nd Phase
-     *  4. ChangePlan EOT
-     *     -> Show Change pending
-     *  5. Other ChangePlan EOT
-     *     -> Show it supercedes the first one
-     *  6. Move to EOT
-     *  7. Move to next Phase
-     *  8. Cancel EOT
+     * Initial demo for BP entitlement:
+     * 1. Create a Subscription
+     * 2. ChangePlan while in trial
+     * -> Change is IMM
+     * -> Trial is still 30 days long
+     * 3. Move through 2nd Phase
+     * 4. ChangePlan EOT
+     * -> Show Change pending
+     * 5. Other ChangePlan EOT
+     * -> Show it supercedes the first one
+     * 6. Move to EOT
+     * 7. Move to next Phase
+     * 8. Cancel EOT
      */
-    @Test(enabled=true, groups="demos")
+    @Test(enabled = true, groups = "demos")
     public void testDemo1() {
 
         try {
@@ -177,18 +170,18 @@ public class TestUserApiDemos extends TestApiBase {
         System.out.println("");
         System.out.println("\t CURRENT TIME = " + clock.getUTCNow());
         System.out.println("");
-        System.out.println("\t CURRENT STATE = " +  subscription.getState());
-        System.out.println("\t CURRENT PRODUCT = " +  ((currentPlan == null) ? "NONE" : currentPlan.getProduct().getName()));
-        System.out.println("\t CURRENT TERM = " +  ((currentPlan == null) ? "NONE" : currentPlan.getBillingPeriod().toString()));
-        System.out.println("\t CURRENT PHASE = " +  ((currentPhase == null) ? "NONE" : currentPhase.getPhaseType()));
+        System.out.println("\t CURRENT STATE = " + subscription.getState());
+        System.out.println("\t CURRENT PRODUCT = " + ((currentPlan == null) ? "NONE" : currentPlan.getProduct().getName()));
+        System.out.println("\t CURRENT TERM = " + ((currentPlan == null) ? "NONE" : currentPlan.getBillingPeriod().toString()));
+        System.out.println("\t CURRENT PHASE = " + ((currentPhase == null) ? "NONE" : currentPhase.getPhaseType()));
         System.out.println("\t CURRENT PRICE LIST = " + ((priceList == null) ? "NONE" : priceList));
-        System.out.println("\t CURRENT \'SLUG\' = " +  ((currentPhase == null) ? "NONE" : currentPhase.getName()));
+        System.out.println("\t CURRENT \'SLUG\' = " + ((currentPhase == null) ? "NONE" : currentPhase.getName()));
 
         System.out.println("");
 
     }
 
-    @Test(enabled= true, groups={"stress"})
+    @Test(enabled = true, groups = {"stress"})
     public void stressTest() {
         for (int i = 0; i < 100; i++) {
             cleanupTest();

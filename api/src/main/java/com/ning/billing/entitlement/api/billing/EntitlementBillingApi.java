@@ -35,7 +35,7 @@ public interface EntitlementBillingApi {
      *
      * @param subscriptionId the subscriptionId of interest for a gievn account
      * @return an ordered list of billing event
-     *
+     * <p>
      * Note: The user api allows to get list of subscription bundle / subscriptions for an account
      */
     public SortedSet<BillingEvent> getBillingEventsForSubscription(UUID subscriptionId);

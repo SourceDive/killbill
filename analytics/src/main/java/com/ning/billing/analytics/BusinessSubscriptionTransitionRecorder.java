@@ -31,8 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class BusinessSubscriptionTransitionRecorder
-{
+public class BusinessSubscriptionTransitionRecorder {
     private static final Logger log = LoggerFactory.getLogger(BusinessSubscriptionTransitionRecorder.class);
 
     private final BusinessSubscriptionTransitionDao dao;
@@ -40,8 +39,7 @@ public class BusinessSubscriptionTransitionRecorder
     private final AccountUserApi accountApi;
 
     @Inject
-    public BusinessSubscriptionTransitionRecorder(final BusinessSubscriptionTransitionDao dao, final EntitlementUserApi entitlementApi, final AccountUserApi accountApi)
-    {
+    public BusinessSubscriptionTransitionRecorder(final BusinessSubscriptionTransitionDao dao, final EntitlementUserApi entitlementApi, final AccountUserApi accountApi) {
         this.dao = dao;
         this.entitlementApi = entitlementApi;
         this.accountApi = accountApi;
@@ -109,8 +107,7 @@ public class BusinessSubscriptionTransitionRecorder
         final BusinessSubscription prevSubscription;
         if (previousEffectiveTransitionTime == null) {
             prevSubscription = null;
-        }
-        else {
+        } else {
             prevSubscription = new BusinessSubscription(transition.getPreviousPriceList(), transition.getPreviousPlan(), transition.getPreviousPhase(), currency, previousEffectiveTransitionTime, transition.getPreviousState(), transition.getSubscriptionId(), transition.getBundleId());
         }
         final BusinessSubscription nextSubscription = new BusinessSubscription(transition.getNextPriceList(), transition.getNextPlan(), transition.getNextPhase(), currency, transition.getEffectiveTransitionTime(), transition.getNextState(), transition.getSubscriptionId(), transition.getBundleId());
@@ -119,15 +116,14 @@ public class BusinessSubscriptionTransitionRecorder
     }
 
     // Public for internal reasons
-    public void record(final String key, final String accountKey, final DateTime requestedDateTime, final BusinessSubscriptionEvent event, final BusinessSubscription prevSubscription, final BusinessSubscription nextSubscription)
-    {
+    public void record(final String key, final String accountKey, final DateTime requestedDateTime, final BusinessSubscriptionEvent event, final BusinessSubscription prevSubscription, final BusinessSubscription nextSubscription) {
         final BusinessSubscriptionTransition transition = new BusinessSubscriptionTransition(
-            key,
-            accountKey,
-            requestedDateTime,
-            event,
-            prevSubscription,
-            nextSubscription
+                key,
+                accountKey,
+                requestedDateTime,
+                event,
+                prevSubscription,
+                nextSubscription
         );
 
         log.info(transition.getEvent() + " " + transition);

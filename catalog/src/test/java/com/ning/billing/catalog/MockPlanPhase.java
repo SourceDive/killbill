@@ -23,35 +23,35 @@ import com.ning.billing.catalog.api.TimeUnit;
 public class MockPlanPhase extends DefaultPlanPhase {
 
     public MockPlanPhase(
-    		BillingPeriod billingPeriod, 
-    		PhaseType type, 
-    		DefaultDuration duration, 
-    		DefaultInternationalPrice recurringPrice, 
-    		DefaultInternationalPrice fixedPrice) {
-		setBillingPeriod(billingPeriod);
-		setPhaseType(type);
-		setDuration(duration);
-		setReccuringPrice(recurringPrice);
-		setFixedPrice(fixedPrice);
-	}
-    
+            BillingPeriod billingPeriod,
+            PhaseType type,
+            DefaultDuration duration,
+            DefaultInternationalPrice recurringPrice,
+            DefaultInternationalPrice fixedPrice) {
+        setBillingPeriod(billingPeriod);
+        setPhaseType(type);
+        setDuration(duration);
+        setReccuringPrice(recurringPrice);
+        setFixedPrice(fixedPrice);
+    }
+
     public MockPlanPhase() {
-		setBillingPeriod(BillingPeriod.MONTHLY);
-		setPhaseType(PhaseType.EVERGREEN);
-		setDuration(new DefaultDuration().setNumber(-1).setUnit(TimeUnit.UNLIMITED));
-		setReccuringPrice(new MockInternationalPrice());
-		setFixedPrice(null);
-		setPlan(new MockPlan(this));
-	}
+        setBillingPeriod(BillingPeriod.MONTHLY);
+        setPhaseType(PhaseType.EVERGREEN);
+        setDuration(new DefaultDuration().setNumber(-1).setUnit(TimeUnit.UNLIMITED));
+        setReccuringPrice(new MockInternationalPrice());
+        setFixedPrice(null);
+        setPlan(new MockPlan(this));
+    }
 
-	public MockPlanPhase(MockPlan mockPlan) {
-		setBillingPeriod(BillingPeriod.MONTHLY);
-		setPhaseType(PhaseType.EVERGREEN);
-		setDuration(new DefaultDuration().setNumber(-1).setUnit(TimeUnit.UNLIMITED));
-		setReccuringPrice(new MockInternationalPrice());
-		setFixedPrice(null);
-		setPlan(mockPlan);
-	}
+    public MockPlanPhase(MockPlan mockPlan) {
+        setBillingPeriod(BillingPeriod.MONTHLY);
+        setPhaseType(PhaseType.EVERGREEN);
+        setDuration(new DefaultDuration().setNumber(-1).setUnit(TimeUnit.UNLIMITED));
+        setReccuringPrice(new MockInternationalPrice());
+        setFixedPrice(null);
+        setPlan(mockPlan);
+    }
 
-	
+
 }

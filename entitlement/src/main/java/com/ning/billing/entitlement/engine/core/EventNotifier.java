@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public interface EventNotifier {
 
-    public void processAllReadyEvents(UUID [] subscriptionsIds, Boolean recursive, Boolean oneEventOnly);
+    public void processAllReadyEvents(UUID[] subscriptionsIds, Boolean recursive, Boolean oneEventOnly);
 
     public void startNotifications(EventListener listener);
 

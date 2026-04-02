@@ -17,7 +17,6 @@
 package com.ning.billing.entitlement.events.phase;
 
 
-import com.ning.billing.entitlement.alignment.TimedPhase;
 import com.ning.billing.entitlement.api.user.SubscriptionData;
 import com.ning.billing.entitlement.events.EventBase;
 import org.joda.time.DateTime;
@@ -45,8 +44,8 @@ public class PhaseEventData extends EventBase implements PhaseEvent {
     @Override
     public String toString() {
         return "PhaseEvent [getId()= " + getId()
-        		+ ", phaseName=" + phaseName
-        		+ ", getType()=" + getType()
+                + ", phaseName=" + phaseName
+                + ", getType()=" + getType()
                 + ", getPhase()=" + getPhase()
                 + ", getRequestedDate()=" + getRequestedDate()
                 + ", getEffectiveDate()=" + getEffectiveDate()
@@ -59,12 +58,12 @@ public class PhaseEventData extends EventBase implements PhaseEvent {
     public static final PhaseEvent getNextPhaseEvent(String phaseName, SubscriptionData subscription, DateTime now, DateTime effectiveDate) {
         return (phaseName == null) ?
                 null :
-                    new PhaseEventData(new PhaseEventBuilder()
-                        .setSubscriptionId(subscription.getId())
-                        .setRequestedDate(now)
-                        .setEffectiveDate(effectiveDate)
-                        .setProcessedDate(now)
-                        .setActiveVersion(subscription.getActiveVersion())
-                        .setPhaseName(phaseName));
+                new PhaseEventData(new PhaseEventBuilder()
+                                   .setSubscriptionId(subscription.getId())
+                                   .setRequestedDate(now)
+                                   .setEffectiveDate(effectiveDate)
+                                   .setProcessedDate(now)
+                                   .setActiveVersion(subscription.getActiveVersion())
+                                   .setPhaseName(phaseName));
     }
 }

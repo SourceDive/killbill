@@ -16,7 +16,6 @@
 
 package com.ning.billing.analytics;
 
-import com.ning.billing.catalog.api.*;
 import com.ning.billing.entitlement.api.user.Subscription;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -26,8 +25,7 @@ import org.testng.annotations.Test;
 
 import static com.ning.billing.catalog.api.Currency.USD;
 
-public class TestBusinessSubscriptionTransition
-{
+public class TestBusinessSubscriptionTransition {
     private BusinessSubscription prevSubscription;
     private BusinessSubscription nextSubscription;
     private BusinessSubscriptionEvent event;
@@ -37,8 +35,7 @@ public class TestBusinessSubscriptionTransition
     private BusinessSubscriptionTransition transition;
 
     @BeforeMethod(alwaysRun = true)
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         final Product product = new MockProduct("platinium", "subscription", ProductCategory.BASE);
         final Plan plan = new MockPlan("platinum-monthly", product);
         final PlanPhase phase = new MockPhase(PhaseType.EVERGREEN, plan, MockDuration.UNLIMITED(), 25.95);
@@ -55,8 +52,7 @@ public class TestBusinessSubscriptionTransition
     }
 
     @Test(groups = "fast")
-    public void testConstructor() throws Exception
-    {
+    public void testConstructor() throws Exception {
         Assert.assertEquals(transition.getEvent(), event);
         Assert.assertEquals(transition.getPreviousSubscription(), prevSubscription);
         Assert.assertEquals(transition.getNextSubscription(), nextSubscription);
@@ -64,8 +60,7 @@ public class TestBusinessSubscriptionTransition
     }
 
     @Test(groups = "fast")
-    public void testEquals() throws Exception
-    {
+    public void testEquals() throws Exception {
         Assert.assertSame(transition, transition);
         Assert.assertEquals(transition, transition);
         Assert.assertTrue(transition.equals(transition));
@@ -92,29 +87,25 @@ public class TestBusinessSubscriptionTransition
     }
 
     @Test(groups = "fast")
-    public void testRejectInvalidTransitions() throws Exception
-    {
+    public void testRejectInvalidTransitions() throws Exception {
         try {
             new BusinessSubscriptionTransition(null, accountKey, requestedTimestamp, event, prevSubscription, nextSubscription);
             Assert.fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             Assert.assertTrue(true);
         }
 
         try {
             new BusinessSubscriptionTransition(key, accountKey, null, event, prevSubscription, nextSubscription);
             Assert.fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             Assert.assertTrue(true);
         }
 
         try {
             new BusinessSubscriptionTransition(key, accountKey, requestedTimestamp, null, prevSubscription, nextSubscription);
             Assert.fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             Assert.assertTrue(true);
         }
     }

@@ -24,25 +24,25 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TestPlanPhase {
-	Logger log = LoggerFactory.getLogger(TestPlanPhase.class);
-	
-	@Test(enabled=true)
-	public void testValidation() {
-		log.info("Testing Plan Phase Validation");
-		
-		DefaultPlanPhase pp = new MockPlanPhase().setBillCycleDuration(BillingPeriod.MONTHLY).setReccuringPrice(null).setFixedPrice(new DefaultInternationalPrice());
-		ValidationErrors errors = pp.validate(new MockCatalog(), new ValidationErrors());
-		errors.log(log);
-		Assert.assertEquals(errors.size(), 1);
+    Logger log = LoggerFactory.getLogger(TestPlanPhase.class);
 
-		pp = new MockPlanPhase().setBillCycleDuration(BillingPeriod.NO_BILLING_PERIOD).setReccuringPrice(new MockInternationalPrice());
-		errors = pp.validate(new MockCatalog(), new ValidationErrors());
-		errors.log(log);
-		Assert.assertEquals(errors.size(), 1);
+    @Test(enabled = true)
+    public void testValidation() {
+        log.info("Testing Plan Phase Validation");
 
-		pp = new MockPlanPhase().setReccuringPrice(null).setFixedPrice(null).setBillCycleDuration(BillingPeriod.NO_BILLING_PERIOD);
-		errors = pp.validate(new MockCatalog(), new ValidationErrors());
-		errors.log(log);
-		Assert.assertEquals(errors.size(), 1);
-}
+        DefaultPlanPhase pp = new MockPlanPhase().setBillCycleDuration(BillingPeriod.MONTHLY).setReccuringPrice(null).setFixedPrice(new DefaultInternationalPrice());
+        ValidationErrors errors = pp.validate(new MockCatalog(), new ValidationErrors());
+        errors.log(log);
+        Assert.assertEquals(errors.size(), 1);
+
+        pp = new MockPlanPhase().setBillCycleDuration(BillingPeriod.NO_BILLING_PERIOD).setReccuringPrice(new MockInternationalPrice());
+        errors = pp.validate(new MockCatalog(), new ValidationErrors());
+        errors.log(log);
+        Assert.assertEquals(errors.size(), 1);
+
+        pp = new MockPlanPhase().setReccuringPrice(null).setFixedPrice(null).setBillCycleDuration(BillingPeriod.NO_BILLING_PERIOD);
+        errors = pp.validate(new MockCatalog(), new ValidationErrors());
+        errors.log(log);
+        Assert.assertEquals(errors.size(), 1);
+    }
 }

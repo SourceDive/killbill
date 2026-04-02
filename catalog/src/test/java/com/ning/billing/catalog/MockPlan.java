@@ -18,29 +18,29 @@ package com.ning.billing.catalog;
 
 public class MockPlan extends DefaultPlan {
 
-	public MockPlan(String name, DefaultProduct product, DefaultPlanPhase[] planPhases, DefaultPlanPhase finalPhase, int plansAllowedInBundle) {
-		setName(name);
-		setProduct(product);
-		setFinalPhase(finalPhase);
-		setInitialPhases(planPhases);
-		setPlansAllowedInBundle(plansAllowedInBundle);
-	}
-	
-	public MockPlan() {
-		setName("test-plan");
-		setProduct(new MockProduct());
-		setFinalPhase(new MockPlanPhase(this));
-		setInitialPhases(null);
-		setPlansAllowedInBundle(1);
-	}
+    public MockPlan(String name, DefaultProduct product, DefaultPlanPhase[] planPhases, DefaultPlanPhase finalPhase, int plansAllowedInBundle) {
+        setName(name);
+        setProduct(product);
+        setFinalPhase(finalPhase);
+        setInitialPhases(planPhases);
+        setPlansAllowedInBundle(plansAllowedInBundle);
+    }
 
-	public MockPlan(MockPlanPhase mockPlanPhase) {
-		setName("test-plan");
-		setProduct(new MockProduct());
-		setFinalPhase(mockPlanPhase);
-		setInitialPhases(null);
-		setPlansAllowedInBundle(1);
-	}
+    public MockPlan() {
+        setName("test-plan");
+        setProduct(new MockProduct());
+        setFinalPhase(new MockPlanPhase(this));
+        setInitialPhases(null);
+        setPlansAllowedInBundle(1);
+    }
+
+    public MockPlan(MockPlanPhase mockPlanPhase) {
+        setName("test-plan");
+        setProduct(new MockProduct());
+        setFinalPhase(mockPlanPhase);
+        setInitialPhases(null);
+        setPlansAllowedInBundle(1);
+    }
 
 
 }

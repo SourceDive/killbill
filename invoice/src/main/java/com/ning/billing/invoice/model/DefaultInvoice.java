@@ -54,7 +54,7 @@ public class DefaultInvoice implements Invoice {
         this.invoiceDate = invoiceDate;
         this.targetDate = targetDate;
         this.currency = currency;
-        this.lastPaymentAttempt= lastPaymentAttempt;
+        this.lastPaymentAttempt = lastPaymentAttempt;
         this.amountPaid = amountPaid;
         this.items.addAll(invoiceItems);
     }

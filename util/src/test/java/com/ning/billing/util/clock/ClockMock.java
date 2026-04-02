@@ -84,7 +84,7 @@ public class ClockMock extends DefaultClock {
     }
 
     private DateTime adjust(DateTime realNow) {
-        switch(deltaType) {
+        switch (deltaType) {
             case DELTA_NONE:
                 return realNow;
             case DELTA_ABS:
@@ -103,21 +103,21 @@ public class ClockMock extends DefaultClock {
 
             int length = cur.getNumber();
             switch (cur.getUnit()) {
-            case DAYS:
-                result = result.plusDays(cur.getNumber());
-                break;
+                case DAYS:
+                    result = result.plusDays(cur.getNumber());
+                    break;
 
-            case MONTHS:
-                result = result.plusMonths(cur.getNumber());
-                break;
+                case MONTHS:
+                    result = result.plusMonths(cur.getNumber());
+                    break;
 
-            case YEARS:
-                result = result.plusYears(cur.getNumber());
-                break;
+                case YEARS:
+                    result = result.plusYears(cur.getNumber());
+                    break;
 
-            case UNLIMITED:
-            default:
-                throw new RuntimeException("ClockMock is adjusting an unlimtited time period");
+                case UNLIMITED:
+                default:
+                    throw new RuntimeException("ClockMock is adjusting an unlimtited time period");
             }
         }
         if (deltaFromRealitDurationEpsilon != 0) {

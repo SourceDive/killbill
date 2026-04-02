@@ -24,20 +24,20 @@ import java.io.Writer;
 
 public class CreateCatalogSchema {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception {
-		if(args.length != 1) {
-			System.err.println("Usage: <filepath>");
-			System.exit(0);
-		}
-		
-		File f = new File(args[0]);
-		Writer w = new FileWriter(f);
-		w.write(XMLSchemaGenerator.xmlSchemaAsString(StandaloneCatalog.class));
-		w.close();
+    /**
+     * @param args
+     */
+    public static void main(String[] args) throws Exception {
+        if (args.length != 1) {
+            System.err.println("Usage: <filepath>");
+            System.exit(0);
+        }
 
-	}
+        File f = new File(args[0]);
+        Writer w = new FileWriter(f);
+        w.write(XMLSchemaGenerator.xmlSchemaAsString(StandaloneCatalog.class));
+        w.close();
+
+    }
 
 }

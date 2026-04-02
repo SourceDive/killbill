@@ -16,15 +16,16 @@
 
 package com.ning.billing.account.dao;
 
-import java.util.UUID;
-import org.testng.annotations.Test;
 import com.ning.billing.util.customfield.DefaultFieldStore;
 import com.ning.billing.util.customfield.FieldStore;
 import com.ning.billing.util.customfield.dao.FieldStoreDao;
+import org.testng.annotations.Test;
+
+import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
 
-@Test(groups={"account-dao"})
+@Test(groups = {"account-dao"})
 public class TestFieldStore extends AccountDaoTestBase {
     @Test
     public void testFieldStore() {

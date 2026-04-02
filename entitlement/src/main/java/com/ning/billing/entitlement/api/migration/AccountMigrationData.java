@@ -16,11 +16,11 @@
 
 package com.ning.billing.entitlement.api.migration;
 
-import java.util.List;
-
 import com.ning.billing.entitlement.api.user.SubscriptionBundleData;
 import com.ning.billing.entitlement.api.user.SubscriptionData;
 import com.ning.billing.entitlement.events.EntitlementEvent;
+
+import java.util.List;
 
 public class AccountMigrationData {
 
@@ -41,7 +41,7 @@ public class AccountMigrationData {
         private final List<SubscriptionMigrationData> subscriptions;
 
         public BundleMigrationData(SubscriptionBundleData data,
-                List<SubscriptionMigrationData> subscriptions) {
+                                   List<SubscriptionMigrationData> subscriptions) {
             super();
             this.data = data;
             this.subscriptions = subscriptions;
@@ -63,7 +63,7 @@ public class AccountMigrationData {
 
         public SubscriptionMigrationData(SubscriptionData data,
 
-                List<EntitlementEvent> initialEvents) {
+                                         List<EntitlementEvent> initialEvents) {
             super();
             this.data = data;
             this.initialEvents = initialEvents;

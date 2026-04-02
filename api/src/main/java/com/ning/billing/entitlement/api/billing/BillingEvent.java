@@ -29,7 +29,7 @@ public interface BillingEvent extends Comparable<BillingEvent> {
     /**
      *
      * @return the billCycleDay as seen for that subscription at that time
-     *
+     * <p>
      * Note: The billCycleDay may come from the Account, or the bundle or the subscription itself
      */
     public int getBillCycleDay();

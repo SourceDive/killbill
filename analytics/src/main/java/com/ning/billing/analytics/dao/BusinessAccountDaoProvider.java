@@ -20,19 +20,16 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.skife.jdbi.v2.DBI;
 
-public class BusinessAccountDaoProvider implements Provider<BusinessAccountDao>
-{
+public class BusinessAccountDaoProvider implements Provider<BusinessAccountDao> {
     private final DBI dbi;
 
     @Inject
-    public BusinessAccountDaoProvider(final DBI dbi)
-    {
+    public BusinessAccountDaoProvider(final DBI dbi) {
         this.dbi = dbi;
     }
 
     @Override
-    public BusinessAccountDao get()
-    {
+    public BusinessAccountDao get() {
         return dbi.onDemand(BusinessAccountDao.class);
     }
 }

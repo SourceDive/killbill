@@ -16,8 +16,9 @@
 
 package com.ning.billing.util.customfield;
 
-import java.util.UUID;
 import com.ning.billing.util.entity.EntityCollectionBase;
+
+import java.util.UUID;
 
 public class DefaultFieldStore extends EntityCollectionBase<CustomField> implements FieldStore {
     public DefaultFieldStore(UUID objectId, String objectType) {

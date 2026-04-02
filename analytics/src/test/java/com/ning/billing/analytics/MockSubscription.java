@@ -28,8 +28,7 @@ import org.joda.time.DateTimeZone;
 import java.util.List;
 import java.util.UUID;
 
-public class MockSubscription implements Subscription
-{
+public class MockSubscription implements Subscription {
     private static final UUID ID = UUID.randomUUID();
     private static final UUID BUNDLE_ID = UUID.randomUUID();
     private static final DateTime START_DATE = new DateTime(DateTimeZone.UTC);
@@ -38,83 +37,70 @@ public class MockSubscription implements Subscription
     private final Plan plan;
     private final PlanPhase phase;
 
-    public MockSubscription(final SubscriptionState state, final Plan plan, final PlanPhase phase)
-    {
+    public MockSubscription(final SubscriptionState state, final Plan plan, final PlanPhase phase) {
         this.state = state;
         this.plan = plan;
         this.phase = phase;
     }
 
     @Override
-    public void cancel(DateTime requestedDate, boolean eot)
-    {
+    public void cancel(DateTime requestedDate, boolean eot) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void changePlan(final String productName, final BillingPeriod term, final String planSet, DateTime requestedDate)
-    {
+    public void changePlan(final String productName, final BillingPeriod term, final String planSet, DateTime requestedDate) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void pause()
-    {
+    public void pause() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void resume()
-    {
+    public void resume() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public UUID getId()
-    {
+    public UUID getId() {
         return ID;
     }
 
     @Override
-    public UUID getBundleId()
-    {
+    public UUID getBundleId() {
         return BUNDLE_ID;
     }
 
     @Override
-    public SubscriptionState getState()
-    {
+    public SubscriptionState getState() {
         return state;
     }
 
     @Override
-    public DateTime getStartDate()
-    {
+    public DateTime getStartDate() {
         return START_DATE;
     }
 
     @Override
-    public Plan getCurrentPlan()
-    {
+    public Plan getCurrentPlan() {
         return plan;
     }
 
     @Override
-    public PlanPhase getCurrentPhase()
-    {
+    public PlanPhase getCurrentPhase() {
         return phase;
     }
 
 
     @Override
-    public void uncancel() throws EntitlementUserApiException
-    {
+    public void uncancel() throws EntitlementUserApiException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public String getCurrentPriceList()
-    {
+    public String getCurrentPriceList() {
         return null;
     }
 

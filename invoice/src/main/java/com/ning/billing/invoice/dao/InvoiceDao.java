@@ -16,11 +16,12 @@
 
 package com.ning.billing.invoice.dao;
 
+import com.ning.billing.invoice.api.Invoice;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import com.ning.billing.invoice.api.Invoice;
 
 public interface InvoiceDao {
     void create(Invoice invoice);

@@ -17,11 +17,11 @@
 package com.ning.billing.invoice.api;
 
 import com.ning.billing.catalog.api.Currency;
+import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import org.joda.time.DateTime;
 
 public interface InvoicePaymentApi {
     public void paymentSuccessful(UUID invoiceId, BigDecimal amount, Currency currency, UUID paymentId, DateTime paymentAttemptDate);

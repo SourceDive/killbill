@@ -19,7 +19,6 @@ package com.ning.billing.entitlement.engine.core;
 import com.ning.billing.entitlement.events.EntitlementEvent;
 
 
-
 public interface EventListener {
 
     public void processEventReady(EntitlementEvent event);

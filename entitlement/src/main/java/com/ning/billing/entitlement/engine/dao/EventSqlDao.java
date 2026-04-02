@@ -39,6 +39,7 @@ import org.skife.jdbi.v2.sqlobject.mixins.Transactional;
 import org.skife.jdbi.v2.sqlobject.mixins.Transmogrifier;
 import org.skife.jdbi.v2.sqlobject.stringtemplate.ExternalizedSqlViaStringTemplate3;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -47,7 +48,7 @@ import java.util.List;
 import java.util.UUID;
 
 @ExternalizedSqlViaStringTemplate3()
-public interface EventSqlDao extends Transactional<EventSqlDao>, CloseMe, Transmogrifier  {
+public interface EventSqlDao extends Transactional<EventSqlDao>, CloseMe, Transmogrifier {
 
     //
     // APIs for event notifications
@@ -72,10 +73,10 @@ public interface EventSqlDao extends Transactional<EventSqlDao>, CloseMe, Transm
     public void insertClaimedHistory(@Bind("sequence_id") int sequenceId, @Bind("owner_id") String ownerId, @Bind("hostname") String hostname, @Bind("claimed_dt") Date clainedDate, @Bind("event_id") String eventId);
 
     @SqlUpdate
-    public void unactiveEvent(@Bind("event_id")String eventId, @Bind("now") Date now);
+    public void unactiveEvent(@Bind("event_id") String eventId, @Bind("now") Date now);
 
     @SqlUpdate
-    public void reactiveEvent(@Bind("event_id")String eventId, @Bind("now") Date now);
+    public void reactiveEvent(@Bind("event_id") String eventId, @Bind("now") Date now);
 
     @SqlQuery
     @Mapper(IEventSqlMapper.class)
@@ -121,7 +122,7 @@ public interface EventSqlDao extends Transactional<EventSqlDao>, CloseMe, Transm
 
         @Override
         public EntitlementEvent map(int index, ResultSet r, StatementContext ctx)
-        throws SQLException {
+                throws SQLException {
 
             UUID id = UUID.fromString(r.getString("event_id"));
             EventType eventType = EventType.valueOf(r.getString("event_type"));
@@ -141,17 +142,17 @@ public interface EventSqlDao extends Transactional<EventSqlDao>, CloseMe, Transm
 
             EventBaseBuilder<?> base = ((eventType == EventType.PHASE) ?
                     new PhaseEventBuilder() :
-                        new ApiEventBuilder())
-                        .setUuid(id)
-                        .setSubscriptionId(subscriptionId)
-                        .setRequestedDate(requestedDate)
-                        .setEffectiveDate(effectiveDate)
-                        .setProcessedDate(createdDate)
-                        .setActiveVersion(currentVersion)
-                        .setActive(isActive)
-                        .setProcessingOwner(processingOwner)
-                        .setNextAvailableProcessingTime(nextAvailableDate)
-                        .setProcessingState(processingState);
+                    new ApiEventBuilder())
+                    .setUuid(id)
+                    .setSubscriptionId(subscriptionId)
+                    .setRequestedDate(requestedDate)
+                    .setEffectiveDate(effectiveDate)
+                    .setProcessedDate(createdDate)
+                    .setActiveVersion(currentVersion)
+                    .setActive(isActive)
+                    .setProcessingOwner(processingOwner)
+                    .setNextAvailableProcessingTime(nextAvailableDate)
+                    .setProcessingState(processingState);
 
 
             EntitlementEvent result = null;
@@ -159,10 +160,10 @@ public interface EventSqlDao extends Transactional<EventSqlDao>, CloseMe, Transm
                 result = new PhaseEventData(new PhaseEventBuilder(base).setPhaseName(phaseName));
             } else if (eventType == EventType.API_USER) {
                 ApiEventBuilder builder = new ApiEventBuilder(base)
-                    .setEventPlan(planName)
-                    .setEventPlanPhase(phaseName)
-                    .setEventPriceList(priceListName)
-                    .setEventType(userType);
+                        .setEventPlan(planName)
+                        .setEventPlanPhase(phaseName)
+                        .setEventPriceList(priceListName)
+                        .setEventType(userType);
 
                 if (userType == ApiEventType.CREATE) {
                     result = new ApiEventCreate(builder);

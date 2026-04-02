@@ -29,71 +29,70 @@ import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class DefaultPriceListSet extends ValidatingConfig<StandaloneCatalog> {
-	@XmlElement(required=true, name="defaultPriceList")
-	private PriceListDefault defaultPricelist;
-	
-	@XmlElement(required=false, name="childPriceList")
-	private DefaultPriceList[] childPriceLists = new DefaultPriceList[0];
-	
-	public DefaultPriceListSet() {
-		if(childPriceLists == null) {
-			childPriceLists = new DefaultPriceList[0];
-		}
-	}
+    @XmlElement(required = true, name = "defaultPriceList")
+    private PriceListDefault defaultPricelist;
 
-	public DefaultPriceListSet(PriceListDefault defaultPricelist, DefaultPriceList[] childPriceLists) {
-		this.defaultPricelist = defaultPricelist;
-		this.childPriceLists = childPriceLists;
-	}
+    @XmlElement(required = false, name = "childPriceList")
+    private DefaultPriceList[] childPriceLists = new DefaultPriceList[0];
 
-	public DefaultPlan getPlanListFrom(String priceListName, Product product,
-			BillingPeriod period) {
-		DefaultPlan result = null;
-		DefaultPriceList pl = findPriceListFrom(priceListName);
-		if(pl != null) {
-			result = pl.findPlan(product, period);
-		}
-		if(result != null) {
-			return result;
-		}
-		
-		return defaultPricelist.findPlan(product, period);
-	}
+    public DefaultPriceListSet() {
+        if (childPriceLists == null) {
+            childPriceLists = new DefaultPriceList[0];
+        }
+    }
 
-	public DefaultPriceList findPriceListFrom (String priceListName) {
-		if (defaultPricelist.getName().equals(priceListName)) {
-			return defaultPricelist;
-		} 
-		for(DefaultPriceList pl : childPriceLists) {
-			if(pl.getName().equals(priceListName)) {
-				return pl;
-			}
-		}
-		return null;
-	}
+    public DefaultPriceListSet(PriceListDefault defaultPricelist, DefaultPriceList[] childPriceLists) {
+        this.defaultPricelist = defaultPricelist;
+        this.childPriceLists = childPriceLists;
+    }
 
-	@Override
-	public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
-		defaultPricelist.validate(catalog, errors);
-		//Check that the default pricelist name is not in use in the children
-		for(DefaultPriceList pl : childPriceLists) {
-			if(pl.getName().equals(PriceListSet.DEFAULT_PRICELIST_NAME)){
-				errors.add(new ValidationError("Pricelists cannot use the reserved name '" + PriceListSet.DEFAULT_PRICELIST_NAME + "'",
-						catalog.getCatalogURI(), DefaultPriceListSet.class, pl.getName()));
-			}
-			pl.validate(catalog, errors); // and validate the individual pricelists
-		}
-		return errors;
-	}
+    public DefaultPlan getPlanListFrom(String priceListName, Product product,
+                                       BillingPeriod period) {
+        DefaultPlan result = null;
+        DefaultPriceList pl = findPriceListFrom(priceListName);
+        if (pl != null) {
+            result = pl.findPlan(product, period);
+        }
+        if (result != null) {
+            return result;
+        }
 
-	public DefaultPriceList getDefaultPricelist() {
-		return defaultPricelist;
-	}
+        return defaultPricelist.findPlan(product, period);
+    }
 
-	public DefaultPriceList[] getChildPriceLists() {
-		return childPriceLists;
-	}
+    public DefaultPriceList findPriceListFrom(String priceListName) {
+        if (defaultPricelist.getName().equals(priceListName)) {
+            return defaultPricelist;
+        }
+        for (DefaultPriceList pl : childPriceLists) {
+            if (pl.getName().equals(priceListName)) {
+                return pl;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+        defaultPricelist.validate(catalog, errors);
+        //Check that the default pricelist name is not in use in the children
+        for (DefaultPriceList pl : childPriceLists) {
+            if (pl.getName().equals(PriceListSet.DEFAULT_PRICELIST_NAME)) {
+                errors.add(new ValidationError("Pricelists cannot use the reserved name '" + PriceListSet.DEFAULT_PRICELIST_NAME + "'",
+                        catalog.getCatalogURI(), DefaultPriceListSet.class, pl.getName()));
+            }
+            pl.validate(catalog, errors); // and validate the individual pricelists
+        }
+        return errors;
+    }
+
+    public DefaultPriceList getDefaultPricelist() {
+        return defaultPricelist;
+    }
+
+    public DefaultPriceList[] getChildPriceLists() {
+        return childPriceLists;
+    }
 
 
-	
 }

@@ -22,10 +22,10 @@ import java.util.Date;
 
 public interface InternationalPrice {
 
-	public abstract Price[] getPrices();
+    public abstract Price[] getPrices();
 
-	public abstract BigDecimal getPrice(Currency currency) throws CatalogApiException;
+    public abstract BigDecimal getPrice(Currency currency) throws CatalogApiException;
 
-	public abstract Date getEffectiveDateForExistingSubscriptons();
+    public abstract Date getEffectiveDateForExistingSubscriptons();
 
 }

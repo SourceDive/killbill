@@ -17,7 +17,6 @@
 package com.ning.billing.entitlement.events.user;
 
 
-
 public class ApiEventCreate extends ApiEventBase {
 
     public ApiEventCreate(ApiEventBuilder builder) {

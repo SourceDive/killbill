@@ -31,38 +31,38 @@ public class TestUserApiChangePlanMemory extends TestUserApiChangePlan {
 
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testChangePlanBundleAlignEOTWithNoChargeThroughDate() {
-         super.testChangePlanBundleAlignEOTWithNoChargeThroughDate();
+        super.testChangePlanBundleAlignEOTWithNoChargeThroughDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testChangePlanBundleAlignEOTWithChargeThroughDate() {
         super.testChangePlanBundleAlignEOTWithChargeThroughDate();
     }
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testChangePlanBundleAlignIMM() {
         super.testChangePlanBundleAlignIMM();
     }
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testMultipleChangeLastIMM() {
         super.testMultipleChangeLastIMM();
     }
 
     @Override
-    @Test(enabled=true, groups={"fast"})
+    @Test(enabled = true, groups = {"fast"})
     public void testMultipleChangeLastEOT() {
         super.testMultipleChangeLastEOT();
     }
 
     // Set to false until we implement rescue example.
     @Override
-    @Test(enabled=false, groups={"fast"})
+    @Test(enabled = false, groups = {"fast"})
     public void testChangePlanChangePlanAlignEOTWithChargeThroughDate() {
         super.testChangePlanChangePlanAlignEOTWithChargeThroughDate();
     }

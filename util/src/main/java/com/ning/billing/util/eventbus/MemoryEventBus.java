@@ -118,6 +118,7 @@ public class MemoryEventBus implements EventBus {
                     operation));
         }
     }
+
     @Override
     public void stop() {
         if (isInitialized.compareAndSet(true, false)) {

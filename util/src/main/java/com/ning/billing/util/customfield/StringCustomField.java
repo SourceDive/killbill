@@ -16,8 +16,9 @@
 
 package com.ning.billing.util.customfield;
 
-import java.util.UUID;
 import com.ning.billing.util.entity.EntityBase;
+
+import java.util.UUID;
 
 public class StringCustomField extends EntityBase<CustomField> implements CustomField {
     private String name;

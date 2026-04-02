@@ -39,7 +39,7 @@ public class BillingExceptionBase extends Exception {
     public BillingExceptionBase(Throwable cause, ErrorCode code, final Object... args) {
         String tmp = null;
         try {
-           tmp = String.format(code.getFormat(), args);
+            tmp = String.format(code.getFormat(), args);
         } catch (RuntimeException e) {
             log.error("Failed to format msg for error code " + code.getCode(), e);
             throw e;

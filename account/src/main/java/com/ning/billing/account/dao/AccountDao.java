@@ -16,9 +16,10 @@
 
 package com.ning.billing.account.dao;
 
-import java.util.UUID;
 import com.ning.billing.account.api.Account;
 import com.ning.billing.util.entity.EntityDao;
+
+import java.util.UUID;
 
 public interface AccountDao extends EntityDao<Account> {
     public Account getAccountByKey(String key);

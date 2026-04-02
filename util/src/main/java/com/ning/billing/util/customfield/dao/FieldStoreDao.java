@@ -16,29 +16,22 @@
 
 package com.ning.billing.util.customfield.dao;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.UUID;
+import com.ning.billing.util.customfield.CustomField;
+import com.ning.billing.util.customfield.StringCustomField;
+import com.ning.billing.util.entity.EntityCollectionDao;
 import org.skife.jdbi.v2.SQLStatement;
 import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.sqlobject.Bind;
-import org.skife.jdbi.v2.sqlobject.Binder;
-import org.skife.jdbi.v2.sqlobject.BinderFactory;
-import org.skife.jdbi.v2.sqlobject.BindingAnnotation;
-import org.skife.jdbi.v2.sqlobject.SqlBatch;
+import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import org.skife.jdbi.v2.sqlobject.mixins.Transmogrifier;
 import org.skife.jdbi.v2.sqlobject.stringtemplate.ExternalizedSqlViaStringTemplate3;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
-import com.ning.billing.util.customfield.CustomField;
-import com.ning.billing.util.customfield.StringCustomField;
-import com.ning.billing.util.entity.EntityCollectionDao;
+
+import java.lang.annotation.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.UUID;
 
 @ExternalizedSqlViaStringTemplate3
 @RegisterMapper(FieldStoreDao.CustomFieldMapper.class)

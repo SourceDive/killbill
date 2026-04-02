@@ -25,25 +25,25 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 
 public class CasePriceList extends Case<DefaultPriceList> {
-    @XmlElement(required=false, name="fromProduct")
+    @XmlElement(required = false, name = "fromProduct")
     @XmlIDREF
     private DefaultProduct fromProduct;
-    
-    @XmlElement(required=false, name="fromProductCategory")
+
+    @XmlElement(required = false, name = "fromProductCategory")
     private ProductCategory fromProductCategory;
-    
-    @XmlElement(required=false, name="fromBillingPeriod")
+
+    @XmlElement(required = false, name = "fromBillingPeriod")
     private BillingPeriod fromBillingPeriod;
-    
-    @XmlElement(required=false, name="fromPriceList")
+
+    @XmlElement(required = false, name = "fromPriceList")
     @XmlIDREF
     private DefaultPriceList fromPriceList;
 
-    @XmlElement(required=true, name="toPriceList")
+    @XmlElement(required = true, name = "toPriceList")
     @XmlIDREF
     private DefaultPriceList toPriceList;
 
-    public DefaultProduct getProduct(){
+    public DefaultProduct getProduct() {
         return fromProduct;
     }
 
@@ -54,7 +54,7 @@ public class CasePriceList extends Case<DefaultPriceList> {
     public BillingPeriod getBillingPeriod() {
         return fromBillingPeriod;
     }
-    
+
     public DefaultPriceList getPriceList() {
         return fromPriceList;
     }
@@ -82,14 +82,12 @@ public class CasePriceList extends Case<DefaultPriceList> {
         this.fromPriceList = priceList;
         return this;
     }
-    
-    
 
 
-	protected CasePriceList setToPriceList(DefaultPriceList toPriceList) {
-		this.toPriceList = toPriceList;
-		return this;
-	}
-	
-	
+    protected CasePriceList setToPriceList(DefaultPriceList toPriceList) {
+        this.toPriceList = toPriceList;
+        return this;
+    }
+
+
 }

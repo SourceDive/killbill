@@ -20,26 +20,26 @@ import java.util.Date;
 
 public interface Catalog {
 
-	public abstract Product[] getProducts();
-	
-	public abstract Plan findPlan(String productName, BillingPeriod term, String priceList) throws CatalogApiException;
+    public abstract Product[] getProducts();
 
-	public abstract Plan findPlan(String name) throws CatalogApiException;
+    public abstract Plan findPlan(String productName, BillingPeriod term, String priceList) throws CatalogApiException;
+
+    public abstract Plan findPlan(String name) throws CatalogApiException;
 
     public abstract Product findProduct(String name) throws CatalogApiException;
 
     public abstract PlanPhase findPhase(String name) throws CatalogApiException;
 
-	
-	public abstract Currency[] getSupportedCurrencies();
 
-	public abstract Plan[] getPlans();
+    public abstract Currency[] getSupportedCurrencies();
 
-	public abstract ActionPolicy planChangePolicy(PlanPhaseSpecifier from,
-			PlanSpecifier to) throws CatalogApiException;
+    public abstract Plan[] getPlans();
 
-	public abstract PlanChangeResult planChange(PlanPhaseSpecifier from,
-			PlanSpecifier to) throws IllegalPlanChange, CatalogApiException;
+    public abstract ActionPolicy planChangePolicy(PlanPhaseSpecifier from,
+                                                  PlanSpecifier to) throws CatalogApiException;
+
+    public abstract PlanChangeResult planChange(PlanPhaseSpecifier from,
+                                                PlanSpecifier to) throws IllegalPlanChange, CatalogApiException;
 
     public abstract Date getEffectiveDate();
 
@@ -54,7 +54,7 @@ public interface Catalog {
     public abstract BillingAlignment billingAlignment(PlanPhaseSpecifier planPhase) throws CatalogApiException;
 
     public abstract PlanAlignmentChange planChangeAlignment(PlanPhaseSpecifier from,
-			PlanSpecifier to) throws CatalogApiException;
+                                                            PlanSpecifier to) throws CatalogApiException;
 
-	
+
 }

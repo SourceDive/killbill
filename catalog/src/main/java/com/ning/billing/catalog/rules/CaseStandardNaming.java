@@ -25,34 +25,34 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 
 public abstract class CaseStandardNaming<T> extends Case<T> {
-    @XmlElement(required=false, name="product")
+    @XmlElement(required = false, name = "product")
     @XmlIDREF
     private DefaultProduct product;
-    @XmlElement(required=false, name="productCategory")
+    @XmlElement(required = false, name = "productCategory")
     private ProductCategory productCategory;
-    
-    @XmlElement(required=false, name="billingPeriod")
+
+    @XmlElement(required = false, name = "billingPeriod")
     private BillingPeriod billingPeriod;
-    
-    @XmlElement(required=false, name="priceList")
+
+    @XmlElement(required = false, name = "priceList")
     @XmlIDREF
     private DefaultPriceList priceList;
 
-	public DefaultProduct getProduct(){
-		return product;
-	}
+    public DefaultProduct getProduct() {
+        return product;
+    }
 
-	public ProductCategory getProductCategory() {
-		return productCategory;
-	}
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
 
-	public BillingPeriod getBillingPeriod() {
-		return billingPeriod;
-	}
-	
-	public DefaultPriceList getPriceList() {
-		return priceList;
-	}
+    public BillingPeriod getBillingPeriod() {
+        return billingPeriod;
+    }
+
+    public DefaultPriceList getPriceList() {
+        return priceList;
+    }
 
     protected CaseStandardNaming<T> setProduct(DefaultProduct product) {
         this.product = product;

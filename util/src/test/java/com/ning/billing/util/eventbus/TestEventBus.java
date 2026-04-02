@@ -102,7 +102,7 @@ public class TestEventBus {
             boolean completed = handler.waitForCompletion(3000);
             Assert.assertEquals(completed, true);
         } catch (Exception e) {
-            Assert.fail("",e);
+            Assert.fail("", e);
         }
 
     }

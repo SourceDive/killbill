@@ -25,8 +25,12 @@ import java.util.UUID;
 
 public interface InvoiceCreationNotification extends EventBusNotification {
     public UUID getInvoiceId();
+
     public UUID getAccountId();
+
     public BigDecimal getAmountOwed();
+
     public Currency getCurrency();
+
     public DateTime getInvoiceCreationDate();
 }

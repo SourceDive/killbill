@@ -16,41 +16,15 @@
 
 package com.ning.billing.entitlement.api;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.util.List;
-import java.util.UUID;
-import org.joda.time.DateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import com.google.inject.Injector;
 import com.ning.billing.account.api.AccountData;
 import com.ning.billing.catalog.DefaultCatalogService;
-import com.ning.billing.catalog.api.BillingPeriod;
-import com.ning.billing.catalog.api.Catalog;
-import com.ning.billing.catalog.api.CatalogService;
-import com.ning.billing.catalog.api.Currency;
-import com.ning.billing.catalog.api.Duration;
-import com.ning.billing.catalog.api.PhaseType;
-import com.ning.billing.catalog.api.PlanPhaseSpecifier;
-import com.ning.billing.catalog.api.ProductCategory;
-import com.ning.billing.catalog.api.TimeUnit;
+import com.ning.billing.catalog.api.*;
 import com.ning.billing.config.EntitlementConfig;
 import com.ning.billing.entitlement.api.ApiTestListener.NextEvent;
-import com.ning.billing.entitlement.api.EntitlementService;
 import com.ning.billing.entitlement.api.billing.EntitlementBillingApi;
 import com.ning.billing.entitlement.api.migration.EntitlementMigrationApi;
-import com.ning.billing.entitlement.api.user.EntitlementUserApi;
-import com.ning.billing.entitlement.api.user.EntitlementUserApiException;
-import com.ning.billing.entitlement.api.user.SubscriptionBundle;
-import com.ning.billing.entitlement.api.user.SubscriptionData;
-import com.ning.billing.entitlement.api.user.SubscriptionTransition;
+import com.ning.billing.entitlement.api.user.*;
 import com.ning.billing.entitlement.engine.core.Engine;
 import com.ning.billing.entitlement.engine.dao.EntitlementDao;
 import com.ning.billing.entitlement.engine.dao.MockEntitlementDao;
@@ -63,11 +37,21 @@ import com.ning.billing.util.clock.Clock;
 import com.ning.billing.util.clock.ClockMock;
 import com.ning.billing.util.eventbus.DefaultEventBusService;
 import com.ning.billing.util.eventbus.EventBusService;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.UUID;
+
+import static org.testng.Assert.*;
 
 
 public abstract class TestApiBase {
@@ -93,19 +77,18 @@ public abstract class TestApiBase {
     protected ApiTestListener testListener;
     protected SubscriptionBundle bundle;
 
-    public static void loadSystemPropertiesFromClasspath( final String resource )
-    {
+    public static void loadSystemPropertiesFromClasspath(final String resource) {
         final URL url = TestApiBase.class.getResource(resource);
         assertNotNull(url);
 
         try {
-            System.getProperties().load( url.openStream() );
+            System.getProperties().load(url.openStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @AfterClass(groups={"setup"})
+    @AfterClass(groups = {"setup"})
     public void tearDown() {
         try {
             busService.getEventBus().register(testListener);
@@ -116,7 +99,7 @@ public abstract class TestApiBase {
 
     }
 
-    @BeforeClass(groups={"setup"})
+    @BeforeClass(groups = {"setup"})
     public void setup() {
 
         loadSystemPropertiesFromClasspath("/entitlement.properties");
@@ -158,7 +141,7 @@ public abstract class TestApiBase {
 
     }
 
-    @BeforeMethod(groups={"setup"})
+    @BeforeMethod(groups = {"setup"})
     public void setupTest() {
 
         log.warn("\n");
@@ -177,14 +160,14 @@ public abstract class TestApiBase {
         }
         assertNotNull(bundle);
 
-        ((Engine)entitlementService).start();
+        ((Engine) entitlementService).start();
     }
 
-    @AfterMethod(groups={"setup"})
+    @AfterMethod(groups = {"setup"})
     public void cleanupTest() {
 
 
-        ((Engine)entitlementService).stop();
+        ((Engine) entitlementService).stop();
         log.warn("DONE WITH TEST\n");
     }
 
@@ -237,6 +220,7 @@ public abstract class TestApiBase {
             public TimeUnit getUnit() {
                 return TimeUnit.DAYS;
             }
+
             @Override
             public int getNumber() {
                 return days;
@@ -251,6 +235,7 @@ public abstract class TestApiBase {
             public TimeUnit getUnit() {
                 return TimeUnit.MONTHS;
             }
+
             @Override
             public int getNumber() {
                 return months;
@@ -266,6 +251,7 @@ public abstract class TestApiBase {
             public TimeUnit getUnit() {
                 return TimeUnit.YEARS;
             }
+
             @Override
             public int getNumber() {
                 return years;
@@ -290,22 +276,27 @@ public abstract class TestApiBase {
             public String getEmail() {
                 return "accountName@yahoo.com";
             }
+
             @Override
             public String getPhone() {
                 return "4152876341";
             }
+
             @Override
             public String getExternalKey() {
                 return "k123456";
             }
+
             @Override
             public int getBillCycleDay() {
                 return 1;
             }
+
             @Override
             public Currency getCurrency() {
                 return Currency.USD;
             }
+
             @Override
             public String getPaymentProviderName() {
                 return "Paypal";

@@ -38,7 +38,7 @@ public class DefaultEntitlementTestApi implements EntitlementTestApi {
     }
 
     @Override
-    public void doProcessReadyEvents(UUID [] subscriptionsIds, Boolean recursive, Boolean oneEventOnly) {
+    public void doProcessReadyEvents(UUID[] subscriptionsIds, Boolean recursive, Boolean oneEventOnly) {
         if (config.isEventProcessingOff()) {
             log.warn("Running event processing loop");
             apiEventProcessor.processAllReadyEvents(subscriptionsIds, recursive, oneEventOnly);

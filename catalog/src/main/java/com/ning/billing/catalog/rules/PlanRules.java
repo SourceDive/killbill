@@ -28,131 +28,132 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class PlanRules extends ValidatingConfig<StandaloneCatalog>  {
+public class PlanRules extends ValidatingConfig<StandaloneCatalog> {
 
-	@XmlElementWrapper(name="changePolicy")
-	@XmlElement(name="changePolicyCase", required=false)
-	private CaseChangePlanPolicy[] changeCase;
-	
-	@XmlElementWrapper(name="changeAlignment")
-	@XmlElement(name="changeAlignmentCase", required=false)
-	private CaseChangePlanAlignment[] changeAlignmentCase;
+    @XmlElementWrapper(name = "changePolicy")
+    @XmlElement(name = "changePolicyCase", required = false)
+    private CaseChangePlanPolicy[] changeCase;
 
-	@XmlElementWrapper(name="cancelPolicy")
-	@XmlElement(name="cancelPolicyCase", required=false)
-	private CaseCancelPolicy[] cancelCase;
+    @XmlElementWrapper(name = "changeAlignment")
+    @XmlElement(name = "changeAlignmentCase", required = false)
+    private CaseChangePlanAlignment[] changeAlignmentCase;
 
-	@XmlElementWrapper(name="createAlignment")
-	@XmlElement(name="createAlignmentCase", required=false)
-	private CaseCreateAlignment[] createAlignmentCase;
-	
-	@XmlElementWrapper(name="billingAlignment")
-	@XmlElement(name="billingAlignmentCase", required=false)
-	private CaseBillingAlignment[] billingAlignmentCase;
+    @XmlElementWrapper(name = "cancelPolicy")
+    @XmlElement(name = "cancelPolicyCase", required = false)
+    private CaseCancelPolicy[] cancelCase;
 
-	@XmlElementWrapper(name="priceList")
-	@XmlElement(name="priceListCase", required=false)
-	private CasePriceList[] priceListCase;
+    @XmlElementWrapper(name = "createAlignment")
+    @XmlElement(name = "createAlignmentCase", required = false)
+    private CaseCreateAlignment[] createAlignmentCase;
 
-	public PlanAlignmentCreate getPlanCreateAlignment(PlanSpecifier specifier, StandaloneCatalog catalog) throws CatalogApiException {
-		return Case.getResult(createAlignmentCase, specifier, catalog);      
-    }
-	
-	public ActionPolicy getPlanCancelPolicy(PlanPhaseSpecifier planPhase, StandaloneCatalog catalog) throws CatalogApiException {
-		return CasePhase.getResult(cancelCase, planPhase, catalog);      
-	}
+    @XmlElementWrapper(name = "billingAlignment")
+    @XmlElement(name = "billingAlignmentCase", required = false)
+    private CaseBillingAlignment[] billingAlignmentCase;
 
-	public BillingAlignment getBillingAlignment(PlanPhaseSpecifier planPhase, StandaloneCatalog catalog) throws CatalogApiException {
-		return CasePhase.getResult(billingAlignmentCase, planPhase, catalog);      
-	}
+    @XmlElementWrapper(name = "priceList")
+    @XmlElement(name = "priceListCase", required = false)
+    private CasePriceList[] priceListCase;
 
-	public PlanChangeResult planChange(PlanPhaseSpecifier from, PlanSpecifier to, StandaloneCatalog catalog) throws CatalogApiException {
-		DefaultPriceList priceList = catalog.getPriceListFromName(to.getPriceListName());
-		if( priceList== null ) {
-			priceList = findPriceList(from.toPlanSpecifier(), catalog);
-			to = new PlanSpecifier(to.getProductName(), to.getProductCategory(), to.getBillingPeriod(), priceList.getName());
-		} 
-		
-		ActionPolicy policy = getPlanChangePolicy(from, to, catalog);
-		if(policy == ActionPolicy.ILLEGAL) {
-			throw new IllegalPlanChange(from, to);
-		}
-		
-		PlanAlignmentChange alignment = getPlanChangeAlignment(from, to, catalog);
-		
-		return new PlanChangeResult(priceList, policy, alignment);
-	}
-	
-	public PlanAlignmentChange getPlanChangeAlignment(PlanPhaseSpecifier from,
-			PlanSpecifier to, StandaloneCatalog catalog) throws CatalogApiException {
-		return CaseChange.getResult(changeAlignmentCase, from, to, catalog);      
+    public PlanAlignmentCreate getPlanCreateAlignment(PlanSpecifier specifier, StandaloneCatalog catalog) throws CatalogApiException {
+        return Case.getResult(createAlignmentCase, specifier, catalog);
     }
 
-	public ActionPolicy getPlanChangePolicy(PlanPhaseSpecifier from,
-			PlanSpecifier to, StandaloneCatalog catalog) throws CatalogApiException {
-		if(from.getProductName().equals(to.getProductName()) &&
-				from.getBillingPeriod() == to.getBillingPeriod() &&
-				from.getPriceListName().equals(to.getPriceListName())) {
-			return ActionPolicy.ILLEGAL;
-		}
-		
-		return CaseChange.getResult(changeCase, from, to, catalog); 
-	}
-	
-	private DefaultPriceList findPriceList(PlanSpecifier specifier, StandaloneCatalog catalog) throws CatalogApiException {
-		DefaultPriceList result = Case.getResult(priceListCase, specifier, catalog);
-		if (result == null) {
-			result = catalog.getPriceListFromName(specifier.getPriceListName());
-		}
-		return result;
-	}
-	
-	
-	@Override
-	public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
-	    //TODO: MDW - Validation: check that the plan change special case pairs are unique!
-	    //TODO: MDW - Validation: check that the each product appears in at most one tier.
-		//TODO: MDW - Unit tests for rules
-		//TODO: MDW - validate that there is a default policy for change AND cancel
+    public ActionPolicy getPlanCancelPolicy(PlanPhaseSpecifier planPhase, StandaloneCatalog catalog) throws CatalogApiException {
+        return CasePhase.getResult(cancelCase, planPhase, catalog);
+    }
 
-		return errors;
-	}
+    public BillingAlignment getBillingAlignment(PlanPhaseSpecifier planPhase, StandaloneCatalog catalog) throws CatalogApiException {
+        return CasePhase.getResult(billingAlignmentCase, planPhase, catalog);
+    }
 
-	
-	/////////////////////////////////////////////////////////////////////////////////////
-	// Setters for testing
-	/////////////////////////////////////////////////////////////////////////////////////
-	
-	protected PlanRules setChangeCase(CaseChangePlanPolicy[] changeCase) {
-		this.changeCase = changeCase;
-		return this;
-	}
+    public PlanChangeResult planChange(PlanPhaseSpecifier from, PlanSpecifier to, StandaloneCatalog catalog) throws CatalogApiException {
+        DefaultPriceList priceList = catalog.getPriceListFromName(to.getPriceListName());
+        if (priceList == null) {
+            priceList = findPriceList(from.toPlanSpecifier(), catalog);
+            to = new PlanSpecifier(to.getProductName(), to.getProductCategory(), to.getBillingPeriod(), priceList.getName());
+        }
 
-	protected PlanRules setChangeAlignmentCase(
-			CaseChangePlanAlignment[] changeAlignmentCase) {
-		this.changeAlignmentCase = changeAlignmentCase;
-		return this;
-	}
+        ActionPolicy policy = getPlanChangePolicy(from, to, catalog);
+        if (policy == ActionPolicy.ILLEGAL) {
+            throw new IllegalPlanChange(from, to);
+        }
 
-	protected PlanRules setCancelCase(CaseCancelPolicy[] cancelCase) {
-		this.cancelCase = cancelCase;
-		return this;
-	}
+        PlanAlignmentChange alignment = getPlanChangeAlignment(from, to, catalog);
 
-	protected PlanRules setCreateAlignmentCase(CaseCreateAlignment[] createAlignmentCase) {
-		this.createAlignmentCase = createAlignmentCase;
-		return this;
-	}
+        return new PlanChangeResult(priceList, policy, alignment);
+    }
 
-	protected PlanRules setBillingAlignmentCase(
-			CaseBillingAlignment[] billingAlignmentCase) {
-		this.billingAlignmentCase = billingAlignmentCase;
-		return this;
-	}
+    public PlanAlignmentChange getPlanChangeAlignment(PlanPhaseSpecifier from,
+                                                      PlanSpecifier to, StandaloneCatalog catalog) throws CatalogApiException {
+        return CaseChange.getResult(changeAlignmentCase, from, to, catalog);
+    }
 
-	protected PlanRules setPriceListCase(CasePriceList[] priceListCase) {
-		this.priceListCase = priceListCase;
-		return this;
-	}
+    public ActionPolicy getPlanChangePolicy(PlanPhaseSpecifier from,
+                                            PlanSpecifier to, StandaloneCatalog catalog) throws CatalogApiException {
+        if (from.getProductName().equals(to.getProductName()) &&
+                from.getBillingPeriod() == to.getBillingPeriod() &&
+                from.getPriceListName().equals(to.getPriceListName())) {
+            return ActionPolicy.ILLEGAL;
+        }
+
+        return CaseChange.getResult(changeCase, from, to, catalog);
+    }
+
+    private DefaultPriceList findPriceList(PlanSpecifier specifier, StandaloneCatalog catalog) throws CatalogApiException {
+        DefaultPriceList result = Case.getResult(priceListCase, specifier, catalog);
+        if (result == null) {
+            result = catalog.getPriceListFromName(specifier.getPriceListName());
+        }
+        return result;
+    }
+
+
+    @Override
+    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+        //TODO: MDW - Validation: check that the plan change special case pairs are unique!
+        //TODO: MDW - Validation: check that the each product appears in at most one tier.
+        //TODO: MDW - Unit tests for rules
+        //TODO: MDW - validate that there is a default policy for change AND cancel
+
+        return errors;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    // Setters for testing
+
+    /// //////////////////////////////////////////////////////////////////////////////////
+
+    protected PlanRules setChangeCase(CaseChangePlanPolicy[] changeCase) {
+        this.changeCase = changeCase;
+        return this;
+    }
+
+    protected PlanRules setChangeAlignmentCase(
+            CaseChangePlanAlignment[] changeAlignmentCase) {
+        this.changeAlignmentCase = changeAlignmentCase;
+        return this;
+    }
+
+    protected PlanRules setCancelCase(CaseCancelPolicy[] cancelCase) {
+        this.cancelCase = cancelCase;
+        return this;
+    }
+
+    protected PlanRules setCreateAlignmentCase(CaseCreateAlignment[] createAlignmentCase) {
+        this.createAlignmentCase = createAlignmentCase;
+        return this;
+    }
+
+    protected PlanRules setBillingAlignmentCase(
+            CaseBillingAlignment[] billingAlignmentCase) {
+        this.billingAlignmentCase = billingAlignmentCase;
+        return this;
+    }
+
+    protected PlanRules setPriceListCase(CasePriceList[] priceListCase) {
+        this.priceListCase = priceListCase;
+        return this;
+    }
 
 }

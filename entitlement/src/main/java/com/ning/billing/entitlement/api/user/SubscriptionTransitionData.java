@@ -46,9 +46,9 @@ public class SubscriptionTransitionData implements SubscriptionTransition {
     private final PlanPhase nextPhase;
 
     public SubscriptionTransitionData(UUID eventId, UUID subscriptionId, UUID bundleId, EventType eventType,
-            ApiEventType apiEventType, DateTime requestedTransitionTime, DateTime effectiveTransitionTime,
-            SubscriptionState previousState, Plan previousPlan, PlanPhase previousPhase, String previousPriceList,
-            SubscriptionState nextState, Plan nextPlan, PlanPhase nextPhase, String nextPriceList) {
+                                      ApiEventType apiEventType, DateTime requestedTransitionTime, DateTime effectiveTransitionTime,
+                                      SubscriptionState previousState, Plan previousPlan, PlanPhase previousPhase, String previousPriceList,
+                                      SubscriptionState nextState, Plan nextPlan, PlanPhase nextPhase, String nextPriceList) {
         super();
         this.eventId = eventId;
         this.subscriptionId = subscriptionId;
@@ -126,13 +126,13 @@ public class SubscriptionTransitionData implements SubscriptionTransition {
 
     @Override
     public SubscriptionTransitionType getTransitionType() {
-        switch(eventType) {
-        case API_USER:
-            return apiEventType.getSubscriptionTransitionType();
-        case PHASE:
-            return SubscriptionTransitionType.PHASE;
-        default:
-            throw new EntitlementError("Unexpected event type " + eventType);
+        switch (eventType) {
+            case API_USER:
+                return apiEventType.getSubscriptionTransitionType();
+            case PHASE:
+                return SubscriptionTransitionType.PHASE;
+            default:
+                throw new EntitlementError("Unexpected event type " + eventType);
         }
     }
 
@@ -158,18 +158,18 @@ public class SubscriptionTransitionData implements SubscriptionTransition {
     @Override
     public String toString() {
         return "SubscriptionTransition [eventId=" + eventId
-            + ", subscriptionId=" + subscriptionId
-            + ", eventType=" + eventType + ", apiEventType="
-            + apiEventType + ", requestedTransitionTime=" + requestedTransitionTime
-            + ", effectiveTransitionTime=" + effectiveTransitionTime
-            + ", previousState=" + previousState + ", previousPlan="
-            + ((previousPlan != null) ? previousPlan.getName()  : null)
-            + ", previousPhase=" + ((previousPhase != null) ? previousPhase.getName() : null)
-            + ", previousPriceList " + previousPriceList
-            + ", nextState=" + nextState
-            + ", nextPlan=" + ((nextPlan != null) ? nextPlan.getName() : null)
-            + ", nextPriceList " + nextPriceList
-            + ", nextPhase=" + ((nextPhase != null) ? nextPhase.getName() : null) + "]";
+                + ", subscriptionId=" + subscriptionId
+                + ", eventType=" + eventType + ", apiEventType="
+                + apiEventType + ", requestedTransitionTime=" + requestedTransitionTime
+                + ", effectiveTransitionTime=" + effectiveTransitionTime
+                + ", previousState=" + previousState + ", previousPlan="
+                + ((previousPlan != null) ? previousPlan.getName() : null)
+                + ", previousPhase=" + ((previousPhase != null) ? previousPhase.getName() : null)
+                + ", previousPriceList " + previousPriceList
+                + ", nextState=" + nextState
+                + ", nextPlan=" + ((nextPlan != null) ? nextPlan.getName() : null)
+                + ", nextPriceList " + nextPriceList
+                + ", nextPhase=" + ((nextPhase != null) ? nextPhase.getName() : null) + "]";
     }
 
 }

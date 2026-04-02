@@ -18,9 +18,9 @@ package com.ning.billing.invoice.glue;
 
 import com.google.inject.AbstractModule;
 import com.ning.billing.invoice.api.InvoicePaymentApi;
+import com.ning.billing.invoice.api.InvoiceUserApi;
 import com.ning.billing.invoice.api.invoice.DefaultInvoicePaymentApi;
 import com.ning.billing.invoice.api.user.DefaultInvoiceUserApi;
-import com.ning.billing.invoice.api.InvoiceUserApi;
 import com.ning.billing.invoice.dao.DefaultInvoiceDao;
 import com.ning.billing.invoice.dao.InvoiceDao;
 

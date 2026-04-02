@@ -16,8 +16,8 @@
 
 package com.ning.billing.util.tag;
 
-import org.joda.time.DateTime;
 import com.ning.billing.util.entity.Entity;
+import org.joda.time.DateTime;
 
 public interface TagDescription extends Entity {
     String getName();

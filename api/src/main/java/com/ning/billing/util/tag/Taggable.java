@@ -16,16 +16,24 @@
 
 package com.ning.billing.util.tag;
 
-import java.util.List;
 import org.joda.time.DateTime;
+
+import java.util.List;
 
 public interface Taggable {
     public List<Tag> getTagList();
+
     public boolean hasTag(String tagName);
+
     public void addTag(TagDescription description, String addedBy, DateTime dateAdded);
+
     public void addTags(List<Tag> tags);
+
     public void clearTags();
+
     public void removeTag(TagDescription description);
+
     public boolean generateInvoice();
+
     public boolean processPayment();
 }

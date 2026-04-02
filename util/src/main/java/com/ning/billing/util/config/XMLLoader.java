@@ -34,63 +34,63 @@ import java.io.InputStream;
 import java.net.URI;
 
 public class XMLLoader {
-	public static Logger log = LoggerFactory.getLogger(XMLLoader.class);
+    public static Logger log = LoggerFactory.getLogger(XMLLoader.class);
 
-	public static <T extends ValidatingConfig<T>> T getObjectFromString(String uri, Class<T> objectType) throws Exception {
-		if (uri == null) {
-			return null;
-		}
-		log.info("Initializing an object of class " + objectType.getName() + " from xml file at: " + uri);
-					
-		return getObjectFromStream(new URI(uri), UriAccessor.accessUri(uri), objectType);
-	}
-	
-	public static <T extends ValidatingConfig<T>> T getObjectFromUri(URI uri, Class<T> objectType) throws Exception {
-		if (uri == null) {
-			return null;
-		}
-		log.info("Initializing an object of class " + objectType.getName() + " from xml file at: " + uri);
-					
-		return getObjectFromStream(uri, UriAccessor.accessUri(uri), objectType);
-	}
-	
-	public static <T extends ValidatingConfig<T>> T getObjectFromStream(URI uri, InputStream stream, Class<T> clazz) throws SAXException, InvalidConfigException, JAXBException, IOException, TransformerException, ValidationException {
+    public static <T extends ValidatingConfig<T>> T getObjectFromString(String uri, Class<T> objectType) throws Exception {
+        if (uri == null) {
+            return null;
+        }
+        log.info("Initializing an object of class " + objectType.getName() + " from xml file at: " + uri);
+
+        return getObjectFromStream(new URI(uri), UriAccessor.accessUri(uri), objectType);
+    }
+
+    public static <T extends ValidatingConfig<T>> T getObjectFromUri(URI uri, Class<T> objectType) throws Exception {
+        if (uri == null) {
+            return null;
+        }
+        log.info("Initializing an object of class " + objectType.getName() + " from xml file at: " + uri);
+
+        return getObjectFromStream(uri, UriAccessor.accessUri(uri), objectType);
+    }
+
+    public static <T extends ValidatingConfig<T>> T getObjectFromStream(URI uri, InputStream stream, Class<T> clazz) throws SAXException, InvalidConfigException, JAXBException, IOException, TransformerException, ValidationException {
         Object o = unmarshaller(clazz).unmarshal(stream);
         if (clazz.isInstance(o)) {
-        	@SuppressWarnings("unchecked")
-			T castObject = (T)o;
-        	try {
-        		validate(uri,castObject);
-        	} catch (ValidationException e) {
-        		e.getErrors().log(log);
-        		System.err.println(e.getErrors().toString());
-        		throw e;
-        	}
+            @SuppressWarnings("unchecked")
+            T castObject = (T) o;
+            try {
+                validate(uri, castObject);
+            } catch (ValidationException e) {
+                e.getErrors().log(log);
+                System.err.println(e.getErrors().toString());
+                throw e;
+            }
             return castObject;
         } else {
             return null;
         }
-    } 
-
-	public static <T extends ValidatingConfig<T>> void validate(URI uri, T c) throws ValidationException {
-            c.initialize(c, uri);
-            ValidationErrors errs = c.validate(c, new ValidationErrors());
-            log.info("Errors: " + errs.size() + " for " + uri);  
-            if(errs.size() > 0) {
-            	throw new ValidationException(errs);
-            }
     }
-    
+
+    public static <T extends ValidatingConfig<T>> void validate(URI uri, T c) throws ValidationException {
+        c.initialize(c, uri);
+        ValidationErrors errs = c.validate(c, new ValidationErrors());
+        log.info("Errors: " + errs.size() + " for " + uri);
+        if (errs.size() > 0) {
+            throw new ValidationException(errs);
+        }
+    }
+
     public static Unmarshaller unmarshaller(Class<?> clazz) throws JAXBException, SAXException, IOException, TransformerException {
-    	 JAXBContext context =JAXBContext.newInstance(clazz);
+        JAXBContext context = JAXBContext.newInstance(clazz);
 
-         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI );
-         Unmarshaller um = context.createUnmarshaller();
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Unmarshaller um = context.createUnmarshaller();
 
-         Schema schema = factory.newSchema(new StreamSource(XMLSchemaGenerator.xmlSchema(clazz)));
-         um.setSchema(schema);
-         
-         return um;
+        Schema schema = factory.newSchema(new StreamSource(XMLSchemaGenerator.xmlSchema(clazz)));
+        um.setSchema(schema);
+
+        return um;
     }
-	
+
 }

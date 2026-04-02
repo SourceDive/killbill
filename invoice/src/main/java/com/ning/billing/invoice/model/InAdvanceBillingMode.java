@@ -89,7 +89,9 @@ public class InAdvanceBillingMode extends BillingModeBase {
         DateTime proposedDate = previousBillCycleDate;
         proposedDate = proposedDate.plusMonths(billingPeriod.getNumberOfMonths());
 
-        if (!proposedDate.isBefore(date)) {return previousBillCycleDate;}
+        if (!proposedDate.isBefore(date)) {
+            return previousBillCycleDate;
+        }
 
         while (proposedDate.isBefore(date)) {
             proposedDate = proposedDate.plusMonths(billingPeriod.getNumberOfMonths());

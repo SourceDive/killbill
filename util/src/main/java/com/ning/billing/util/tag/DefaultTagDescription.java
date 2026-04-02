@@ -16,9 +16,10 @@
 
 package com.ning.billing.util.tag;
 
-import java.util.UUID;
-import org.joda.time.DateTime;
 import com.ning.billing.util.entity.EntityBase;
+import org.joda.time.DateTime;
+
+import java.util.UUID;
 
 public class DefaultTagDescription extends EntityBase implements TagDescription {
     private String name;
@@ -45,7 +46,7 @@ public class DefaultTagDescription extends EntityBase implements TagDescription 
         this.createdBy = createdBy;
         this.creationDate = creationDate;
     }
-    
+
     @Override
     public String getName() {
         return name;

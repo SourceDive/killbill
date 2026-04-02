@@ -44,7 +44,7 @@ public class DefaultBillingEvent implements BillingEvent {
 
 
     public DefaultBillingEvent(UUID subscriptionId, DateTime startDate, String planName, String planPhaseName, InternationalPrice price,
-                        BillingPeriod billingPeriod, int billCycleDay, BillingModeType billingMode) {
+                               BillingPeriod billingPeriod, int billCycleDay, BillingModeType billingMode) {
         this.subscriptionId = subscriptionId;
         this.startDate = startDate;
         this.planName = planName;
@@ -96,15 +96,15 @@ public class DefaultBillingEvent implements BillingEvent {
         return price;
     }
 
- // TODO handle exception correctly
+    // TODO handle exception correctly
     @Override
     public BigDecimal getPrice(Currency currency) {
         try {
-			return price.getPrice(currency);
-		} catch (CatalogApiException e)  {
-			e.printStackTrace();
-			return new BigDecimal(0);
-		}
+            return price.getPrice(currency);
+        } catch (CatalogApiException e) {
+            e.printStackTrace();
+            return new BigDecimal(0);
+        }
     }
 
     @Override

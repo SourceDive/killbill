@@ -16,40 +16,46 @@
 
 package com.ning.billing.util.notification;
 
-import static org.testng.AssertJUnit.*;
 import org.testng.annotations.Test;
 
+import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.fail;
+
 public class TestNotificationSystem {
-	
-	private class TestNotify implements INotification {}
-	private class TestDontNotify implements INotification {}
-	private boolean notified;
-	
-	
-	@Test(enabled=true)
-	public void test(){
-		NotificationSystem ns = new NotificationSystem();
-		
-		ns.register(new INotificationHandler<TestNotify>() {
 
-			@Override
-			public void handle(TestNotify notification) {
-				notified = true;
-				
-			}
-		}, TestNotify.class);
-		
-		ns.register(new INotificationHandler<TestDontNotify>() {
+    private class TestNotify implements INotification {
+    }
 
-			@Override
-			public void handle(TestDontNotify notification) {
-				fail("This notification should not be called");
-				
-			}
-		}, TestDontNotify.class);
-		
-		ns.publish(new TestNotify());
-		
-		assertTrue(notified);
-	}
+    private class TestDontNotify implements INotification {
+    }
+
+    private boolean notified;
+
+
+    @Test(enabled = true)
+    public void test() {
+        NotificationSystem ns = new NotificationSystem();
+
+        ns.register(new INotificationHandler<TestNotify>() {
+
+            @Override
+            public void handle(TestNotify notification) {
+                notified = true;
+
+            }
+        }, TestNotify.class);
+
+        ns.register(new INotificationHandler<TestDontNotify>() {
+
+            @Override
+            public void handle(TestDontNotify notification) {
+                fail("This notification should not be called");
+
+            }
+        }, TestDontNotify.class);
+
+        ns.publish(new TestNotify());
+
+        assertTrue(notified);
+    }
 }

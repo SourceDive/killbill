@@ -20,19 +20,16 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.skife.jdbi.v2.DBI;
 
-public class BusinessSubscriptionTransitionDaoProvider implements Provider<BusinessSubscriptionTransitionDao>
-{
+public class BusinessSubscriptionTransitionDaoProvider implements Provider<BusinessSubscriptionTransitionDao> {
     private final DBI dbi;
 
     @Inject
-    public BusinessSubscriptionTransitionDaoProvider(final DBI dbi)
-    {
+    public BusinessSubscriptionTransitionDaoProvider(final DBI dbi) {
         this.dbi = dbi;
     }
 
     @Override
-    public BusinessSubscriptionTransitionDao get()
-    {
+    public BusinessSubscriptionTransitionDao get() {
         return dbi.onDemand(BusinessSubscriptionTransitionDao.class);
     }
 }

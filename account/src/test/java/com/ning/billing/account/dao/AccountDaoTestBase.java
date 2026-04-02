@@ -58,15 +58,13 @@ public abstract class AccountDaoTestBase {
 
             EventBusService busService = injector.getInstance(EventBusService.class);
             ((DefaultEventBusService) busService).startBus();
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             fail(t.toString());
         }
     }
 
     @AfterClass(alwaysRun = true)
-    public void stopMysql()
-    {
+    public void stopMysql() {
         module.stopDb();
     }
 }

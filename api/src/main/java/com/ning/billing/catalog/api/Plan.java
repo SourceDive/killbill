@@ -20,19 +20,19 @@ import java.util.Iterator;
 
 public interface Plan {
 
-	public abstract PlanPhase[] getInitialPhases();
+    public abstract PlanPhase[] getInitialPhases();
 
-	public abstract Product getProduct();
+    public abstract Product getProduct();
 
-	public abstract String getName();
+    public abstract String getName();
 
-	public abstract Iterator<PlanPhase> getInitialPhaseIterator();
+    public abstract Iterator<PlanPhase> getInitialPhaseIterator();
 
-	public abstract PlanPhase getFinalPhase();
+    public abstract PlanPhase getFinalPhase();
 
-	public abstract BillingPeriod getBillingPeriod();
+    public abstract BillingPeriod getBillingPeriod();
 
-	public abstract int getPlansAllowedInBundle();
+    public abstract int getPlansAllowedInBundle();
 
-	public abstract PlanPhase[] getAllPhases();
+    public abstract PlanPhase[] getAllPhases();
 }

@@ -16,22 +16,18 @@
 
 package com.ning.billing.entitlement.api.user;
 
-import java.util.List;
-import java.util.UUID;
-import org.joda.time.DateTime;
 import com.google.inject.Inject;
 import com.ning.billing.ErrorCode;
-import com.ning.billing.catalog.api.CatalogApiException;
-import com.ning.billing.catalog.api.CatalogService;
-import com.ning.billing.catalog.api.Plan;
-import com.ning.billing.catalog.api.PlanPhase;
-import com.ning.billing.catalog.api.PlanPhaseSpecifier;
-import com.ning.billing.catalog.api.PriceListSet;
+import com.ning.billing.catalog.api.*;
 import com.ning.billing.entitlement.api.user.SubscriptionFactory.SubscriptionBuilder;
 import com.ning.billing.entitlement.engine.dao.EntitlementDao;
 import com.ning.billing.entitlement.exceptions.EntitlementError;
 import com.ning.billing.util.clock.Clock;
 import com.ning.billing.util.clock.DefaultClock;
+import org.joda.time.DateTime;
+
+import java.util.List;
+import java.util.UUID;
 
 public class DefaultEntitlementUserApi implements EntitlementUserApi {
 
@@ -82,7 +78,7 @@ public class DefaultEntitlementUserApi implements EntitlementUserApi {
 
     @Override
     public SubscriptionBundle createBundleForAccount(UUID accountId, String bundleName)
-    throws EntitlementUserApiException {
+            throws EntitlementUserApiException {
         SubscriptionBundleData bundle = new SubscriptionBundleData(bundleName, accountId);
         return dao.createSubscriptionBundle(bundle);
     }
@@ -117,31 +113,31 @@ public class DefaultEntitlementUserApi implements EntitlementUserApi {
             DateTime bundleStartDate = null;
             Subscription baseSubscription = dao.getBaseSubscription(bundleId);
 
-            switch(plan.getProduct().getCategory()) {
-            case BASE:
-                if (baseSubscription != null) {
-                    throw new EntitlementUserApiException(ErrorCode.ENT_CREATE_BP_EXISTS, bundleId);
-                }
-                bundleStartDate = requestedDate;
-                break;
-            case ADD_ON:
-                if (baseSubscription == null) {
-                    throw new EntitlementUserApiException(ErrorCode.ENT_CREATE_NO_BP, bundleId);
-                }
-                bundleStartDate = baseSubscription.getStartDate();
-                break;
-            default:
-                throw new EntitlementError(String.format("Can't create subscription of type %s",
-                        plan.getProduct().getCategory().toString()));
+            switch (plan.getProduct().getCategory()) {
+                case BASE:
+                    if (baseSubscription != null) {
+                        throw new EntitlementUserApiException(ErrorCode.ENT_CREATE_BP_EXISTS, bundleId);
+                    }
+                    bundleStartDate = requestedDate;
+                    break;
+                case ADD_ON:
+                    if (baseSubscription == null) {
+                        throw new EntitlementUserApiException(ErrorCode.ENT_CREATE_NO_BP, bundleId);
+                    }
+                    bundleStartDate = baseSubscription.getStartDate();
+                    break;
+                default:
+                    throw new EntitlementError(String.format("Can't create subscription of type %s",
+                            plan.getProduct().getCategory().toString()));
             }
 
             SubscriptionData subscription = apiService.createBasePlan(new SubscriptionBuilder()
-            .setId(UUID.randomUUID())
-            .setBundleId(bundleId)
-            .setCategory(plan.getProduct().getCategory())
-            .setBundleStartDate(bundleStartDate)
-            .setStartDate(effectiveDate),
-            plan, spec.getPhaseType(), realPriceList, requestedDate, effectiveDate, now);
+                            .setId(UUID.randomUUID())
+                            .setBundleId(bundleId)
+                            .setCategory(plan.getProduct().getCategory())
+                            .setBundleStartDate(bundleStartDate)
+                            .setStartDate(effectiveDate),
+                    plan, spec.getPhaseType(), realPriceList, requestedDate, effectiveDate, now);
 
             return subscription;
         } catch (CatalogApiException e) {

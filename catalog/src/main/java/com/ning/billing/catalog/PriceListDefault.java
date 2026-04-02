@@ -25,27 +25,28 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class PriceListDefault extends DefaultPriceList {
-	
-	public PriceListDefault(){}
-	
-	public PriceListDefault(DefaultPlan[] defaultPlans) {
-		super(defaultPlans, PriceListSet.DEFAULT_PRICELIST_NAME);
-	}
 
-	@Override
-	public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
-		super.validate(catalog, errors);
-		if(!getName().equals(PriceListSet.DEFAULT_PRICELIST_NAME)) {
-			errors.add(new ValidationError("The name of the default pricelist must be 'DEFAULT'", 
-					catalog.getCatalogURI(), DefaultPriceList.class, getName()));
-			
-		}
-		return errors;
-	}
+    public PriceListDefault() {
+    }
 
-	@Override
-	public String getName() {
-		return PriceListSet.DEFAULT_PRICELIST_NAME;
-	}
+    public PriceListDefault(DefaultPlan[] defaultPlans) {
+        super(defaultPlans, PriceListSet.DEFAULT_PRICELIST_NAME);
+    }
+
+    @Override
+    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+        super.validate(catalog, errors);
+        if (!getName().equals(PriceListSet.DEFAULT_PRICELIST_NAME)) {
+            errors.add(new ValidationError("The name of the default pricelist must be 'DEFAULT'",
+                    catalog.getCatalogURI(), DefaultPriceList.class, getName()));
+
+        }
+        return errors;
+    }
+
+    @Override
+    public String getName() {
+        return PriceListSet.DEFAULT_PRICELIST_NAME;
+    }
 
 }

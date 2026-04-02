@@ -23,10 +23,10 @@ import org.testng.annotations.Test;
 
 public class TestXMLReader {
 
-	@Test(enabled=true)
-	public void testCatalogLoad() throws Exception {
-		XMLLoader.getObjectFromString(Resources.getResource("WeaponsHire.xml").toExternalForm(), StandaloneCatalog.class);
-		XMLLoader.getObjectFromString(Resources.getResource("WeaponsHireSmall.xml").toExternalForm(), StandaloneCatalog.class);
-	}
-	
+    @Test(enabled = true)
+    public void testCatalogLoad() throws Exception {
+        XMLLoader.getObjectFromString(Resources.getResource("WeaponsHire.xml").toExternalForm(), StandaloneCatalog.class);
+        XMLLoader.getObjectFromString(Resources.getResource("WeaponsHireSmall.xml").toExternalForm(), StandaloneCatalog.class);
+    }
+
 }

@@ -56,8 +56,8 @@ public class DefaultEntitlementBillingApi implements EntitlementBillingApi {
         }
 
         SubscriptionBuilder builder = new SubscriptionBuilder(subscription)
-            .setChargedThroughDate(ctd)
-            .setPaidThroughDate(subscription.getPaidThroughDate());
+                .setChargedThroughDate(ctd)
+                .setPaidThroughDate(subscription.getPaidThroughDate());
         dao.updateSubscription(new SubscriptionData(builder));
     }
 }

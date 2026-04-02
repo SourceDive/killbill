@@ -22,7 +22,9 @@ import java.util.ArrayList;
 
 public class BillingEventSet extends ArrayList<BillingEvent> {
     public BillingEvent getLast() {
-        if (this.size() == 0) {return null;}
+        if (this.size() == 0) {
+            return null;
+        }
 
         return this.get(this.size() - 1);
     }

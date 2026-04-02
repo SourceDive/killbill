@@ -27,43 +27,43 @@ import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class DefaultDuration extends ValidatingConfig<StandaloneCatalog> implements Duration {
-	@XmlElement(required=true)
+    @XmlElement(required = true)
     private TimeUnit unit;
 
-	@XmlElement(required=false)
+    @XmlElement(required = false)
     private Integer number = -1;
-	
+
     /* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IDuration#getUnit()
-	 */
+     * @see com.ning.billing.catalog.IDuration#getUnit()
+     */
     @Override
-	public TimeUnit getUnit() {
+    public TimeUnit getUnit() {
         return unit;
     }
 
     /* (non-Javadoc)
-	 * @see com.ning.billing.catalog.IDuration#getLength()
-	 */
+     * @see com.ning.billing.catalog.IDuration#getLength()
+     */
     @Override
-	public int getNumber() {
+    public int getNumber() {
         return number;
     }
 
-	@Override
-	public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
-		//TODO MDW - Validation TimeUnit UNLIMITED iff number == -1
-		return errors;
-	}
+    @Override
+    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+        //TODO MDW - Validation TimeUnit UNLIMITED iff number == -1
+        return errors;
+    }
 
-	protected DefaultDuration setUnit(TimeUnit unit) {
-		this.unit = unit;
-		return this;
-	}
+    protected DefaultDuration setUnit(TimeUnit unit) {
+        this.unit = unit;
+        return this;
+    }
 
-	protected DefaultDuration setNumber(Integer number) {
-		this.number = number;
-		return this;
-	}
-	
-	
+    protected DefaultDuration setNumber(Integer number) {
+        this.number = number;
+        return this;
+    }
+
+
 }

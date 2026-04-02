@@ -24,64 +24,63 @@ import com.ning.billing.catalog.rules.*;
 import java.util.Date;
 
 public class MockCatalog extends StandaloneCatalog {
-	private static final String[] PRODUCT_NAMES = new String[]{ "TestProduct1", "TestProduct2", "TestProduct3"};
-	
-	public MockCatalog() {
-		setEffectiveDate(new Date());
-		populateProducts();
-		populateRules();
-		populatePlans();
-		populatePriceLists();
-	}
-	
-	public void populateRules(){
-		setPlanRules(new PlanRules());
-	}
+    private static final String[] PRODUCT_NAMES = new String[]{"TestProduct1", "TestProduct2", "TestProduct3"};
 
-	public void setRules( 
-			CaseChangePlanPolicy[] caseChangePlanPolicy,
-			CaseChangePlanAlignment[] caseChangePlanAlignment,
-			CaseCancelPolicy[] caseCancelPolicy,
-			CaseCreateAlignment[] caseCreateAlignment
-			){
-		
-	}
+    public MockCatalog() {
+        setEffectiveDate(new Date());
+        populateProducts();
+        populateRules();
+        populatePlans();
+        populatePriceLists();
+    }
 
-	public void populateProducts() {
-		String[] names = getProductNames();
-		DefaultProduct[] products = new DefaultProduct[names.length];
-		for(int i = 0; i < names.length; i++) {
-			products[i] = new DefaultProduct(names[i], ProductCategory.BASE);
-		}
-		setProducts(products);
-	}
-	
-	public void populatePlans() {
-		DefaultProduct[] products = getProducts();
-		DefaultPlan[] plans = new DefaultPlan[products.length];
-		for(int i = 0; i < products.length; i++) {
-			DefaultPlanPhase phase = new DefaultPlanPhase().setPhaseType(PhaseType.EVERGREEN).setBillingPeriod(BillingPeriod.MONTHLY).setReccuringPrice(new DefaultInternationalPrice());
-			plans[i] = new MockPlan().setName(products[i].getName().toLowerCase() + "-plan").setProduct(products[i]).setFinalPhase(phase);
-		}
-		setPlans(plans);
-	}
+    public void populateRules() {
+        setPlanRules(new PlanRules());
+    }
 
-	public void populatePriceLists() {
-		DefaultPlan[] plans = getPlans();
-		
-		DefaultPriceList[] priceList = new DefaultPriceList[plans.length - 1];
-		for(int i = 1; i < plans.length; i++) {
-			priceList[i-1] = new DefaultPriceList(new DefaultPlan[]{plans[i]},plans[i].getName()+ "-pl");
-		}
-		
-		DefaultPriceListSet set = new DefaultPriceListSet(new PriceListDefault(new DefaultPlan[]{plans[0]}),priceList);
-		setPriceLists(set);
-	}
-	
-	public String[] getProductNames() {
-		return PRODUCT_NAMES;
-	}
+    public void setRules(
+            CaseChangePlanPolicy[] caseChangePlanPolicy,
+            CaseChangePlanAlignment[] caseChangePlanAlignment,
+            CaseCancelPolicy[] caseCancelPolicy,
+            CaseCreateAlignment[] caseCreateAlignment
+    ) {
+
+    }
+
+    public void populateProducts() {
+        String[] names = getProductNames();
+        DefaultProduct[] products = new DefaultProduct[names.length];
+        for (int i = 0; i < names.length; i++) {
+            products[i] = new DefaultProduct(names[i], ProductCategory.BASE);
+        }
+        setProducts(products);
+    }
+
+    public void populatePlans() {
+        DefaultProduct[] products = getProducts();
+        DefaultPlan[] plans = new DefaultPlan[products.length];
+        for (int i = 0; i < products.length; i++) {
+            DefaultPlanPhase phase = new DefaultPlanPhase().setPhaseType(PhaseType.EVERGREEN).setBillingPeriod(BillingPeriod.MONTHLY).setReccuringPrice(new DefaultInternationalPrice());
+            plans[i] = new MockPlan().setName(products[i].getName().toLowerCase() + "-plan").setProduct(products[i]).setFinalPhase(phase);
+        }
+        setPlans(plans);
+    }
+
+    public void populatePriceLists() {
+        DefaultPlan[] plans = getPlans();
+
+        DefaultPriceList[] priceList = new DefaultPriceList[plans.length - 1];
+        for (int i = 1; i < plans.length; i++) {
+            priceList[i - 1] = new DefaultPriceList(new DefaultPlan[]{plans[i]}, plans[i].getName() + "-pl");
+        }
+
+        DefaultPriceListSet set = new DefaultPriceListSet(new PriceListDefault(new DefaultPlan[]{plans[0]}), priceList);
+        setPriceLists(set);
+    }
+
+    public String[] getProductNames() {
+        return PRODUCT_NAMES;
+    }
 
 
-	
 }

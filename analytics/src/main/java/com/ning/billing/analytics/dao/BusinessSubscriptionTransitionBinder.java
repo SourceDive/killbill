@@ -29,16 +29,11 @@ import java.sql.Types;
 @BindingAnnotation(BusinessSubscriptionTransitionBinder.BstBinderFactory.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER})
-public @interface BusinessSubscriptionTransitionBinder
-{
-    public static class BstBinderFactory implements BinderFactory
-    {
-        public Binder build(final Annotation annotation)
-        {
-            return new Binder<BusinessSubscriptionTransitionBinder, BusinessSubscriptionTransition>()
-            {
-                public void bind(final SQLStatement q, final BusinessSubscriptionTransitionBinder bind, final BusinessSubscriptionTransition arg)
-                {
+public @interface BusinessSubscriptionTransitionBinder {
+    public static class BstBinderFactory implements BinderFactory {
+        public Binder build(final Annotation annotation) {
+            return new Binder<BusinessSubscriptionTransitionBinder, BusinessSubscriptionTransition>() {
+                public void bind(final SQLStatement q, final BusinessSubscriptionTransitionBinder bind, final BusinessSubscriptionTransition arg) {
                     q.bind("event_key", arg.getKey());
                     q.bind("account_key", arg.getAccountKey());
                     q.bind("requested_timestamp", arg.getRequestedTimestamp().getMillis());
@@ -60,14 +55,12 @@ public @interface BusinessSubscriptionTransitionBinder
                         q.bindNull("prev_state", Types.VARCHAR);
                         q.bindNull("prev_subscription_id", Types.VARCHAR);
                         q.bindNull("prev_bundle_id", Types.VARCHAR);
-                    }
-                    else {
+                    } else {
                         q.bind("prev_product_name", previousSubscription.getProductName());
                         q.bind("prev_product_type", previousSubscription.getProductType());
                         if (previousSubscription.getProductCategory() == null) {
                             q.bindNull("prev_product_category", Types.VARCHAR);
-                        }
-                        else {
+                        } else {
                             q.bind("prev_product_category", previousSubscription.getProductCategory().toString());
                         }
                         q.bind("prev_slug", previousSubscription.getSlug());
@@ -79,26 +72,22 @@ public @interface BusinessSubscriptionTransitionBinder
                         q.bind("prev_currency", previousSubscription.getCurrency());
                         if (previousSubscription.getStartDate() == null) {
                             q.bindNull("prev_start_date", Types.BIGINT);
-                        }
-                        else {
+                        } else {
                             q.bind("prev_start_date", previousSubscription.getStartDate().getMillis());
                         }
                         if (previousSubscription.getState() == null) {
                             q.bindNull("prev_state", Types.VARCHAR);
-                        }
-                        else {
+                        } else {
                             q.bind("prev_state", previousSubscription.getState().toString());
                         }
                         if (previousSubscription.getSubscriptionId() == null) {
                             q.bindNull("prev_subscription_id", Types.VARCHAR);
-                        }
-                        else {
+                        } else {
                             q.bind("prev_subscription_id", previousSubscription.getSubscriptionId().toString());
                         }
                         if (previousSubscription.getBundleId() == null) {
                             q.bindNull("prev_bundle_id", Types.VARCHAR);
-                        }
-                        else {
+                        } else {
                             q.bind("prev_bundle_id", previousSubscription.getBundleId().toString());
                         }
                     }
@@ -119,14 +108,12 @@ public @interface BusinessSubscriptionTransitionBinder
                         q.bindNull("next_state", Types.VARCHAR);
                         q.bindNull("next_subscription_id", Types.VARCHAR);
                         q.bindNull("next_bundle_id", Types.VARCHAR);
-                    }
-                    else {
+                    } else {
                         q.bind("next_product_name", nextSubscription.getProductName());
                         q.bind("next_product_type", nextSubscription.getProductType());
                         if (nextSubscription.getProductCategory() == null) {
                             q.bindNull("next_product_category", Types.VARCHAR);
-                        }
-                        else {
+                        } else {
                             q.bind("next_product_category", nextSubscription.getProductCategory().toString());
                         }
                         q.bind("next_slug", nextSubscription.getSlug());
@@ -138,26 +125,22 @@ public @interface BusinessSubscriptionTransitionBinder
                         q.bind("next_currency", nextSubscription.getCurrency());
                         if (nextSubscription.getStartDate() == null) {
                             q.bindNull("next_start_date", Types.BIGINT);
-                        }
-                        else {
+                        } else {
                             q.bind("next_start_date", nextSubscription.getStartDate().getMillis());
                         }
                         if (nextSubscription.getState() == null) {
                             q.bindNull("next_state", Types.VARCHAR);
-                        }
-                        else {
+                        } else {
                             q.bind("next_state", nextSubscription.getState().toString());
                         }
                         if (nextSubscription.getSubscriptionId() == null) {
                             q.bindNull("next_subscription_id", Types.VARCHAR);
-                        }
-                        else {
+                        } else {
                             q.bind("next_subscription_id", nextSubscription.getSubscriptionId().toString());
                         }
                         if (nextSubscription.getBundleId() == null) {
                             q.bindNull("next_bundle_id", Types.VARCHAR);
-                        }
-                        else {
+                        } else {
                             q.bind("next_bundle_id", nextSubscription.getBundleId().toString());
                         }
                     }

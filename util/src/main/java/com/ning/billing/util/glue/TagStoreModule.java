@@ -20,11 +20,9 @@ import com.google.inject.AbstractModule;
 import com.ning.billing.util.tag.dao.TagDescriptionDao;
 import com.ning.billing.util.tag.dao.TagStoreDao;
 
-public class TagStoreModule extends AbstractModule
-{
+public class TagStoreModule extends AbstractModule {
     @Override
-    protected void configure()
-    {
+    protected void configure() {
         bind(TagDescriptionDao.class).toProvider(TagDescriptionDaoProvider.class).asEagerSingleton();
         bind(TagStoreDao.class).toProvider(TagStoreDaoProvider.class).asEagerSingleton();
     }

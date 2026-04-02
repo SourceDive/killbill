@@ -16,12 +16,11 @@
 
 package com.ning.billing.entitlement.alignment;
 
-import org.joda.time.DateTime;
-
 import com.ning.billing.catalog.api.Plan;
 import com.ning.billing.catalog.api.PlanPhase;
 import com.ning.billing.entitlement.events.EntitlementEvent.EventType;
 import com.ning.billing.entitlement.events.user.ApiEventType;
+import org.joda.time.DateTime;
 
 public class TimedMigration {
 
@@ -35,7 +34,7 @@ public class TimedMigration {
 
 
     public TimedMigration(DateTime eventTime, EventType eventType,
-            ApiEventType apiEventType, Plan plan, PlanPhase phase, String priceList) {
+                          ApiEventType apiEventType, Plan plan, PlanPhase phase, String priceList) {
         super();
         this.eventTime = eventTime;
         this.eventType = eventType;

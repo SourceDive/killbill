@@ -16,23 +16,23 @@
 
 package com.ning.billing.catalog.rules;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import com.ning.billing.catalog.api.ActionPolicy;
 
-public class CaseCancelPolicy extends CasePhase<ActionPolicy>{
+import javax.xml.bind.annotation.XmlElement;
 
-	@XmlElement(required=true)
-	private ActionPolicy policy;
+public class CaseCancelPolicy extends CasePhase<ActionPolicy> {
 
-	@Override
-	protected ActionPolicy getResult() {
-		return policy;
-	}
+    @XmlElement(required = true)
+    private ActionPolicy policy;
 
-	protected CaseCancelPolicy setPolicy(ActionPolicy policy) {
-		this.policy = policy;
-		return this;
-	}
+    @Override
+    protected ActionPolicy getResult() {
+        return policy;
+    }
+
+    protected CaseCancelPolicy setPolicy(ActionPolicy policy) {
+        this.policy = policy;
+        return this;
+    }
 
 }

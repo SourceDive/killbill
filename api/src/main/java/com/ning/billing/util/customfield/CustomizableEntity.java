@@ -16,8 +16,9 @@
 
 package com.ning.billing.util.customfield;
 
-import java.util.List;
 import com.ning.billing.util.entity.Entity;
+
+import java.util.List;
 
 public interface CustomizableEntity extends Entity {
     public String getFieldValue(String fieldName);
