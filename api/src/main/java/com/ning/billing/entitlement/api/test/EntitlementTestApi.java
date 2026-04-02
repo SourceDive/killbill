@@ -21,6 +21,8 @@ import java.util.UUID;
 
 public interface EntitlementTestApi {
 
-    public void doProcessReadyEvents(UUID[] subscriptionsIds, Boolean recursive, Boolean oneEventOnly);
+    public void doProcessReadyEvents(UUID[] subscriptionsIds,
+                                     Boolean recursive,
+                                     Boolean oneEventOnly);
 
 }

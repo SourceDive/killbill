@@ -21,7 +21,8 @@ import com.ning.billing.ErrorCode;
 public class CurrencyValueNull extends CatalogApiException {
     private static final long serialVersionUID = 1L;
 
-    public CurrencyValueNull(Throwable cause, Object... args) {
+    public CurrencyValueNull(Throwable cause,
+                             Object... args) {
         super(cause, ErrorCode.CAT_PRICE_VALUE_NULL_FOR_CURRENCY, args);
     }
 

@@ -24,13 +24,16 @@ import java.util.List;
 import java.util.UUID;
 
 public interface InvoiceUserApi {
-    public List<UUID> getInvoicesForPayment(DateTime targetDate, int numberOfDays);
+    public List<UUID> getInvoicesForPayment(DateTime targetDate,
+                                            int numberOfDays);
 
     public List<Invoice> getInvoicesByAccount(UUID accountId);
 
     public Invoice getInvoice(UUID invoiceId);
 
-    public void paymentAttemptFailed(UUID invoiceId, UUID paymentId, DateTime paymentAttemptDate);
+    public void paymentAttemptFailed(UUID invoiceId,
+                                     UUID paymentId,
+                                     DateTime paymentAttemptDate);
 
     public void paymentAttemptSuccessful(UUID invoiceId, BigDecimal amount, Currency currency,
                                          UUID paymentId, DateTime paymentDate);

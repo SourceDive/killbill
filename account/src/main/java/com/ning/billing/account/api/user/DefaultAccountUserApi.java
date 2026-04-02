@@ -38,7 +38,9 @@ public class DefaultAccountUserApi implements com.ning.billing.account.api.Accou
     }
 
     @Override
-    public Account createAccount(final AccountData data, final List<CustomField> fields, List<Tag> tags) throws AccountApiException {
+    public Account createAccount(final AccountData data,
+                                 final List<CustomField> fields,
+                                 List<Tag> tags) throws AccountApiException {
         String key = data.getExternalKey();
         Account existingAccount = dao.getAccountByKey(key);
 

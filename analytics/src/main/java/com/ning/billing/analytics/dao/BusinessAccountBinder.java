@@ -37,7 +37,9 @@ public @interface BusinessAccountBinder {
 
         public Binder build(final Annotation annotation) {
             return new Binder<BusinessAccountBinder, BusinessAccount>() {
-                public void bind(final SQLStatement q, final BusinessAccountBinder bind, final BusinessAccount account) {
+                public void bind(final SQLStatement q,
+                                 final BusinessAccountBinder bind,
+                                 final BusinessAccount account) {
                     final DateTime dateTimeNow = new DateTime(DateTimeZone.UTC);
 
                     if (account.getCreatedDt() != null) {

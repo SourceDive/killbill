@@ -19,7 +19,8 @@ package com.ning.billing.catalog.api;
 public class InvalidConfigException extends Exception {
     private static final long serialVersionUID = 1L;
 
-    public InvalidConfigException(String arg0, Throwable arg1) {
+    public InvalidConfigException(String arg0,
+                                  Throwable arg1) {
         super(arg0, arg1);
     }
 

@@ -25,7 +25,9 @@ public class DefaultChangedField implements ChangedField {
     private final String newValue;
     private final DateTime changeDate;
 
-    public DefaultChangedField(String fieldName, String oldValue, String newValue) {
+    public DefaultChangedField(String fieldName,
+                               String oldValue,
+                               String newValue) {
         this.changeDate = new DefaultClock().getUTCNow();
         this.fieldName = fieldName;
         this.oldValue = oldValue;

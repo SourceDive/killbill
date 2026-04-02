@@ -31,13 +31,16 @@ public class MockIAccountUserApi implements AccountUserApi {
     private final AccountData account;
     private final UUID id;
 
-    public MockIAccountUserApi(final String accountKey, final Currency currency) {
+    public MockIAccountUserApi(final String accountKey,
+                               final Currency currency) {
         this.id = UUID.randomUUID();
         account = new MockAccount(id, accountKey, currency);
     }
 
     @Override
-    public Account createAccount(final AccountData data, final List<CustomField> fields, final List<Tag> tags) {
+    public Account createAccount(final AccountData data,
+                                 final List<CustomField> fields,
+                                 final List<Tag> tags) {
         throw new UnsupportedOperationException();
     }
 

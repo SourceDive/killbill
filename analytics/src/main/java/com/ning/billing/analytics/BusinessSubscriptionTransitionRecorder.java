@@ -39,7 +39,9 @@ public class BusinessSubscriptionTransitionRecorder {
     private final AccountUserApi accountApi;
 
     @Inject
-    public BusinessSubscriptionTransitionRecorder(final BusinessSubscriptionTransitionDao dao, final EntitlementUserApi entitlementApi, final AccountUserApi accountApi) {
+    public BusinessSubscriptionTransitionRecorder(final BusinessSubscriptionTransitionDao dao,
+                                                  final EntitlementUserApi entitlementApi,
+                                                  final AccountUserApi accountApi) {
         this.dao = dao;
         this.entitlementApi = entitlementApi;
         this.accountApi = accountApi;
@@ -75,7 +77,8 @@ public class BusinessSubscriptionTransitionRecorder {
         recordTransition(event, phaseChanged);
     }
 
-    public void recordTransition(final BusinessSubscriptionEvent event, final SubscriptionTransition transition) throws AccountApiException {
+    public void recordTransition(final BusinessSubscriptionEvent event,
+                                 final SubscriptionTransition transition) throws AccountApiException {
         Currency currency = null;
         String transitionKey = null;
         String accountKey = null;
@@ -116,7 +119,12 @@ public class BusinessSubscriptionTransitionRecorder {
     }
 
     // Public for internal reasons
-    public void record(final String key, final String accountKey, final DateTime requestedDateTime, final BusinessSubscriptionEvent event, final BusinessSubscription prevSubscription, final BusinessSubscription nextSubscription) {
+    public void record(final String key,
+                       final String accountKey,
+                       final DateTime requestedDateTime,
+                       final BusinessSubscriptionEvent event,
+                       final BusinessSubscription prevSubscription,
+                       final BusinessSubscription nextSubscription) {
         final BusinessSubscriptionTransition transition = new BusinessSubscriptionTransition(
                 key,
                 accountKey,

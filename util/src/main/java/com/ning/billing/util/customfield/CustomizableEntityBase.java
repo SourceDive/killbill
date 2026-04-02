@@ -35,7 +35,8 @@ public abstract class CustomizableEntityBase extends EntityBase implements Custo
     }
 
     @Override
-    public void setFieldValue(final String fieldName, final String fieldValue) {
+    public void setFieldValue(final String fieldName,
+                              final String fieldValue) {
         fields.setValue(fieldName, fieldValue);
     }
 

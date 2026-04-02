@@ -41,6 +41,7 @@ public interface EntitlementBillingApi {
     public SortedSet<BillingEvent> getBillingEventsForSubscription(UUID subscriptionId);
 
 
-    public void setChargedThroughDate(UUID subscriptionId, DateTime ctd);
+    public void setChargedThroughDate(UUID subscriptionId,
+                                      DateTime ctd);
 
 }

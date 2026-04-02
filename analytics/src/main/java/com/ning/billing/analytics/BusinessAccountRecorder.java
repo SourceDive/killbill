@@ -37,7 +37,8 @@ public class BusinessAccountRecorder {
     private final AccountUserApi accountApi;
 
     @Inject
-    public BusinessAccountRecorder(final BusinessAccountDao dao, final AccountUserApi accountApi) {
+    public BusinessAccountRecorder(final BusinessAccountDao dao,
+                                   final AccountUserApi accountApi) {
         this.dao = dao;
         this.accountApi = accountApi;
     }
@@ -67,7 +68,8 @@ public class BusinessAccountRecorder {
         dao.createAccount(bac);
     }
 
-    public void accountUpdated(final UUID accountId, final List<ChangedField> changedFields) {
+    public void accountUpdated(final UUID accountId,
+                               final List<ChangedField> changedFields) {
         // None of the fields updated interest us so far - see DefaultAccountChangeNotification
         // TODO We'll need notifications for tags changes eventually
     }

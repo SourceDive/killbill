@@ -55,7 +55,10 @@ public class PhaseEventData extends EventBase implements PhaseEvent {
                 + ", isActive()=" + isActive() + "]\n";
     }
 
-    public static final PhaseEvent getNextPhaseEvent(String phaseName, SubscriptionData subscription, DateTime now, DateTime effectiveDate) {
+    public static final PhaseEvent getNextPhaseEvent(String phaseName,
+                                                     SubscriptionData subscription,
+                                                     DateTime now,
+                                                     DateTime effectiveDate) {
         return (phaseName == null) ?
                 null :
                 new PhaseEventData(new PhaseEventBuilder()

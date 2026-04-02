@@ -156,7 +156,8 @@ public class TestUserApiDemos extends TestApiBase {
     }
 
 
-    private void displayState(UUID subscriptionId, String stepMsg) {
+    private void displayState(UUID subscriptionId,
+                              String stepMsg) {
 
         System.out.println("");
         System.out.println("******\t STEP " + stepMsg + " **************");

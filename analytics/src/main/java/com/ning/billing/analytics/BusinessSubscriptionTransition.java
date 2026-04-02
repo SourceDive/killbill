@@ -31,7 +31,12 @@ public class BusinessSubscriptionTransition {
     private final BusinessSubscription previousSubscription;
     private final BusinessSubscription nextSubscription;
 
-    public BusinessSubscriptionTransition(final String key, final String accountKey, final DateTime requestedTimestamp, final BusinessSubscriptionEvent event, final BusinessSubscription previousSubscription, final BusinessSubscription nextsubscription) {
+    public BusinessSubscriptionTransition(final String key,
+                                          final String accountKey,
+                                          final DateTime requestedTimestamp,
+                                          final BusinessSubscriptionEvent event,
+                                          final BusinessSubscription previousSubscription,
+                                          final BusinessSubscription nextsubscription) {
         if (key == null) {
             throw new IllegalArgumentException("An event must have an key");
         }

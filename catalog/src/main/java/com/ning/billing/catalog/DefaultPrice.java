@@ -65,7 +65,8 @@ public class DefaultPrice extends ValidatingConfig<StandaloneCatalog> implements
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         return errors;
 
     }

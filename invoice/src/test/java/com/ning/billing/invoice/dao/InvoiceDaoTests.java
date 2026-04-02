@@ -219,7 +219,8 @@ public class InvoiceDaoTests extends InvoiceDaoTestBase {
         assertEquals(invoices.size(), count);
     }
 
-    private List<Invoice> getInvoicesDueForPaymentAttempt(List<Invoice> invoices, DateTime date) {
+    private List<Invoice> getInvoicesDueForPaymentAttempt(List<Invoice> invoices,
+                                                          DateTime date) {
         List<Invoice> invoicesDue = new ArrayList<Invoice>();
 
         for (Invoice invoice : invoices) {

@@ -33,7 +33,9 @@ public class MockAccount implements Account {
     private final String accountKey;
     private final Currency currency;
 
-    public MockAccount(final UUID id, final String accountKey, final Currency currency) {
+    public MockAccount(final UUID id,
+                       final String accountKey,
+                       final Currency currency) {
         this.id = id;
         this.accountKey = accountKey;
         this.currency = currency;
@@ -90,7 +92,8 @@ public class MockAccount implements Account {
     }
 
     @Override
-    public void setFieldValue(String fieldName, String fieldValue) {
+    public void setFieldValue(String fieldName,
+                              String fieldValue) {
         throw new NotImplementedException();
     }
 
@@ -125,7 +128,9 @@ public class MockAccount implements Account {
     }
 
     @Override
-    public void addTag(TagDescription description, String addedBy, DateTime dateAdded) {
+    public void addTag(TagDescription description,
+                       String addedBy,
+                       DateTime dateAdded) {
         throw new NotImplementedException();
     }
 

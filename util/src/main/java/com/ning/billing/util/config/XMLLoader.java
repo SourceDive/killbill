@@ -36,7 +36,8 @@ import java.net.URI;
 public class XMLLoader {
     public static Logger log = LoggerFactory.getLogger(XMLLoader.class);
 
-    public static <T extends ValidatingConfig<T>> T getObjectFromString(String uri, Class<T> objectType) throws Exception {
+    public static <T extends ValidatingConfig<T>> T getObjectFromString(String uri,
+                                                                        Class<T> objectType) throws Exception {
         if (uri == null) {
             return null;
         }
@@ -45,7 +46,8 @@ public class XMLLoader {
         return getObjectFromStream(new URI(uri), UriAccessor.accessUri(uri), objectType);
     }
 
-    public static <T extends ValidatingConfig<T>> T getObjectFromUri(URI uri, Class<T> objectType) throws Exception {
+    public static <T extends ValidatingConfig<T>> T getObjectFromUri(URI uri,
+                                                                     Class<T> objectType) throws Exception {
         if (uri == null) {
             return null;
         }
@@ -54,7 +56,9 @@ public class XMLLoader {
         return getObjectFromStream(uri, UriAccessor.accessUri(uri), objectType);
     }
 
-    public static <T extends ValidatingConfig<T>> T getObjectFromStream(URI uri, InputStream stream, Class<T> clazz) throws SAXException, InvalidConfigException, JAXBException, IOException, TransformerException, ValidationException {
+    public static <T extends ValidatingConfig<T>> T getObjectFromStream(URI uri,
+                                                                        InputStream stream,
+                                                                        Class<T> clazz) throws SAXException, InvalidConfigException, JAXBException, IOException, TransformerException, ValidationException {
         Object o = unmarshaller(clazz).unmarshal(stream);
         if (clazz.isInstance(o)) {
             @SuppressWarnings("unchecked")
@@ -72,7 +76,8 @@ public class XMLLoader {
         }
     }
 
-    public static <T extends ValidatingConfig<T>> void validate(URI uri, T c) throws ValidationException {
+    public static <T extends ValidatingConfig<T>> void validate(URI uri,
+                                                                T c) throws ValidationException {
         c.initialize(c, uri);
         ValidationErrors errs = c.validate(c, new ValidationErrors());
         log.info("Errors: " + errs.size() + " for " + uri);

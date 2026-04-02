@@ -69,9 +69,9 @@ public class ServiceFinder {
                                                                      String interfaceFilter,
                                                                      String jarFilter,
                                                                      Set<String> packageFilter)
-            throws ClassNotFoundException {
+                                                                     throws ClassNotFoundException {
 
-        final Set<Class<? extends KillbillService>> result = new HashSet<Class<? extends KillbillService>>();
+                                                                     final Set<Class<? extends KillbillService>> result = new HashSet<Class<? extends KillbillService>>();
 
         Object[] classPaths;
         try {
@@ -181,7 +181,8 @@ public class ServiceFinder {
         return superInterfaces.toArray(new Class<?>[superInterfaces.size()]);
     }
 
-    private static void getSuperInterfaces(Set<Class<?>> superInterfaces, Class<?> theInterface) {
+    private static void getSuperInterfaces(Set<Class<?>> superInterfaces,
+                                           Class<?> theInterface) {
 
         superInterfaces.add(theInterface);
         Class<?>[] classInterfaces = theInterface.getInterfaces();
@@ -190,7 +191,9 @@ public class ServiceFinder {
         }
     }
 
-    private static void recursivelyListDir(List<String> dirListing, File dir, StringBuffer relativePath) {
+    private static void recursivelyListDir(List<String> dirListing,
+                                           File dir,
+                                           StringBuffer relativePath) {
         int prevLen;
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();

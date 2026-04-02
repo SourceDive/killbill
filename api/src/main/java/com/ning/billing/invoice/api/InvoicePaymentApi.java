@@ -24,9 +24,15 @@ import java.util.List;
 import java.util.UUID;
 
 public interface InvoicePaymentApi {
-    public void paymentSuccessful(UUID invoiceId, BigDecimal amount, Currency currency, UUID paymentId, DateTime paymentAttemptDate);
+    public void paymentSuccessful(UUID invoiceId,
+                                  BigDecimal amount,
+                                  Currency currency,
+                                  UUID paymentId,
+                                  DateTime paymentAttemptDate);
 
-    public void paymentFailed(UUID invoiceId, UUID paymentId, DateTime paymentAttemptDate);
+    public void paymentFailed(UUID invoiceId,
+                              UUID paymentId,
+                              DateTime paymentAttemptDate);
 
     public List<Invoice> getInvoicesByAccount(UUID accountId);
 

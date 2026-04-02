@@ -25,7 +25,9 @@ public interface Taggable {
 
     public boolean hasTag(String tagName);
 
-    public void addTag(TagDescription description, String addedBy, DateTime dateAdded);
+    public void addTag(TagDescription description,
+                       String addedBy,
+                       DateTime dateAdded);
 
     public void addTags(List<Tag> tags);
 

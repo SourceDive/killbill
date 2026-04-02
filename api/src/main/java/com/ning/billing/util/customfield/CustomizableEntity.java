@@ -23,7 +23,8 @@ import java.util.List;
 public interface CustomizableEntity extends Entity {
     public String getFieldValue(String fieldName);
 
-    public void setFieldValue(String fieldName, String fieldValue);
+    public void setFieldValue(String fieldName,
+                              String fieldValue);
 
     public List<CustomField> getFieldList();
 

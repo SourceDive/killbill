@@ -20,15 +20,20 @@ import com.ning.billing.BillingExceptionBase;
 import com.ning.billing.ErrorCode;
 
 public class AccountApiException extends BillingExceptionBase {
-    public AccountApiException(Throwable cause, int code, final String msg) {
+    public AccountApiException(Throwable cause,
+                               int code,
+                               final String msg) {
         super(cause, code, msg);
     }
 
-    public AccountApiException(Throwable cause, ErrorCode code, final Object... args) {
+    public AccountApiException(Throwable cause,
+                               ErrorCode code,
+                               final Object... args) {
         super(cause, code, args);
     }
 
-    public AccountApiException(ErrorCode code, final Object... args) {
+    public AccountApiException(ErrorCode code,
+                               final Object... args) {
         super(code, args);
     }
 }

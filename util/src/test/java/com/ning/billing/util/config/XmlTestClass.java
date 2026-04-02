@@ -40,7 +40,8 @@ public class XmlTestClass extends ValidatingConfig<XmlTestClass> {
     }
 
     @Override
-    public ValidationErrors validate(XmlTestClass root, ValidationErrors errors) {
+    public ValidationErrors validate(XmlTestClass root,
+                                     ValidationErrors errors) {
         return errors;
     }
 }

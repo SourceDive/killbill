@@ -28,7 +28,9 @@ import java.util.List;
 public class DefaultApiEventProcessor extends ApiEventProcessorBase {
 
     @Inject
-    public DefaultApiEventProcessor(Clock clock, EntitlementDao dao, EntitlementConfig config) {
+    public DefaultApiEventProcessor(Clock clock,
+                                    EntitlementDao dao,
+                                    EntitlementConfig config) {
         super(clock, dao, config);
     }
 
@@ -45,7 +47,8 @@ public class DefaultApiEventProcessor extends ApiEventProcessorBase {
 
 
     @Override
-    protected boolean doProcessEventsFromList(int sequenceId, Collection<EntitlementEvent> claimedEvents) {
+    protected boolean doProcessEventsFromList(int sequenceId,
+                                              Collection<EntitlementEvent> claimedEvents) {
         long prev = nbProcessedEvents;
         for (EntitlementEvent cur : claimedEvents) {
             log.debug(String.format("ApiEventProcessor seq = %d got event %s", sequenceId, cur.getId()));

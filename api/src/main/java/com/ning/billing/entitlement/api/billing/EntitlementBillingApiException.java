@@ -24,7 +24,8 @@ public class EntitlementBillingApiException extends Exception {
         super();
     }
 
-    public EntitlementBillingApiException(String msg, Throwable arg1) {
+    public EntitlementBillingApiException(String msg,
+                                          Throwable arg1) {
         super(msg, arg1);
     }
 

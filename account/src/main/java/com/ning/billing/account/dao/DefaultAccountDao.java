@@ -40,7 +40,8 @@ public class DefaultAccountDao implements AccountDao {
     private final EventBus eventBus;
 
     @Inject
-    public DefaultAccountDao(IDBI dbi, EventBus eventBus) {
+    public DefaultAccountDao(IDBI dbi,
+                             EventBus eventBus) {
         this.eventBus = eventBus;
         this.accountDao = dbi.onDemand(AccountSqlDao.class);
     }
@@ -49,7 +50,8 @@ public class DefaultAccountDao implements AccountDao {
     public Account getAccountByKey(final String key) {
         return accountDao.inTransaction(new Transaction<Account, AccountSqlDao>() {
             @Override
-            public Account inTransaction(AccountSqlDao accountSqlDao, TransactionStatus status) throws Exception {
+            public Account inTransaction(AccountSqlDao accountSqlDao,
+                                         TransactionStatus status) throws Exception {
                 Account account = accountSqlDao.getAccountByKey(key);
                 if (account != null) {
                     setCustomFieldsFromWithinTransaction(account, accountSqlDao);
@@ -69,7 +71,8 @@ public class DefaultAccountDao implements AccountDao {
     public Account getById(final String id) {
         return accountDao.inTransaction(new Transaction<Account, AccountSqlDao>() {
             @Override
-            public Account inTransaction(AccountSqlDao accountSqlDao, TransactionStatus status) throws Exception {
+            public Account inTransaction(AccountSqlDao accountSqlDao,
+                                         TransactionStatus status) throws Exception {
                 Account account = accountSqlDao.getById(id);
                 if (account != null) {
                     setCustomFieldsFromWithinTransaction(account, accountSqlDao);
@@ -93,7 +96,8 @@ public class DefaultAccountDao implements AccountDao {
 
         accountDao.inTransaction(new Transaction<Void, AccountSqlDao>() {
             @Override
-            public Void inTransaction(AccountSqlDao accountSqlDao, TransactionStatus status) throws Exception {
+            public Void inTransaction(AccountSqlDao accountSqlDao,
+                                      TransactionStatus status) throws Exception {
                 accountSqlDao.create(account);
 
                 FieldStoreDao fieldStoreDao = accountSqlDao.become(FieldStoreDao.class);
@@ -116,7 +120,8 @@ public class DefaultAccountDao implements AccountDao {
 
         accountDao.inTransaction(new Transaction<Void, AccountSqlDao>() {
             @Override
-            public Void inTransaction(AccountSqlDao accountSqlDao, TransactionStatus status) throws Exception {
+            public Void inTransaction(AccountSqlDao accountSqlDao,
+                                      TransactionStatus status) throws Exception {
                 Account currentAccount = accountSqlDao.getById(accountId);
 
                 accountSqlDao.update(account);
@@ -143,7 +148,8 @@ public class DefaultAccountDao implements AccountDao {
         accountDao.test();
     }
 
-    private void setCustomFieldsFromWithinTransaction(final Account account, final AccountSqlDao transactionalDao) {
+    private void setCustomFieldsFromWithinTransaction(final Account account,
+                                                      final AccountSqlDao transactionalDao) {
         FieldStoreDao fieldStoreDao = transactionalDao.become(FieldStoreDao.class);
         List<CustomField> fields = fieldStoreDao.load(account.getId().toString(), account.getObjectName());
 
@@ -155,7 +161,8 @@ public class DefaultAccountDao implements AccountDao {
         }
     }
 
-    private void setTagsFromWithinTransaction(final Account account, final AccountSqlDao transactionalDao) {
+    private void setTagsFromWithinTransaction(final Account account,
+                                              final AccountSqlDao transactionalDao) {
         TagStoreDao tagStoreDao = transactionalDao.become(TagStoreDao.class);
         List<Tag> tags = tagStoreDao.load(account.getId().toString(), account.getObjectName());
         account.clearTags();

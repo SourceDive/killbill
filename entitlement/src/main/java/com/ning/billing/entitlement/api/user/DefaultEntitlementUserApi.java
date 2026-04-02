@@ -37,7 +37,10 @@ public class DefaultEntitlementUserApi implements EntitlementUserApi {
     private final SubscriptionApiService apiService;
 
     @Inject
-    public DefaultEntitlementUserApi(Clock clock, EntitlementDao dao, CatalogService catalogService, SubscriptionApiService apiService) {
+    public DefaultEntitlementUserApi(Clock clock,
+                                     EntitlementDao dao,
+                                     CatalogService catalogService,
+                                     SubscriptionApiService apiService) {
         super();
         this.clock = clock;
         this.apiService = apiService;
@@ -84,7 +87,9 @@ public class DefaultEntitlementUserApi implements EntitlementUserApi {
     }
 
     @Override
-    public Subscription createSubscription(UUID bundleId, PlanPhaseSpecifier spec, DateTime requestedDate) throws EntitlementUserApiException {
+    public Subscription createSubscription(UUID bundleId,
+                                           PlanPhaseSpecifier spec,
+                                           DateTime requestedDate) throws EntitlementUserApiException {
 
         try {
             String realPriceList = (spec.getPriceListName() == null) ? PriceListSet.DEFAULT_PRICELIST_NAME : spec.getPriceListName();

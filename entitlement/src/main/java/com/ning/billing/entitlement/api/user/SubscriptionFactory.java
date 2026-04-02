@@ -35,13 +35,16 @@ public class SubscriptionFactory {
     private final CatalogService catalogService;
 
     @Inject
-    public SubscriptionFactory(SubscriptionApiService apiService, Clock clock, CatalogService catalogService) {
+    public SubscriptionFactory(SubscriptionApiService apiService,
+                               Clock clock,
+                               CatalogService catalogService) {
         this.apiService = apiService;
         this.clock = clock;
         this.catalogService = catalogService;
     }
 
-    public SubscriptionData createSubscription(SubscriptionBuilder builder, List<EntitlementEvent> events) {
+    public SubscriptionData createSubscription(SubscriptionBuilder builder,
+                                               List<EntitlementEvent> events) {
         SubscriptionData subscription = new SubscriptionData(builder, apiService, clock);
         if (events.size() > 0) {
             subscription.rebuildTransitions(events, catalogService.getCatalog());

@@ -25,7 +25,9 @@ public interface Catalog {
 
     public abstract Product[] getProducts();
 
-    public abstract Plan findPlan(String productName, BillingPeriod term, String priceList) throws CatalogApiException;
+    public abstract Plan findPlan(String productName,
+                                  BillingPeriod term,
+                                  String priceList) throws CatalogApiException;
 
     public abstract Plan findPlan(String name) throws CatalogApiException;
 

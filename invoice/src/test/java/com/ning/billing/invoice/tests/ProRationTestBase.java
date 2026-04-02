@@ -31,7 +31,10 @@ public abstract class ProRationTestBase extends InvoicingTestBase {
 
     protected abstract BillingPeriod getBillingPeriod();
 
-    protected void testCalculateNumberOfBillingCycles(DateTime startDate, DateTime targetDate, int billingCycleDay, BigDecimal expectedValue) throws InvalidDateSequenceException {
+    protected void testCalculateNumberOfBillingCycles(DateTime startDate,
+                                                      DateTime targetDate,
+                                                      int billingCycleDay,
+                                                      BigDecimal expectedValue) throws InvalidDateSequenceException {
         try {
             BigDecimal numberOfBillingCycles;
             numberOfBillingCycles = getBillingMode().calculateNumberOfBillingCycles(startDate, targetDate, billingCycleDay, getBillingPeriod());
@@ -44,7 +47,11 @@ public abstract class ProRationTestBase extends InvoicingTestBase {
         }
     }
 
-    protected void testCalculateNumberOfBillingCycles(DateTime startDate, DateTime endDate, DateTime targetDate, int billingCycleDay, BigDecimal expectedValue) throws InvalidDateSequenceException {
+    protected void testCalculateNumberOfBillingCycles(DateTime startDate,
+                                                      DateTime endDate,
+                                                      DateTime targetDate,
+                                                      int billingCycleDay,
+                                                      BigDecimal expectedValue) throws InvalidDateSequenceException {
         try {
             BigDecimal numberOfBillingCycles;
             numberOfBillingCycles = getBillingMode().calculateNumberOfBillingCycles(startDate, endDate, targetDate, billingCycleDay, getBillingPeriod());

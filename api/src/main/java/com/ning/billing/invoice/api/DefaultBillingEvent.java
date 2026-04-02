@@ -55,7 +55,8 @@ public class DefaultBillingEvent implements BillingEvent {
         this.billingMode = billingMode;
     }
 
-    public DefaultBillingEvent(BillingEvent event, DateTime startDate) {
+    public DefaultBillingEvent(BillingEvent event,
+                               DateTime startDate) {
         this.subscriptionId = event.getSubscriptionId();
         this.startDate = startDate;
         this.planName = event.getPlanName();

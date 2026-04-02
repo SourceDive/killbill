@@ -30,7 +30,11 @@ public class DefaultInvoiceCreationNotification implements InvoiceCreationNotifi
     private final Currency currency;
     private final DateTime invoiceCreationDate;
 
-    public DefaultInvoiceCreationNotification(UUID invoiceId, UUID accountId, BigDecimal amountOwed, Currency currency, DateTime invoiceCreationDate) {
+    public DefaultInvoiceCreationNotification(UUID invoiceId,
+                                              UUID accountId,
+                                              BigDecimal amountOwed,
+                                              Currency currency,
+                                              DateTime invoiceCreationDate) {
         this.invoiceId = invoiceId;
         this.accountId = accountId;
         this.amountOwed = amountOwed;

@@ -260,11 +260,22 @@ public class TestCase {
     }
 
 
-    protected void assertionNull(CaseResult cr, String productName, ProductCategory productCategory, BillingPeriod bp, String priceListName, StandaloneCatalog cat) throws CatalogApiException {
+    protected void assertionNull(CaseResult cr,
+                                 String productName,
+                                 ProductCategory productCategory,
+                                 BillingPeriod bp,
+                                 String priceListName,
+                                 StandaloneCatalog cat) throws CatalogApiException {
         assertNull(cr.getResult(new PlanSpecifier(productName, productCategory, bp, priceListName), cat));
     }
 
-    protected void assertion(Result result, CaseResult cr, String productName, ProductCategory productCategory, BillingPeriod bp, String priceListName, StandaloneCatalog cat) throws CatalogApiException {
+    protected void assertion(Result result,
+                             CaseResult cr,
+                             String productName,
+                             ProductCategory productCategory,
+                             BillingPeriod bp,
+                             String priceListName,
+                             StandaloneCatalog cat) throws CatalogApiException {
         assertEquals(result, cr.getResult(new PlanSpecifier(productName, productCategory, bp, priceListName), cat));
     }
 

@@ -27,11 +27,15 @@ public class SubscriptionBundleData implements SubscriptionBundle {
     private final UUID accountId;
     private final DateTime startDate;
 
-    public SubscriptionBundleData(String name, UUID accountId) {
+    public SubscriptionBundleData(String name,
+                                  UUID accountId) {
         this(UUID.randomUUID(), name, accountId, null);
     }
 
-    public SubscriptionBundleData(UUID id, String key, UUID accountId, DateTime startDate) {
+    public SubscriptionBundleData(UUID id,
+                                  String key,
+                                  UUID accountId,
+                                  DateTime startDate) {
         super();
         this.id = id;
         this.key = key;

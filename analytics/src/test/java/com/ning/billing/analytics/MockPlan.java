@@ -27,7 +27,8 @@ public class MockPlan implements Plan {
     private final String name;
     private final Product product;
 
-    public MockPlan(final String name, final Product product) {
+    public MockPlan(final String name,
+                    final Product product) {
         this.name = name;
         this.product = product;
     }

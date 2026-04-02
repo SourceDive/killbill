@@ -30,13 +30,17 @@ public class BillingExceptionBase extends Exception {
     private final int code;
     private final String formattedMsg;
 
-    public BillingExceptionBase(Throwable cause, int code, final String msg) {
+    public BillingExceptionBase(Throwable cause,
+                                int code,
+                                final String msg) {
         this.formattedMsg = msg;
         this.code = code;
         this.cause = cause;
     }
 
-    public BillingExceptionBase(Throwable cause, ErrorCode code, final Object... args) {
+    public BillingExceptionBase(Throwable cause,
+                                ErrorCode code,
+                                final Object... args) {
         String tmp = null;
         try {
             tmp = String.format(code.getFormat(), args);
@@ -49,7 +53,8 @@ public class BillingExceptionBase extends Exception {
         this.cause = cause;
     }
 
-    public BillingExceptionBase(ErrorCode code, final Object... args) {
+    public BillingExceptionBase(ErrorCode code,
+                                final Object... args) {
         this(null, code, args);
     }
 

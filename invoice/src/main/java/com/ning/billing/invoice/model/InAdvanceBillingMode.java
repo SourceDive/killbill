@@ -28,26 +28,36 @@ public class InAdvanceBillingMode extends BillingModeBase {
     private static final int NUMBER_OF_DECIMALS = InvoicingConfiguration.getNumberOfDecimals();
 
     @Override
-    public DateTime calculateEffectiveEndDate(final DateTime startDate, final DateTime targetDate, final int billingCycleDay, final BillingPeriod billingPeriod) {
+    public DateTime calculateEffectiveEndDate(final DateTime startDate,
+                                              final DateTime targetDate,
+                                              final int billingCycleDay,
+                                              final BillingPeriod billingPeriod) {
         DateTime firstBillCycleDate = calculateBillingCycleDateOnOrAfter(startDate, billingCycleDay);
         return calculateBillingCycleDateAfter(targetDate, firstBillCycleDate, billingCycleDay, billingPeriod);
     }
 
     @Override
-    public DateTime calculateEffectiveEndDate(final DateTime startDate, final DateTime endDate, final DateTime targetDate, final int billingCycleDay, final BillingPeriod billingPeriod) {
+    public DateTime calculateEffectiveEndDate(final DateTime startDate,
+                                              final DateTime endDate,
+                                              final DateTime targetDate,
+                                              final int billingCycleDay,
+                                              final BillingPeriod billingPeriod) {
         DateTime firstBillCycleDate = calculateBillingCycleDateOnOrAfter(startDate, billingCycleDay);
         return calculateEffectiveEndDate(firstBillCycleDate, targetDate, endDate, billingPeriod);
     }
 
     @Override
-    protected BigDecimal calculateNumberOfWholeBillingPeriods(final DateTime startDate, final DateTime endDate, final BillingPeriod billingPeriod) {
+    protected BigDecimal calculateNumberOfWholeBillingPeriods(final DateTime startDate,
+                                                              final DateTime endDate,
+                                                              final BillingPeriod billingPeriod) {
         int numberOfMonths = Months.monthsBetween(startDate, endDate).getMonths();
         BigDecimal numberOfMonthsInPeriod = new BigDecimal(billingPeriod.getNumberOfMonths());
         return new BigDecimal(numberOfMonths).divide(numberOfMonthsInPeriod, 0, ROUNDING_METHOD);
     }
 
     @Override
-    protected DateTime calculateBillingCycleDateOnOrAfter(final DateTime date, final int billingCycleDay) {
+    protected DateTime calculateBillingCycleDateOnOrAfter(final DateTime date,
+                                                          final int billingCycleDay) {
         int lastDayOfMonth = date.dayOfMonth().getMaximumValue();
 
         DateTime proposedDate;
@@ -64,7 +74,10 @@ public class InAdvanceBillingMode extends BillingModeBase {
         return proposedDate;
     }
 
-    protected DateTime calculateBillingCycleDateAfter(final DateTime date, final DateTime billingCycleDate, final int billingCycleDay, final BillingPeriod billingPeriod) {
+    protected DateTime calculateBillingCycleDateAfter(final DateTime date,
+                                                      final DateTime billingCycleDate,
+                                                      final int billingCycleDay,
+                                                      final BillingPeriod billingPeriod) {
         DateTime proposedDate = billingCycleDate;
 
         while (!proposedDate.isAfter(date)) {
@@ -85,7 +98,10 @@ public class InAdvanceBillingMode extends BillingModeBase {
     }
 
     @Override
-    protected DateTime calculateLastBillingCycleDateBefore(final DateTime date, final DateTime previousBillCycleDate, final int billingCycleDay, final BillingPeriod billingPeriod) {
+    protected DateTime calculateLastBillingCycleDateBefore(final DateTime date,
+                                                           final DateTime previousBillCycleDate,
+                                                           final int billingCycleDay,
+                                                           final BillingPeriod billingPeriod) {
         DateTime proposedDate = previousBillCycleDate;
         proposedDate = proposedDate.plusMonths(billingPeriod.getNumberOfMonths());
 
@@ -112,7 +128,9 @@ public class InAdvanceBillingMode extends BillingModeBase {
     }
 
     @Override
-    protected BigDecimal calculateProRationBeforeFirstBillingPeriod(final DateTime startDate, final int billingCycleDay, final BillingPeriod billingPeriod) {
+    protected BigDecimal calculateProRationBeforeFirstBillingPeriod(final DateTime startDate,
+                                                                    final int billingCycleDay,
+                                                                    final BillingPeriod billingPeriod) {
         DateTime nextBillingCycleDate = calculateBillingCycleDateOnOrAfter(startDate, billingCycleDay);
         DateTime previousBillingCycleDate = nextBillingCycleDate.plusMonths(-billingPeriod.getNumberOfMonths());
 
@@ -123,7 +141,9 @@ public class InAdvanceBillingMode extends BillingModeBase {
     }
 
     @Override
-    protected BigDecimal calculateProRationAfterLastBillingCycleDate(final DateTime endDate, final DateTime previousBillThroughDate, final BillingPeriod billingPeriod) {
+    protected BigDecimal calculateProRationAfterLastBillingCycleDate(final DateTime endDate,
+                                                                     final DateTime previousBillThroughDate,
+                                                                     final BillingPeriod billingPeriod) {
         // note: assumption is that previousBillThroughDate is correctly aligned with the billing cycle day
         DateTime nextBillThroughDate = previousBillThroughDate.plusMonths(billingPeriod.getNumberOfMonths());
         BigDecimal daysInPeriod = new BigDecimal(Days.daysBetween(previousBillThroughDate, nextBillThroughDate).getDays());
@@ -134,7 +154,10 @@ public class InAdvanceBillingMode extends BillingModeBase {
     }
 
     @Override
-    protected DateTime calculateEffectiveEndDate(DateTime billCycleDate, DateTime targetDate, DateTime endDate, BillingPeriod billingPeriod) {
+    protected DateTime calculateEffectiveEndDate(DateTime billCycleDate,
+                                                 DateTime targetDate,
+                                                 DateTime endDate,
+                                                 BillingPeriod billingPeriod) {
         if (targetDate.isBefore(endDate)) {
             if (targetDate.isBefore(billCycleDate)) {
                 return billCycleDate;

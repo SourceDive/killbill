@@ -27,29 +27,33 @@ import java.util.UUID;
 
 public interface Subscription {
 
-    public void cancel(DateTime requestedDate, boolean eot)
-            throws EntitlementUserApiException;
+    public void cancel(DateTime requestedDate,
+                       boolean eot)
+                       throws EntitlementUserApiException;
 
-    public void uncancel()
-            throws EntitlementUserApiException;
+                       public void uncancel()
+                       throws EntitlementUserApiException;
 
-    public void changePlan(String productName, BillingPeriod term, String planSet, DateTime requestedDate)
-            throws EntitlementUserApiException;
+                       public void changePlan(String productName,
+                       BillingPeriod term,
+                       String planSet,
+                       DateTime requestedDate)
+                       throws EntitlementUserApiException;
 
-    public void pause()
-            throws EntitlementUserApiException;
+                       public void pause()
+                       throws EntitlementUserApiException;
 
-    public void resume()
-            throws EntitlementUserApiException;
+                       public void resume()
+                       throws EntitlementUserApiException;
 
 
-    public enum SubscriptionState {
-        ACTIVE,
-        PAUSED,
-        CANCELLED
-    }
+                       public enum SubscriptionState {
+                       ACTIVE,
+                       PAUSED,
+                       CANCELLED
+                       }
 
-    public UUID getId();
+                       public UUID getId();
 
     public UUID getBundleId();
 

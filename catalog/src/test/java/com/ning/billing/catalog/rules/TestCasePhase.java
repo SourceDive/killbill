@@ -254,7 +254,13 @@ public class TestCasePhase {
     }
 
 
-    protected void assertionNull(CaseResult cr, String productName, ProductCategory productCategory, BillingPeriod bp, String priceListName, PhaseType phaseType, StandaloneCatalog cat) {
+    protected void assertionNull(CaseResult cr,
+                                 String productName,
+                                 ProductCategory productCategory,
+                                 BillingPeriod bp,
+                                 String priceListName,
+                                 PhaseType phaseType,
+                                 StandaloneCatalog cat) {
         try {
             Assert.assertNull(cr.getResult(new PlanPhaseSpecifier(productName, productCategory, bp, priceListName, phaseType), cat));
         } catch (CatalogApiException e) {
@@ -262,7 +268,14 @@ public class TestCasePhase {
         }
     }
 
-    protected void assertion(Result result, CaseResult cr, String productName, ProductCategory productCategory, BillingPeriod bp, String priceListName, PhaseType phaseType, StandaloneCatalog cat) {
+    protected void assertion(Result result,
+                             CaseResult cr,
+                             String productName,
+                             ProductCategory productCategory,
+                             BillingPeriod bp,
+                             String priceListName,
+                             PhaseType phaseType,
+                             StandaloneCatalog cat) {
         try {
             Assert.assertEquals(result, cr.getResult(new PlanPhaseSpecifier(productName, productCategory, bp, priceListName, phaseType), cat));
         } catch (CatalogApiException e) {

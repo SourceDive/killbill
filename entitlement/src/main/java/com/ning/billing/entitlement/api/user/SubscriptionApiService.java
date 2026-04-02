@@ -43,7 +43,10 @@ public class SubscriptionApiService {
     private final PlanAligner planAligner;
 
     @Inject
-    public SubscriptionApiService(Clock clock, EntitlementDao dao, CatalogService catalogService, PlanAligner planAligner) {
+    public SubscriptionApiService(Clock clock,
+                                  EntitlementDao dao,
+                                  CatalogService catalogService,
+                                  PlanAligner planAligner) {
         this.clock = clock;
         this.catalogService = catalogService;
         this.planAligner = planAligner;
@@ -53,10 +56,10 @@ public class SubscriptionApiService {
 
     public SubscriptionData createBasePlan(SubscriptionBuilder builder, Plan plan, PhaseType initialPhase,
                                            String realPriceList, DateTime requestedDate, DateTime effectiveDate, DateTime processedDate)
-            throws EntitlementUserApiException {
+                                           throws EntitlementUserApiException {
 
-        try {
-            SubscriptionData subscription = new SubscriptionData(builder, this, clock);
+                                           try {
+                                           SubscriptionData subscription = new SubscriptionData(builder, this, clock);
 
 
             TimedPhase[] curAndNextPhases = planAligner.getCurrentAndNextTimedPhaseOnCreate(subscription, plan, initialPhase, realPriceList, effectiveDate);
@@ -161,12 +164,12 @@ public class SubscriptionApiService {
 
     public void changePlan(SubscriptionData subscription, String productName, BillingPeriod term,
                            String priceList, DateTime requestedDate)
-            throws EntitlementUserApiException {
+                           throws EntitlementUserApiException {
 
-        try {
+                           try {
 
 
-            DateTime now = clock.getUTCNow();
+                           DateTime now = clock.getUTCNow();
             requestedDate = (requestedDate != null) ? DefaultClock.truncateMs(requestedDate) : now;
             // STEPH needs to check if requestedDate is before last 'erasable event'?
             if (requestedDate != null && requestedDate.isAfter(now)) {

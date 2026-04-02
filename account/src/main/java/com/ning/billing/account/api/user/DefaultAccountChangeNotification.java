@@ -29,7 +29,9 @@ public class DefaultAccountChangeNotification implements AccountChangeNotificati
     private final List<ChangedField> changedFields;
     private final UUID id;
 
-    public DefaultAccountChangeNotification(UUID id, Account oldData, Account newData) {
+    public DefaultAccountChangeNotification(UUID id,
+                                            Account oldData,
+                                            Account newData) {
         this.id = id;
         this.changedFields = calculateChangedFields(oldData, newData);
     }
@@ -49,7 +51,8 @@ public class DefaultAccountChangeNotification implements AccountChangeNotificati
         return (changedFields.size() > 0);
     }
 
-    private List<ChangedField> calculateChangedFields(Account oldData, Account newData) {
+    private List<ChangedField> calculateChangedFields(Account oldData,
+                                                      Account newData) {
 
         List<ChangedField> tmpChangedFields = new ArrayList<ChangedField>();
 
@@ -78,7 +81,10 @@ public class DefaultAccountChangeNotification implements AccountChangeNotificati
         return tmpChangedFields;
     }
 
-    private void addIfValueChanged(List<ChangedField> inputList, String key, String oldData, String newData) {
+    private void addIfValueChanged(List<ChangedField> inputList,
+                                   String key,
+                                   String oldData,
+                                   String newData) {
         // If both null => no changes
         if (newData == null && oldData == null) {
             return;

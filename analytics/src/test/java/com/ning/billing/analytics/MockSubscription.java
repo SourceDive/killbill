@@ -37,19 +37,25 @@ public class MockSubscription implements Subscription {
     private final Plan plan;
     private final PlanPhase phase;
 
-    public MockSubscription(final SubscriptionState state, final Plan plan, final PlanPhase phase) {
+    public MockSubscription(final SubscriptionState state,
+                            final Plan plan,
+                            final PlanPhase phase) {
         this.state = state;
         this.plan = plan;
         this.phase = phase;
     }
 
     @Override
-    public void cancel(DateTime requestedDate, boolean eot) {
+    public void cancel(DateTime requestedDate,
+                       boolean eot) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void changePlan(final String productName, final BillingPeriod term, final String planSet, DateTime requestedDate) {
+    public void changePlan(final String productName,
+                           final BillingPeriod term,
+                           final String planSet,
+                           DateTime requestedDate) {
         throw new UnsupportedOperationException();
     }
 

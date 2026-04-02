@@ -32,7 +32,8 @@ public class AnalyticsService implements IAnalyticsService {
     private final EventBus eventBus;
 
     @Inject
-    public AnalyticsService(final AnalyticsListener listener, final EventBus eventBus) {
+    public AnalyticsService(final AnalyticsListener listener,
+                            final EventBus eventBus) {
         this.listener = listener;
         this.eventBus = eventBus;
     }

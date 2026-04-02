@@ -46,7 +46,9 @@ public interface TagStoreDao extends EntityCollectionDao<Tag> {
 
     public class TagMapper implements ResultSetMapper<Tag> {
         @Override
-        public Tag map(int index, ResultSet result, StatementContext context) throws SQLException {
+        public Tag map(int index,
+                       ResultSet result,
+                       StatementContext context) throws SQLException {
             UUID tagDescriptionId = UUID.fromString(result.getString("tag_description_id"));
             String name = result.getString("tag_description_name");
             String description = result.getString("tag_description");
@@ -70,7 +72,9 @@ public interface TagStoreDao extends EntityCollectionDao<Tag> {
         public static class TagBinderFactory implements BinderFactory {
             public Binder build(Annotation annotation) {
                 return new Binder<TagBinder, Tag>() {
-                    public void bind(SQLStatement q, TagBinder bind, Tag tag) {
+                    public void bind(SQLStatement q,
+                                     TagBinder bind,
+                                     Tag tag) {
                         q.bind("id", tag.getId().toString());
                         q.bind("tagDescriptionId", tag.getTagDescriptionId().toString());
                         q.bind("dateAdded", tag.getDateAdded().toDate());

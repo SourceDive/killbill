@@ -25,7 +25,10 @@ public class MockPhase implements PlanPhase {
     private final Duration duration;
     private final double price;
 
-    public MockPhase(final PhaseType cohort, final Plan plan, final Duration duration, final double price) {
+    public MockPhase(final PhaseType cohort,
+                     final Plan plan,
+                     final Duration duration,
+                     final double price) {
         this.cohort = cohort;
         this.plan = plan;
         this.duration = duration;

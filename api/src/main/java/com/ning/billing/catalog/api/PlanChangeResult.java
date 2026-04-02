@@ -22,7 +22,9 @@ public class PlanChangeResult {
     private final ActionPolicy policy;
     private final PlanAlignmentChange alignment;
 
-    public PlanChangeResult(PriceList newPriceList, ActionPolicy policy, PlanAlignmentChange alignment) {
+    public PlanChangeResult(PriceList newPriceList,
+                            ActionPolicy policy,
+                            PlanAlignmentChange alignment) {
         super();
         this.newPriceList = newPriceList;
         this.policy = policy;

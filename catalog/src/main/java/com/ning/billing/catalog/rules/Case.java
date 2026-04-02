@@ -39,21 +39,25 @@ public abstract class Case<T> extends ValidatingConfig<StandaloneCatalog> {
 
     public abstract DefaultPriceList getPriceList();
 
-    public T getResult(PlanSpecifier planPhase, StandaloneCatalog c) throws CatalogApiException {
+    public T getResult(PlanSpecifier planPhase,
+                       StandaloneCatalog c) throws CatalogApiException {
         if (satisfiesCase(planPhase, c)) {
             return getResult();
         }
         return null;
     }
 
-    protected boolean satisfiesCase(PlanSpecifier planPhase, StandaloneCatalog c) throws CatalogApiException {
+    protected boolean satisfiesCase(PlanSpecifier planPhase,
+                                    StandaloneCatalog c) throws CatalogApiException {
         return (getProduct() == null || getProduct().equals(c.findProduct(planPhase.getProductName()))) &&
                 (getProductCategory() == null || getProductCategory().equals(planPhase.getProductCategory())) &&
                 (getBillingPeriod() == null || getBillingPeriod().equals(planPhase.getBillingPeriod())) &&
                 (getPriceList() == null || getPriceList().equals(c.getPriceListFromName(planPhase.getPriceListName())));
     }
 
-    public static <K> K getResult(Case<K>[] cases, PlanSpecifier planSpec, StandaloneCatalog catalog) throws CatalogApiException {
+    public static <K> K getResult(Case<K>[] cases,
+                                  PlanSpecifier planSpec,
+                                  StandaloneCatalog catalog) throws CatalogApiException {
         if (cases != null) {
             for (Case<K> c : cases) {
                 K result = c.getResult(planSpec, catalog);
@@ -67,7 +71,8 @@ public abstract class Case<T> extends ValidatingConfig<StandaloneCatalog> {
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         return errors;
     }
 

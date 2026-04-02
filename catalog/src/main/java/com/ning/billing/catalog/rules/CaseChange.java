@@ -97,7 +97,8 @@ public abstract class CaseChange<T> extends ValidatingConfig<StandaloneCatalog> 
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         return errors;
     }
 

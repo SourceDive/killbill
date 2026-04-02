@@ -37,10 +37,16 @@ public interface EntitlementUserApi {
 
     public List<Subscription> getSubscriptionsForKey(String bundleKey);
 
-    public SubscriptionBundle createBundleForAccount(UUID accountId, String bundleKey)
+    public SubscriptionBundle createBundleForAccount(UUID accountId,
+                                                     String bundleKey)
             throws EntitlementUserApiException;
 
-    public Subscription createSubscription(UUID bundleId, PlanPhaseSpecifier spec, DateTime requestedDate)
+    /**
+     * 创建订阅。
+     */
+    public Subscription createSubscription(UUID bundleId,
+                                           PlanPhaseSpecifier spec,
+                                           DateTime requestedDate)
             throws EntitlementUserApiException;
 
 }

@@ -66,7 +66,9 @@ public class SubscriptionData implements Subscription {
         this(builder, null, null);
     }
 
-    public SubscriptionData(SubscriptionBuilder builder, SubscriptionApiService apiService, Clock clock) {
+    public SubscriptionData(SubscriptionBuilder builder,
+                            SubscriptionApiService apiService,
+                            Clock clock) {
         super();
         this.apiService = apiService;
         this.clock = clock;
@@ -130,7 +132,8 @@ public class SubscriptionData implements Subscription {
 
 
     @Override
-    public void cancel(DateTime requestedDate, boolean eot) throws EntitlementUserApiException {
+    public void cancel(DateTime requestedDate,
+                       boolean eot) throws EntitlementUserApiException {
         apiService.cancel(this, requestedDate, eot);
     }
 
@@ -277,7 +280,8 @@ public class SubscriptionData implements Subscription {
     }
 
 
-    public DateTime getPlanChangeEffectiveDate(ActionPolicy policy, DateTime requestedDate) {
+    public DateTime getPlanChangeEffectiveDate(ActionPolicy policy,
+                                               DateTime requestedDate) {
 
         if (policy == ActionPolicy.IMMEDIATE) {
             return requestedDate;
@@ -318,7 +322,8 @@ public class SubscriptionData implements Subscription {
         return transitions.get(0).getEffectiveTransitionTime();
     }
 
-    public void rebuildTransitions(final List<EntitlementEvent> events, final Catalog catalog) {
+    public void rebuildTransitions(final List<EntitlementEvent> events,
+                                   final Catalog catalog) {
 
         if (events == null) {
             return;

@@ -107,7 +107,10 @@ public class MigrationPlanAligner {
         }
     }
 
-    private TimedMigration[] getEventsOnRegularMigration(Plan plan, PlanPhase initialPhase, String priceList, DateTime effectiveDate) {
+    private TimedMigration[] getEventsOnRegularMigration(Plan plan,
+                                                         PlanPhase initialPhase,
+                                                         String priceList,
+                                                         DateTime effectiveDate) {
         TimedMigration[] result = new TimedMigration[1];
         result[0] = new TimedMigration(effectiveDate, EventType.API_USER, ApiEventType.MIGRATE_ENTITLEMENT, plan, initialPhase, priceList);
         return result;
@@ -137,14 +140,24 @@ public class MigrationPlanAligner {
         return result;
     }
 
-    private TimedMigration[] getEventsOnFuturePlanChangeMigration(Plan currentPlan, PlanPhase currentPhase, Plan newPlan, PlanPhase newPhase, String priceList, DateTime effectiveDate, DateTime effectiveDateForChangePlan) {
+    private TimedMigration[] getEventsOnFuturePlanChangeMigration(Plan currentPlan,
+                                                                  PlanPhase currentPhase,
+                                                                  Plan newPlan,
+                                                                  PlanPhase newPhase,
+                                                                  String priceList,
+                                                                  DateTime effectiveDate,
+                                                                  DateTime effectiveDateForChangePlan) {
         TimedMigration[] result = new TimedMigration[2];
         result[0] = new TimedMigration(effectiveDate, EventType.API_USER, ApiEventType.MIGRATE_ENTITLEMENT, currentPlan, currentPhase, priceList);
         result[1] = new TimedMigration(effectiveDateForChangePlan, EventType.API_USER, ApiEventType.CHANGE, newPlan, newPhase, priceList);
         return result;
     }
 
-    private TimedMigration[] getEventsOnFuturePlanCancelMigration(Plan plan, PlanPhase initialPhase, String priceList, DateTime effectiveDate, DateTime effectiveDateForCancellation) {
+    private TimedMigration[] getEventsOnFuturePlanCancelMigration(Plan plan,
+                                                                  PlanPhase initialPhase,
+                                                                  String priceList,
+                                                                  DateTime effectiveDate,
+                                                                  DateTime effectiveDateForCancellation) {
         TimedMigration[] result = new TimedMigration[2];
         result[0] = new TimedMigration(effectiveDate, EventType.API_USER, ApiEventType.MIGRATE_ENTITLEMENT, plan, initialPhase, priceList);
         result[1] = new TimedMigration(effectiveDateForCancellation, EventType.API_USER, ApiEventType.CANCEL, null, null, null);
@@ -153,7 +166,8 @@ public class MigrationPlanAligner {
 
 
     // STEPH should be in catalog
-    private PlanPhase getPlanPhase(Plan plan, PhaseType phaseType) throws EntitlementMigrationApiException {
+    private PlanPhase getPlanPhase(Plan plan,
+                                   PhaseType phaseType) throws EntitlementMigrationApiException {
         for (PlanPhase cur : plan.getAllPhases()) {
             if (cur.getPhaseType() == phaseType) {
                 return cur;
@@ -185,7 +199,8 @@ public class MigrationPlanAligner {
         return !isSamePlan(input[0].getPlanPhaseSpecifer(), input[1].getPlanPhaseSpecifer());
     }
 
-    private boolean isSamePlan(PlanPhaseSpecifier plan0, PlanPhaseSpecifier plan1) {
+    private boolean isSamePlan(PlanPhaseSpecifier plan0,
+                               PlanPhaseSpecifier plan1) {
         if (plan0.getPriceListName().equals(plan1.getPriceListName()) &&
                 plan0.getProductName().equals(plan1.getProductName())) {
             return true;
@@ -193,7 +208,8 @@ public class MigrationPlanAligner {
         return false;
     }
 
-    private boolean isSamePhase(PlanPhaseSpecifier plan0, PlanPhaseSpecifier plan1) {
+    private boolean isSamePhase(PlanPhaseSpecifier plan0,
+                                PlanPhaseSpecifier plan1) {
         if (plan0.getPhaseType() == plan1.getPhaseType()) {
             return true;
         }

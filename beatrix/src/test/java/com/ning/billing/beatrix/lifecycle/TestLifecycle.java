@@ -154,7 +154,8 @@ public class TestLifecycle {
         }
 
         @Override
-        protected void logWarn(String msg, Exception e) {
+        protected void logWarn(String msg,
+                               Exception e) {
         }
     }
 

@@ -67,7 +67,9 @@ public abstract class InvoicingTestBase {
     protected static final BigDecimal THREE_HUNDRED_AND_SIXTY_FIVE = new BigDecimal("365.0").setScale(NUMBER_OF_DECIMALS);
     protected static final BigDecimal THREE_HUNDRED_AND_SIXTY_SIX = new BigDecimal("366.0").setScale(NUMBER_OF_DECIMALS);
 
-    protected DateTime buildDateTime(int year, int month, int day) {
+    protected DateTime buildDateTime(int year,
+                                     int month,
+                                     int day) {
         return new DateTime(year, month, day, 0, 0, 0, 0);
     }
 }

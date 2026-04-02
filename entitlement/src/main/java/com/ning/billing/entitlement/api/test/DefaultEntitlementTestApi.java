@@ -32,13 +32,16 @@ public class DefaultEntitlementTestApi implements EntitlementTestApi {
     private final EntitlementConfig config;
 
     @Inject
-    public DefaultEntitlementTestApi(EventNotifier apiEventProcessor, EntitlementConfig config) {
+    public DefaultEntitlementTestApi(EventNotifier apiEventProcessor,
+                                     EntitlementConfig config) {
         this.apiEventProcessor = apiEventProcessor;
         this.config = config;
     }
 
     @Override
-    public void doProcessReadyEvents(UUID[] subscriptionsIds, Boolean recursive, Boolean oneEventOnly) {
+    public void doProcessReadyEvents(UUID[] subscriptionsIds,
+                                     Boolean recursive,
+                                     Boolean oneEventOnly) {
         if (config.isEventProcessingOff()) {
             log.warn("Running event processing loop");
             apiEventProcessor.processAllReadyEvents(subscriptionsIds, recursive, oneEventOnly);

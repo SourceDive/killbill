@@ -42,8 +42,11 @@ public class TestAnalyticsDao {
     private static final String ACCOUNT_KEY = "pierre-143343-vcc";
 
     private final MysqlTestingHelper helper = new MysqlTestingHelper();
-    private final Product product = new MockProduct("platinium", "subscription", ProductCategory.BASE);
-    private final Plan plan = new MockPlan("platinum-monthly", product);
+    private final Product product = new MockProduct("platinium",
+                                                    "subscription",
+                                                    ProductCategory.BASE);
+    private final Plan plan = new MockPlan("platinum-monthly",
+                                           product);
     private final PlanPhase phase = new MockPhase(PhaseType.EVERGREEN, plan, MockDuration.UNLIMITED(), 25.95);
 
     private BusinessSubscriptionTransitionDao businessSubscriptionTransitionDao;

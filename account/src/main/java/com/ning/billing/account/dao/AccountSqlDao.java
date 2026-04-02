@@ -54,7 +54,9 @@ public interface AccountSqlDao extends EntityDao<Account>, Transactional<Account
 
     public static class AccountMapper implements ResultSetMapper<Account> {
         @Override
-        public Account map(int index, ResultSet result, StatementContext context) throws SQLException {
+        public Account map(int index,
+                           ResultSet result,
+                           StatementContext context) throws SQLException {
             UUID id = UUID.fromString(result.getString("id"));
             String externalKey = result.getString("external_key");
             String email = result.getString("email");
@@ -82,7 +84,9 @@ public interface AccountSqlDao extends EntityDao<Account>, Transactional<Account
         public static class AccountBinderFactory implements BinderFactory {
             public Binder build(Annotation annotation) {
                 return new Binder<AccountBinder, Account>() {
-                    public void bind(SQLStatement q, AccountBinder bind, Account account) {
+                    public void bind(SQLStatement q,
+                                     AccountBinder bind,
+                                     Account account) {
                         q.bind("id", account.getId().toString());
                         q.bind("externalKey", account.getExternalKey());
                         q.bind("email", account.getEmail());

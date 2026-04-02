@@ -28,7 +28,8 @@ public class AnalyticsListener {
     private final BusinessAccountRecorder bacRecorder;
 
     @Inject
-    public AnalyticsListener(final BusinessSubscriptionTransitionRecorder bstRecorder, final BusinessAccountRecorder bacRecorder) {
+    public AnalyticsListener(final BusinessSubscriptionTransitionRecorder bstRecorder,
+                             final BusinessAccountRecorder bacRecorder) {
         this.bstRecorder = bstRecorder;
         this.bacRecorder = bacRecorder;
     }

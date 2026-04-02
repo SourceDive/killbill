@@ -22,7 +22,8 @@ public class DateRange {
     private final DateTime startDate;
     private final DateTime endDate;
 
-    public DateRange(DateTime startDate, DateTime endDate) {
+    public DateRange(DateTime startDate,
+                     DateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

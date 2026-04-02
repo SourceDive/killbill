@@ -64,7 +64,9 @@ public interface InvoiceItemSqlDao extends EntityDao<InvoiceItem> {
         public static class InvoiceItemBinderFactory implements BinderFactory {
             public Binder build(Annotation annotation) {
                 return new Binder<InvoiceItemBinder, InvoiceItem>() {
-                    public void bind(SQLStatement q, InvoiceItemBinder bind, InvoiceItem item) {
+                    public void bind(SQLStatement q,
+                                     InvoiceItemBinder bind,
+                                     InvoiceItem item) {
                         q.bind("id", item.getId().toString());
                         q.bind("invoiceId", item.getInvoiceId().toString());
                         q.bind("subscriptionId", item.getSubscriptionId().toString());
@@ -82,7 +84,9 @@ public interface InvoiceItemSqlDao extends EntityDao<InvoiceItem> {
 
     public static class InvoiceItemMapper implements ResultSetMapper<InvoiceItem> {
         @Override
-        public InvoiceItem map(int index, ResultSet result, StatementContext context) throws SQLException {
+        public InvoiceItem map(int index,
+                               ResultSet result,
+                               StatementContext context) throws SQLException {
             UUID id = UUID.fromString(result.getString("id"));
             UUID invoiceId = UUID.fromString(result.getString("invoice_id"));
             UUID subscriptionId = UUID.fromString(result.getString("subscription_id"));

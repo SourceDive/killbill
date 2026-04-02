@@ -33,7 +33,11 @@ import java.util.UUID;
 
 public class DefaultInvoiceGenerator implements InvoiceGenerator {
     @Override
-    public Invoice generateInvoice(final UUID accountId, final BillingEventSet events, final InvoiceItemList existingItems, final DateTime targetDate, final Currency targetCurrency) {
+    public Invoice generateInvoice(final UUID accountId,
+                                   final BillingEventSet events,
+                                   final InvoiceItemList existingItems,
+                                   final DateTime targetDate,
+                                   final Currency targetCurrency) {
         if (events == null) {
             return new DefaultInvoice(accountId, targetDate, targetCurrency);
         }
@@ -49,7 +53,9 @@ public class DefaultInvoiceGenerator implements InvoiceGenerator {
         return invoice;
     }
 
-    private InvoiceItemList reconcileInvoiceItems(final UUID invoiceId, final InvoiceItemList currentInvoiceItems, final InvoiceItemList existingInvoiceItems) {
+    private InvoiceItemList reconcileInvoiceItems(final UUID invoiceId,
+                                                  final InvoiceItemList currentInvoiceItems,
+                                                  final InvoiceItemList existingInvoiceItems) {
         InvoiceItemList currentItems = new InvoiceItemList();
         for (InvoiceItem item : currentInvoiceItems) {
             currentItems.add(new DefaultInvoiceItem(item, invoiceId));
@@ -88,7 +94,10 @@ public class DefaultInvoiceGenerator implements InvoiceGenerator {
         return currentItems;
     }
 
-    private InvoiceItemList generateInvoiceItems(BillingEventSet events, UUID invoiceId, DateTime targetDate, Currency targetCurrency) {
+    private InvoiceItemList generateInvoiceItems(BillingEventSet events,
+                                                 UUID invoiceId,
+                                                 DateTime targetDate,
+                                                 Currency targetCurrency) {
         InvoiceItemList items = new InvoiceItemList();
 
         // sort events; this relies on the sort order being by subscription id then start date
@@ -115,7 +124,11 @@ public class DefaultInvoiceGenerator implements InvoiceGenerator {
         return items;
     }
 
-    private void processEvent(UUID invoiceId, BillingEvent event, List<InvoiceItem> items, DateTime targetDate, Currency targetCurrency) {
+    private void processEvent(UUID invoiceId,
+                              BillingEvent event,
+                              List<InvoiceItem> items,
+                              DateTime targetDate,
+                              Currency targetCurrency) {
         BigDecimal rate = event.getPrice(targetCurrency);
         BigDecimal invoiceItemAmount = calculateInvoiceItemAmount(event, targetDate, rate);
         BillingMode billingMode = getBillingMode(event.getBillingMode());
@@ -124,7 +137,12 @@ public class DefaultInvoiceGenerator implements InvoiceGenerator {
         addInvoiceItem(invoiceId, items, event, billThroughDate, invoiceItemAmount, rate, targetCurrency);
     }
 
-    private void processEvents(UUID invoiceId, BillingEvent firstEvent, BillingEvent secondEvent, List<InvoiceItem> items, DateTime targetDate, Currency targetCurrency) {
+    private void processEvents(UUID invoiceId,
+                               BillingEvent firstEvent,
+                               BillingEvent secondEvent,
+                               List<InvoiceItem> items,
+                               DateTime targetDate,
+                               Currency targetCurrency) {
         BigDecimal rate = firstEvent.getPrice(targetCurrency);
         BigDecimal invoiceItemAmount = calculateInvoiceItemAmount(firstEvent, secondEvent, targetDate, rate);
         BillingMode billingMode = getBillingMode(firstEvent.getBillingMode());
@@ -133,14 +151,22 @@ public class DefaultInvoiceGenerator implements InvoiceGenerator {
         addInvoiceItem(invoiceId, items, firstEvent, billThroughDate, invoiceItemAmount, rate, targetCurrency);
     }
 
-    private void addInvoiceItem(UUID invoiceId, List<InvoiceItem> items, BillingEvent event, DateTime billThroughDate, BigDecimal amount, BigDecimal rate, Currency currency) {
+    private void addInvoiceItem(UUID invoiceId,
+                                List<InvoiceItem> items,
+                                BillingEvent event,
+                                DateTime billThroughDate,
+                                BigDecimal amount,
+                                BigDecimal rate,
+                                Currency currency) {
         if (!(amount.compareTo(BigDecimal.ZERO) == 0)) {
             DefaultInvoiceItem item = new DefaultInvoiceItem(invoiceId, event.getSubscriptionId(), event.getEffectiveDate(), billThroughDate, event.getDescription(), amount, rate, currency);
             items.add(item);
         }
     }
 
-    private BigDecimal calculateInvoiceItemAmount(BillingEvent event, DateTime targetDate, BigDecimal rate) {
+    private BigDecimal calculateInvoiceItemAmount(BillingEvent event,
+                                                  DateTime targetDate,
+                                                  BigDecimal rate) {
         BillingMode billingMode = getBillingMode(event.getBillingMode());
         DateTime startDate = event.getEffectiveDate();
         int billingCycleDay = event.getBillCycleDay();
@@ -156,7 +182,10 @@ public class DefaultInvoiceGenerator implements InvoiceGenerator {
         }
     }
 
-    private BigDecimal calculateInvoiceItemAmount(BillingEvent firstEvent, BillingEvent secondEvent, DateTime targetDate, BigDecimal rate) {
+    private BigDecimal calculateInvoiceItemAmount(BillingEvent firstEvent,
+                                                  BillingEvent secondEvent,
+                                                  DateTime targetDate,
+                                                  BigDecimal rate) {
         BillingMode billingMode = getBillingMode(firstEvent.getBillingMode());
         DateTime startDate = firstEvent.getEffectiveDate();
         int billingCycleDay = firstEvent.getBillCycleDay();

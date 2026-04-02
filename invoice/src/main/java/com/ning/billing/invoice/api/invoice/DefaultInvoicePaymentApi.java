@@ -36,12 +36,18 @@ public class DefaultInvoicePaymentApi implements InvoicePaymentApi {
     }
 
     @Override
-    public void paymentSuccessful(UUID invoiceId, BigDecimal amount, Currency currency, UUID paymentId, DateTime paymentAttemptDate) {
+    public void paymentSuccessful(UUID invoiceId,
+                                  BigDecimal amount,
+                                  Currency currency,
+                                  UUID paymentId,
+                                  DateTime paymentAttemptDate) {
         dao.notifySuccessfulPayment(invoiceId.toString(), amount, currency.toString(), paymentId.toString(), paymentAttemptDate.toDate());
     }
 
     @Override
-    public void paymentFailed(UUID invoiceId, UUID paymentId, DateTime paymentAttemptDate) {
+    public void paymentFailed(UUID invoiceId,
+                              UUID paymentId,
+                              DateTime paymentAttemptDate) {
         dao.notifyFailedPayment(invoiceId.toString(), paymentId.toString(), paymentAttemptDate.toDate());
     }
 

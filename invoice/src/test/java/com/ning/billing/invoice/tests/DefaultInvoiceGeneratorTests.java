@@ -418,7 +418,11 @@ public class DefaultInvoiceGeneratorTests extends InvoicingTestBase {
 
     }
 
-    private void testInvoiceGeneration(BillingEventSet events, InvoiceItemList existingInvoiceItems, DateTime targetDate, int expectedNumberOfItems, BigDecimal expectedAmount) {
+    private void testInvoiceGeneration(BillingEventSet events,
+                                       InvoiceItemList existingInvoiceItems,
+                                       DateTime targetDate,
+                                       int expectedNumberOfItems,
+                                       BigDecimal expectedAmount) {
         Currency currency = Currency.USD;
         UUID accountId = UUID.randomUUID();
         Invoice invoice = generator.generateInvoice(accountId, events, existingInvoiceItems, targetDate, currency);

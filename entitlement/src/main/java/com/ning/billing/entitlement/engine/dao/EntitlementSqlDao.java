@@ -52,7 +52,10 @@ public class EntitlementSqlDao implements EntitlementDao {
     private final SubscriptionFactory factory;
 
     @Inject
-    public EntitlementSqlDao(DBI dbi, Clock clock, EntitlementConfig config, SubscriptionFactory factory) {
+    public EntitlementSqlDao(DBI dbi,
+                             Clock clock,
+                             EntitlementConfig config,
+                             SubscriptionFactory factory) {
         this.clock = clock;
         this.config = config;
         this.factory = factory;
@@ -82,7 +85,8 @@ public class EntitlementSqlDao implements EntitlementDao {
     public SubscriptionBundle createSubscriptionBundle(final SubscriptionBundleData bundle) {
         return bundlesDao.inTransaction(new Transaction<SubscriptionBundle, BundleSqlDao>() {
             @Override
-            public SubscriptionBundle inTransaction(BundleSqlDao bundlesDao, TransactionStatus status) {
+            public SubscriptionBundle inTransaction(BundleSqlDao bundlesDao,
+                                                    TransactionStatus status) {
                 bundlesDao.insertBundle(bundle);
                 return bundle;
             }
@@ -128,7 +132,8 @@ public class EntitlementSqlDao implements EntitlementDao {
     }
 
     @Override
-    public void createNextPhaseEvent(final UUID subscriptionId, final EntitlementEvent nextPhase) {
+    public void createNextPhaseEvent(final UUID subscriptionId,
+                                     final EntitlementEvent nextPhase) {
         eventsDao.inTransaction(new Transaction<Void, EventSqlDao>() {
 
             @Override
@@ -156,7 +161,8 @@ public class EntitlementSqlDao implements EntitlementDao {
     }
 
     @Override
-    public List<EntitlementEvent> getEventsReady(final UUID ownerId, final int sequenceId) {
+    public List<EntitlementEvent> getEventsReady(final UUID ownerId,
+                                                 final int sequenceId) {
 
         final Date now = clock.getUTCNow().toDate();
         final Date nextAvailable = clock.getUTCNow().plus(config.getDaoClaimTimeMs()).toDate();
@@ -192,7 +198,8 @@ public class EntitlementSqlDao implements EntitlementDao {
     }
 
     @Override
-    public void clearEventsReady(final UUID ownerId, final Collection<EntitlementEvent> cleared) {
+    public void clearEventsReady(final UUID ownerId,
+                                 final Collection<EntitlementEvent> cleared) {
 
         log.debug(String.format("EntitlementDao clearEventsReady START cleared size = %d", cleared.size()));
 
@@ -233,7 +240,8 @@ public class EntitlementSqlDao implements EntitlementDao {
     }
 
     @Override
-    public void cancelSubscription(final UUID subscriptionId, final EntitlementEvent cancelEvent) {
+    public void cancelSubscription(final UUID subscriptionId,
+                                   final EntitlementEvent cancelEvent) {
 
         eventsDao.inTransaction(new Transaction<Void, EventSqlDao>() {
             @Override
@@ -248,7 +256,8 @@ public class EntitlementSqlDao implements EntitlementDao {
     }
 
     @Override
-    public void uncancelSubscription(final UUID subscriptionId, final List<EntitlementEvent> uncancelEvents) {
+    public void uncancelSubscription(final UUID subscriptionId,
+                                     final List<EntitlementEvent> uncancelEvents) {
 
         eventsDao.inTransaction(new Transaction<Void, EventSqlDao>() {
 
@@ -281,7 +290,8 @@ public class EntitlementSqlDao implements EntitlementDao {
     }
 
     @Override
-    public void changePlan(final UUID subscriptionId, final List<EntitlementEvent> changeEvents) {
+    public void changePlan(final UUID subscriptionId,
+                           final List<EntitlementEvent> changeEvents) {
         eventsDao.inTransaction(new Transaction<Void, EventSqlDao>() {
             @Override
             public Void inTransaction(EventSqlDao dao,
@@ -296,15 +306,20 @@ public class EntitlementSqlDao implements EntitlementDao {
         });
     }
 
-    private void cancelNextPhaseEventFromTransaction(final UUID subscriptionId, final EventSqlDao dao) {
+    private void cancelNextPhaseEventFromTransaction(final UUID subscriptionId,
+                                                     final EventSqlDao dao) {
         cancelFutureEventFromTransaction(subscriptionId, dao, EventType.PHASE, null);
     }
 
-    private void cancelNextChangeEventFromTransaction(final UUID subscriptionId, final EventSqlDao dao) {
+    private void cancelNextChangeEventFromTransaction(final UUID subscriptionId,
+                                                      final EventSqlDao dao) {
         cancelFutureEventFromTransaction(subscriptionId, dao, EventType.API_USER, ApiEventType.CHANGE);
     }
 
-    private void cancelFutureEventFromTransaction(final UUID subscriptionId, final EventSqlDao dao, EventType type, ApiEventType apiType) {
+    private void cancelFutureEventFromTransaction(final UUID subscriptionId,
+                                                  final EventSqlDao dao,
+                                                  EventType type,
+                                                  ApiEventType apiType) {
 
         UUID futureEventId = null;
         Date now = clock.getUTCNow().toDate();
@@ -344,7 +359,8 @@ public class EntitlementSqlDao implements EntitlementDao {
     }
 
     @Override
-    public void migrate(final UUID accountId, final AccountMigrationData accountData) {
+    public void migrate(final UUID accountId,
+                        final AccountMigrationData accountData) {
 
         eventsDao.inTransaction(new Transaction<Void, EventSqlDao>() {
 
@@ -391,7 +407,10 @@ public class EntitlementSqlDao implements EntitlementDao {
         });
     }
 
-    private void undoMigrationFromTransaction(final UUID accountId, EventSqlDao transEventDao, BundleSqlDao transBundleDao, SubscriptionSqlDao transSubDao) {
+    private void undoMigrationFromTransaction(final UUID accountId,
+                                              EventSqlDao transEventDao,
+                                              BundleSqlDao transBundleDao,
+                                              SubscriptionSqlDao transSubDao) {
         final List<SubscriptionBundle> bundles = transBundleDao.getBundleFromAccount(accountId.toString());
         for (SubscriptionBundle curBundle : bundles) {
             List<Subscription> subscriptions = transSubDao.getSubscriptionsFromBundleId(curBundle.getId().toString());

@@ -30,7 +30,8 @@ public abstract class ValidatingConfig<Context> {
      * @param errors
      * @return
      */
-    public abstract ValidationErrors validate(Context root, ValidationErrors errors);
+    public abstract ValidationErrors validate(Context root,
+                                              ValidationErrors errors);
 
 
     /**
@@ -38,7 +39,8 @@ public abstract class ValidatingConfig<Context> {
      *
      * @param root
      */
-    public void initialize(Context root, URI uri) {
+    public void initialize(Context root,
+                           URI uri) {
     }
 
 }

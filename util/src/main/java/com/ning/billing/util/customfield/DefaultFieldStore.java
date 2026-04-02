@@ -21,11 +21,13 @@ import com.ning.billing.util.entity.EntityCollectionBase;
 import java.util.UUID;
 
 public class DefaultFieldStore extends EntityCollectionBase<CustomField> implements FieldStore {
-    public DefaultFieldStore(UUID objectId, String objectType) {
+    public DefaultFieldStore(UUID objectId,
+                             String objectType) {
         super(objectId, objectType);
     }
 
-    public static DefaultFieldStore create(UUID objectId, String objectType) {
+    public static DefaultFieldStore create(UUID objectId,
+                                           String objectType) {
         return new DefaultFieldStore(objectId, objectType);
     }
 
@@ -34,7 +36,8 @@ public class DefaultFieldStore extends EntityCollectionBase<CustomField> impleme
         return entity.getName();
     }
 
-    public void setValue(String fieldName, String fieldValue) {
+    public void setValue(String fieldName,
+                         String fieldValue) {
         if (entities.containsKey(fieldName)) {
             entities.get(fieldName).setValue(fieldValue);
         } else {

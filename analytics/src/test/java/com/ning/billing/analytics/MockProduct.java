@@ -24,7 +24,9 @@ public class MockProduct implements Product {
     private final String type;
     private final ProductCategory category;
 
-    public MockProduct(final String name, final String type, final ProductCategory category) {
+    public MockProduct(final String name,
+                       final String type,
+                       final ProductCategory category) {
         this.name = name;
         this.type = type;
         this.category = category;

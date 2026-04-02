@@ -45,7 +45,9 @@ public class MemoryEventBus implements EventBus {
         private final Executor executor;
         private final ThreadGroup grp;
 
-        public EventBusDelegate(String name, ThreadGroup grp, Executor executor) {
+        public EventBusDelegate(String name,
+                                ThreadGroup grp,
+                                Executor executor) {
             super(name, executor);
             this.executor = executor;
             this.grp = grp;
@@ -98,7 +100,8 @@ public class MemoryEventBus implements EventBus {
     }
 
     @Override
-    public void postFromTransaction(EventBusNotification event, Transmogrifier dao) throws EventBusException {
+    public void postFromTransaction(EventBusNotification event,
+                                    Transmogrifier dao) throws EventBusException {
         checkInitialized("postFromTransaction");
         delegate.post(event);
     }

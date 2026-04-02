@@ -36,8 +36,11 @@ public class TestAnalyticsListener {
     private final MockBusinessSubscriptionTransitionDao dao = new MockBusinessSubscriptionTransitionDao();
     private final UUID subscriptionId = UUID.randomUUID();
     private final UUID bundleUUID = UUID.randomUUID();
-    private final Product product = new MockProduct("platinium", "subscription", ProductCategory.BASE);
-    private final Plan plan = new MockPlan("platinum-monthly", product);
+    private final Product product = new MockProduct("platinium",
+                                                    "subscription",
+                                                    ProductCategory.BASE);
+    private final Plan plan = new MockPlan("platinum-monthly",
+                                           product);
     private final PlanPhase phase = new MockPhase(PhaseType.EVERGREEN, plan, MockDuration.UNLIMITED(), 25.95);
     private final String priceList = null;
 
@@ -87,25 +90,32 @@ public class TestAnalyticsListener {
         Assert.assertEquals(dao.getTransitions(KEY).get(3), cancelledBST);
     }
 
-    private BusinessSubscriptionTransition createExpectedFirstBST(final DateTime requestedTransitionTime, final DateTime effectiveTransitionTime) {
+    private BusinessSubscriptionTransition createExpectedFirstBST(final DateTime requestedTransitionTime,
+                                                                  final DateTime effectiveTransitionTime) {
         final BusinessSubscriptionEvent event = BusinessSubscriptionEvent.subscriptionCreated(plan);
         final Subscription.SubscriptionState subscriptionState = Subscription.SubscriptionState.ACTIVE;
         return createExpectedBST(event, requestedTransitionTime, effectiveTransitionTime, null, subscriptionState);
     }
 
-    private BusinessSubscriptionTransition createExpectedPausedBST(final DateTime requestedTransitionTime, final DateTime effectiveTransitionTime, final BusinessSubscription lastSubscription) {
+    private BusinessSubscriptionTransition createExpectedPausedBST(final DateTime requestedTransitionTime,
+                                                                   final DateTime effectiveTransitionTime,
+                                                                   final BusinessSubscription lastSubscription) {
         final BusinessSubscriptionEvent event = BusinessSubscriptionEvent.subscriptionPaused(plan);
         final Subscription.SubscriptionState subscriptionState = Subscription.SubscriptionState.PAUSED;
         return createExpectedBST(event, requestedTransitionTime, effectiveTransitionTime, lastSubscription, subscriptionState);
     }
 
-    private BusinessSubscriptionTransition createExpectedResumedBST(final DateTime requestedTransitionTime, final DateTime effectiveTransitionTime, final BusinessSubscription lastSubscription) {
+    private BusinessSubscriptionTransition createExpectedResumedBST(final DateTime requestedTransitionTime,
+                                                                    final DateTime effectiveTransitionTime,
+                                                                    final BusinessSubscription lastSubscription) {
         final BusinessSubscriptionEvent event = BusinessSubscriptionEvent.subscriptionResumed(plan);
         final Subscription.SubscriptionState nextState = Subscription.SubscriptionState.ACTIVE;
         return createExpectedBST(event, requestedTransitionTime, effectiveTransitionTime, lastSubscription, nextState);
     }
 
-    private BusinessSubscriptionTransition createExpectedCancelledBST(final DateTime requestedTransitionTime, final DateTime effectiveTransitionTime, final BusinessSubscription lastSubscription) {
+    private BusinessSubscriptionTransition createExpectedCancelledBST(final DateTime requestedTransitionTime,
+                                                                      final DateTime effectiveTransitionTime,
+                                                                      final BusinessSubscription lastSubscription) {
         final BusinessSubscriptionEvent event = BusinessSubscriptionEvent.subscriptionCancelled(plan);
         final Subscription.SubscriptionState nextState = Subscription.SubscriptionState.CANCELLED;
         return createExpectedBST(event, requestedTransitionTime, effectiveTransitionTime, lastSubscription, nextState);
@@ -137,7 +147,8 @@ public class TestAnalyticsListener {
         );
     }
 
-    private SubscriptionTransitionData createFirstSubscriptionTransition(final DateTime requestedTransitionTime, final DateTime effectiveTransitionTime) {
+    private SubscriptionTransitionData createFirstSubscriptionTransition(final DateTime requestedTransitionTime,
+                                                                         final DateTime effectiveTransitionTime) {
         final ApiEventType eventType = ApiEventType.CREATE;
         final Subscription.SubscriptionState nextState = Subscription.SubscriptionState.ACTIVE;
         return new SubscriptionTransitionData(
@@ -159,19 +170,25 @@ public class TestAnalyticsListener {
         );
     }
 
-    private SubscriptionTransitionData createPauseSubscriptionTransition(final DateTime requestedTransitionTime, final DateTime effectiveTransitionTime, final Subscription.SubscriptionState previousState) {
+    private SubscriptionTransitionData createPauseSubscriptionTransition(final DateTime requestedTransitionTime,
+                                                                         final DateTime effectiveTransitionTime,
+                                                                         final Subscription.SubscriptionState previousState) {
         final ApiEventType eventType = ApiEventType.PAUSE;
         final Subscription.SubscriptionState nextState = Subscription.SubscriptionState.PAUSED;
         return createSubscriptionTransition(eventType, requestedTransitionTime, effectiveTransitionTime, previousState, nextState);
     }
 
-    private SubscriptionTransitionData createResumeSubscriptionTransition(final DateTime requestedTransitionTime, final DateTime effectiveTransitionTime, final Subscription.SubscriptionState previousState) {
+    private SubscriptionTransitionData createResumeSubscriptionTransition(final DateTime requestedTransitionTime,
+                                                                          final DateTime effectiveTransitionTime,
+                                                                          final Subscription.SubscriptionState previousState) {
         final ApiEventType eventType = ApiEventType.RESUME;
         final Subscription.SubscriptionState nextState = Subscription.SubscriptionState.ACTIVE;
         return createSubscriptionTransition(eventType, requestedTransitionTime, effectiveTransitionTime, previousState, nextState);
     }
 
-    private SubscriptionTransitionData createCancelSubscriptionTransition(final DateTime requestedTransitionTime, final DateTime effectiveTransitionTime, final Subscription.SubscriptionState previousState) {
+    private SubscriptionTransitionData createCancelSubscriptionTransition(final DateTime requestedTransitionTime,
+                                                                          final DateTime effectiveTransitionTime,
+                                                                          final Subscription.SubscriptionState previousState) {
         final ApiEventType eventType = ApiEventType.CANCEL;
         final Subscription.SubscriptionState nextState = Subscription.SubscriptionState.CANCELLED;
         return createSubscriptionTransition(eventType, requestedTransitionTime, effectiveTransitionTime, previousState, nextState);

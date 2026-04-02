@@ -24,5 +24,9 @@ import org.joda.time.DateTime;
 import java.util.UUID;
 
 public interface InvoiceGenerator {
-    public Invoice generateInvoice(UUID accountId, BillingEventSet events, InvoiceItemList items, DateTime targetDate, Currency targetCurrency);
+    public Invoice generateInvoice(UUID accountId,
+                                   BillingEventSet events,
+                                   InvoiceItemList items,
+                                   DateTime targetDate,
+                                   Currency targetCurrency);
 }

@@ -22,11 +22,14 @@ import com.ning.billing.ErrorCode;
 public class CatalogApiException extends BillingExceptionBase {
     private static final long serialVersionUID = 1L;
 
-    public CatalogApiException(Throwable cause, ErrorCode code, Object... args) {
+    public CatalogApiException(Throwable cause,
+                               ErrorCode code,
+                               Object... args) {
         super(cause, code, args);
     }
 
-    public CatalogApiException(ErrorCode code, Object... args) {
+    public CatalogApiException(ErrorCode code,
+                               Object... args) {
         super(code, args);
     }
 

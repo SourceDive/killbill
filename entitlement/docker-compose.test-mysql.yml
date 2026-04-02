@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  killbill-test-mysql:
+    image: mysql:8.0
+    container_name: killbill-test-mysql
+    ports:
+      - "64327:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: killbill
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-proot"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped

@@ -78,7 +78,8 @@ public interface BundleSqlDao extends Transactional<BundleSqlDao>, CloseMe, Tran
 
     public static class ISubscriptionBundleSqlMapper implements ResultSetMapper<SubscriptionBundle> {
 
-        private DateTime getDate(ResultSet r, String fieldName) throws SQLException {
+        private DateTime getDate(ResultSet r,
+                                 String fieldName) throws SQLException {
             final Timestamp resultStamp = r.getTimestamp(fieldName);
             return r.wasNull() ? null : new DateTime(resultStamp).toDateTime(DateTimeZone.UTC);
         }

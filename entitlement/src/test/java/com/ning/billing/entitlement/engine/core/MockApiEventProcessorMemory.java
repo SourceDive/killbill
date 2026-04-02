@@ -30,7 +30,9 @@ public class MockApiEventProcessorMemory extends ApiEventProcessorBase {
 
 
     @Inject
-    public MockApiEventProcessorMemory(Clock clock, EntitlementDao dao, EntitlementConfig config) {
+    public MockApiEventProcessorMemory(Clock clock,
+                                       EntitlementDao dao,
+                                       EntitlementConfig config) {
         super(clock, dao, config);
     }
 

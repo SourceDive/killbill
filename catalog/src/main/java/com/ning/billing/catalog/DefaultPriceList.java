@@ -40,7 +40,8 @@ public class DefaultPriceList extends ValidatingConfig<StandaloneCatalog> implem
     public DefaultPriceList() {
     }
 
-    public DefaultPriceList(DefaultPlan[] plans, String name) {
+    public DefaultPriceList(DefaultPlan[] plans,
+                            String name) {
         this.plans = plans;
         this.name = name;
     }
@@ -61,7 +62,8 @@ public class DefaultPriceList extends ValidatingConfig<StandaloneCatalog> implem
      * @see com.ning.billing.catalog.IPriceList#findPlan(com.ning.billing.catalog.api.IProduct, com.ning.billing.catalog.api.BillingPeriod)
      */
     @Override
-    public DefaultPlan findPlan(Product product, BillingPeriod period) {
+    public DefaultPlan findPlan(Product product,
+                                BillingPeriod period) {
         for (DefaultPlan cur : getPlans()) {
             if (cur.getProduct().equals(product) &&
                     (cur.getBillingPeriod() == null || cur.getBillingPeriod().equals(period))) {
@@ -72,7 +74,8 @@ public class DefaultPriceList extends ValidatingConfig<StandaloneCatalog> implem
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         for (DefaultPlan cur : getPlans()) {
             int numPlans = findNumberOfPlans(cur.getProduct(), cur.getBillingPeriod());
             if (numPlans > 1) {
@@ -85,7 +88,8 @@ public class DefaultPriceList extends ValidatingConfig<StandaloneCatalog> implem
         return errors;
     }
 
-    private int findNumberOfPlans(Product product, BillingPeriod period) {
+    private int findNumberOfPlans(Product product,
+                                  BillingPeriod period) {
         int count = 0;
         for (DefaultPlan cur : getPlans()) {
             if (cur.getProduct().equals(product) &&

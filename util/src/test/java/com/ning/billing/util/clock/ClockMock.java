@@ -54,7 +54,8 @@ public class ClockMock extends DefaultClock {
         return getNow(DateTimeZone.UTC);
     }
 
-    public synchronized void setDeltaFromReality(Duration delta, long epsilon) {
+    public synchronized void setDeltaFromReality(Duration delta,
+                                                 long epsilon) {
         deltaType = DeltaType.DELTA_DURATION;
         deltaFromRealityDuration = new ArrayList<Duration>();
         deltaFromRealityDuration.add(delta);

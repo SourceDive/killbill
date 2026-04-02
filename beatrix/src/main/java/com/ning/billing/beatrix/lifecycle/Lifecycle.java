@@ -132,7 +132,8 @@ public class Lifecycle {
 
 
     // Used to disable valid injection failure from unit tests
-    protected void logWarn(String msg, Exception e) {
+    protected void logWarn(String msg,
+                           Exception e) {
         log.warn(msg, e);
     }
 
@@ -155,7 +156,8 @@ public class Lifecycle {
         private final T target;
         private final Method method;
 
-        public LifecycleHandler(T target, Method method) {
+        public LifecycleHandler(T target,
+                                Method method) {
             this.target = target;
             this.method = method;
         }

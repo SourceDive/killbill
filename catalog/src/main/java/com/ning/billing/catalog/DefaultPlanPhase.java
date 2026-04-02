@@ -109,7 +109,8 @@ public class DefaultPlanPhase extends ValidatingConfig<StandaloneCatalog> implem
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         //Validation: check for nulls
         if (billingPeriod == null) {
             errors.add(new ValidationError(String.format("Phase %s of plan %s has a reccurring price but no billing period", type.toString(), plan.getName()),
@@ -139,7 +140,8 @@ public class DefaultPlanPhase extends ValidatingConfig<StandaloneCatalog> implem
     }
 
     @Override
-    public void initialize(StandaloneCatalog root, URI uri) {
+    public void initialize(StandaloneCatalog root,
+                           URI uri) {
         if (fixedPrice != null) {
             fixedPrice.initialize(root, uri);
         }

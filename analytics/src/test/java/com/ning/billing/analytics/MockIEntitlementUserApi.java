@@ -31,7 +31,8 @@ import java.util.UUID;
 public class MockIEntitlementUserApi implements EntitlementUserApi {
     private final Map<UUID, String> subscriptionBundles = new HashMap<UUID, String>();
 
-    public MockIEntitlementUserApi(final UUID bundleUUID, final String key) {
+    public MockIEntitlementUserApi(final UUID bundleUUID,
+                                   final String key) {
         subscriptionBundles.put(bundleUUID, key);
     }
 
@@ -81,7 +82,8 @@ public class MockIEntitlementUserApi implements EntitlementUserApi {
     }
 
     @Override
-    public SubscriptionBundle createBundleForAccount(final UUID accountId, final String bundleKey) throws EntitlementUserApiException {
+    public SubscriptionBundle createBundleForAccount(final UUID accountId,
+                                                     final String bundleKey) throws EntitlementUserApiException {
         throw new UnsupportedOperationException();
     }
 

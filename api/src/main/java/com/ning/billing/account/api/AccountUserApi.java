@@ -24,7 +24,9 @@ import java.util.UUID;
 
 public interface AccountUserApi {
 
-    public Account createAccount(AccountData data, List<CustomField> fields, List<Tag> tags) throws AccountApiException;
+    public Account createAccount(AccountData data,
+                                 List<CustomField> fields,
+                                 List<Tag> tags) throws AccountApiException;
 
     public void updateAccount(Account account);
 

@@ -117,9 +117,9 @@ public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
 
     private SubscriptionMigrationData createBaseSubscriptionMigrationData(UUID bundleId, ProductCategory productCategory,
                                                                           EntitlementSubscriptionMigrationCase[] input, DateTime now)
-            throws EntitlementMigrationApiException {
+                                                                          throws EntitlementMigrationApiException {
 
-        TimedMigration[] events = migrationAligner.getEventsMigration(input, now);
+                                                                          TimedMigration[] events = migrationAligner.getEventsMigration(input, now);
         DateTime migrationStartDate = events[0].getEventTime();
         List<EntitlementEvent> emptyEvents = Collections.emptyList();
         SubscriptionData subscriptionData = factory.createSubscription(new SubscriptionBuilder()
@@ -132,7 +132,9 @@ public class DefaultEntitlementMigrationApi implements EntitlementMigrationApi {
         return new SubscriptionMigrationData(subscriptionData, toEvents(subscriptionData, now, events));
     }
 
-    private List<EntitlementEvent> toEvents(SubscriptionData subscriptionData, DateTime now, TimedMigration[] migrationEvents) {
+    private List<EntitlementEvent> toEvents(SubscriptionData subscriptionData,
+                                            DateTime now,
+                                            TimedMigration[] migrationEvents) {
 
         List<EntitlementEvent> events = new ArrayList<EntitlementEvent>(migrationEvents.length);
         for (TimedMigration cur : migrationEvents) {

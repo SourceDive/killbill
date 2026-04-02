@@ -23,7 +23,8 @@ public abstract class EntityCollectionBase<T extends Entity> implements EntityCo
     protected final UUID objectId;
     protected final String objectType;
 
-    public EntityCollectionBase(UUID objectId, String objectType) {
+    public EntityCollectionBase(UUID objectId,
+                                String objectType) {
         this.objectId = objectId;
         this.objectType = objectType;
     }

@@ -41,7 +41,8 @@ public interface EventBus {
             super();
         }
 
-        public EventBusException(String message, Throwable cause) {
+        public EventBusException(String message,
+                                 Throwable cause) {
             super(message, cause);
         }
 
@@ -99,7 +100,8 @@ public interface EventBus {
      * @param dao   a valid DAO object obtained through the DBI.onDemand() API.
      * @throws EventBusException if bus not been started yet
      */
-    public void postFromTransaction(EventBusNotification event, Transmogrifier dao) throws EventBusException;
+    public void postFromTransaction(EventBusNotification event,
+                                    Transmogrifier dao) throws EventBusException;
 
 
 }

@@ -83,7 +83,9 @@ public interface InvoiceSqlDao extends EntityDao<Invoice>, Transactional<Invoice
         public static class InvoiceBinderFactory implements BinderFactory {
             public Binder build(Annotation annotation) {
                 return new Binder<InvoiceBinder, Invoice>() {
-                    public void bind(SQLStatement q, InvoiceBinder bind, Invoice invoice) {
+                    public void bind(SQLStatement q,
+                                     InvoiceBinder bind,
+                                     Invoice invoice) {
                         q.bind("id", invoice.getId().toString());
                         q.bind("accountId", invoice.getAccountId().toString());
                         q.bind("invoiceDate", invoice.getInvoiceDate().toDate());
@@ -101,7 +103,9 @@ public interface InvoiceSqlDao extends EntityDao<Invoice>, Transactional<Invoice
 
     public static class InvoiceMapper implements ResultSetMapper<Invoice> {
         @Override
-        public Invoice map(int index, ResultSet result, StatementContext context) throws SQLException {
+        public Invoice map(int index,
+                           ResultSet result,
+                           StatementContext context) throws SQLException {
             UUID id = UUID.fromString(result.getString("id"));
             UUID accountId = UUID.fromString(result.getString("account_id"));
             DateTime invoiceDate = new DateTime(result.getTimestamp("invoice_date"));

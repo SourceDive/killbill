@@ -37,7 +37,9 @@ public class DefaultInvoice implements Invoice {
     private BigDecimal amountPaid;
     private DateTime lastPaymentAttempt;
 
-    public DefaultInvoice(UUID accountId, DateTime targetDate, Currency currency) {
+    public DefaultInvoice(UUID accountId,
+                          DateTime targetDate,
+                          Currency currency) {
         this(UUID.randomUUID(), accountId, new DefaultClock().getUTCNow(), targetDate, currency, null, BigDecimal.ZERO, new ArrayList<InvoiceItem>());
     }
 
@@ -125,7 +127,8 @@ public class DefaultInvoice implements Invoice {
     }
 
     @Override
-    public boolean isDueForPayment(final DateTime targetDate, final int numberOfDays) {
+    public boolean isDueForPayment(final DateTime targetDate,
+                                   final int numberOfDays) {
         if (getTotalAmount().compareTo(BigDecimal.ZERO) == 0) {
             return false;
         }

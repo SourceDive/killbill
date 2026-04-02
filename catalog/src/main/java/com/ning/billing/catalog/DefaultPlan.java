@@ -123,7 +123,8 @@ public class DefaultPlan extends ValidatingConfig<StandaloneCatalog> implements 
     }
 
     @Override
-    public void initialize(StandaloneCatalog catalog, URI sourceURI) {
+    public void initialize(StandaloneCatalog catalog,
+                           URI sourceURI) {
         super.initialize(catalog, sourceURI);
         if (finalPhase != null) {
             finalPhase.setPlan(this);
@@ -138,7 +139,8 @@ public class DefaultPlan extends ValidatingConfig<StandaloneCatalog> implements 
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         return errors;
     }
 

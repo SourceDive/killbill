@@ -24,11 +24,14 @@ public class StringCustomField extends EntityBase<CustomField> implements Custom
     private String name;
     private String value;
 
-    public StringCustomField(String name, String value) {
+    public StringCustomField(String name,
+                             String value) {
         this(UUID.randomUUID(), name, value);
     }
 
-    public StringCustomField(UUID id, String name, String value) {
+    public StringCustomField(UUID id,
+                             String name,
+                             String value) {
         super(id);
         this.name = name;
         this.value = value;

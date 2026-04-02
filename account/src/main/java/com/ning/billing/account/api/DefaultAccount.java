@@ -48,7 +48,8 @@ public class DefaultAccount extends CustomizableEntityBase implements Account {
                 data.getPaymentProviderName(), BigDecimal.ZERO);
     }
 
-    public DefaultAccount(UUID id, AccountData data) {
+    public DefaultAccount(UUID id,
+                          AccountData data) {
         this(id, data.getExternalKey(), data.getEmail(), data.getName(),
                 data.getFirstNameLength(), data.getPhone(), data.getCurrency(), data.getBillCycleDay(),
                 data.getPaymentProviderName(), BigDecimal.ZERO);
@@ -127,7 +128,9 @@ public class DefaultAccount extends CustomizableEntityBase implements Account {
     }
 
     @Override
-    public void addTag(TagDescription description, String addedBy, DateTime dateAdded) {
+    public void addTag(TagDescription description,
+                       String addedBy,
+                       DateTime dateAdded) {
         Tag tag = new DefaultTag(description, addedBy, dateAdded);
         tags.add(tag);
     }

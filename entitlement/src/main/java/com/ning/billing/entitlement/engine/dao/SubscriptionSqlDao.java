@@ -84,7 +84,8 @@ public interface SubscriptionSqlDao extends Transactional<SubscriptionSqlDao>, C
 
     public static class ISubscriptionDaoSqlMapper implements ResultSetMapper<SubscriptionData> {
 
-        private DateTime getDate(ResultSet r, String fieldName) throws SQLException {
+        private DateTime getDate(ResultSet r,
+                                 String fieldName) throws SQLException {
             final Timestamp resultStamp = r.getTimestamp(fieldName);
             return r.wasNull() ? null : new DateTime(resultStamp).toDateTime(DateTimeZone.UTC);
         }

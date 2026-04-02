@@ -49,7 +49,9 @@ public class MockEntitlementDaoMemory implements EntitlementDao, MockEntitlement
 
 
     @Inject
-    public MockEntitlementDaoMemory(Clock clock, EntitlementConfig config, SubscriptionFactory factory) {
+    public MockEntitlementDaoMemory(Clock clock,
+                                    EntitlementConfig config,
+                                    SubscriptionFactory factory) {
         super();
         this.clock = clock;
         this.config = config;
@@ -127,7 +129,8 @@ public class MockEntitlementDaoMemory implements EntitlementDao, MockEntitlement
 
 
     @Override
-    public void createSubscription(SubscriptionData subscription, List<EntitlementEvent> initalEvents) {
+    public void createSubscription(SubscriptionData subscription,
+                                   List<EntitlementEvent> initalEvents) {
 
         synchronized (events) {
             events.addAll(initalEvents);
@@ -189,14 +192,16 @@ public class MockEntitlementDaoMemory implements EntitlementDao, MockEntitlement
     }
 
     @Override
-    public void createNextPhaseEvent(UUID subscriptionId, EntitlementEvent nextPhase) {
+    public void createNextPhaseEvent(UUID subscriptionId,
+                                     EntitlementEvent nextPhase) {
         cancelNextPhaseEvent(subscriptionId);
         insertEvent(nextPhase);
     }
 
 
     @Override
-    public List<EntitlementEvent> getEventsReady(UUID ownerId, int sequenceId) {
+    public List<EntitlementEvent> getEventsReady(UUID ownerId,
+                                                 int sequenceId) {
         synchronized (events) {
             List<EntitlementEvent> readyList = new LinkedList<EntitlementEvent>();
             for (EntitlementEvent cur : events) {
@@ -217,7 +222,8 @@ public class MockEntitlementDaoMemory implements EntitlementDao, MockEntitlement
     }
 
     @Override
-    public void clearEventsReady(UUID ownerId, Collection<EntitlementEvent> cleared) {
+    public void clearEventsReady(UUID ownerId,
+                                 Collection<EntitlementEvent> cleared) {
         synchronized (events) {
             for (EntitlementEvent cur : cleared) {
                 if (cur.getOwner().equals(ownerId)) {
@@ -252,7 +258,8 @@ public class MockEntitlementDaoMemory implements EntitlementDao, MockEntitlement
     }
 
     @Override
-    public void cancelSubscription(UUID subscriptionId, EntitlementEvent cancelEvent) {
+    public void cancelSubscription(UUID subscriptionId,
+                                   EntitlementEvent cancelEvent) {
         synchronized (cancelEvent) {
             cancelNextPhaseEvent(subscriptionId);
             insertEvent(cancelEvent);
@@ -260,7 +267,8 @@ public class MockEntitlementDaoMemory implements EntitlementDao, MockEntitlement
     }
 
     @Override
-    public void changePlan(UUID subscriptionId, List<EntitlementEvent> changeEvents) {
+    public void changePlan(UUID subscriptionId,
+                           List<EntitlementEvent> changeEvents) {
         synchronized (events) {
             cancelNextChangeEvent(subscriptionId);
             cancelNextPhaseEvent(subscriptionId);
@@ -321,7 +329,8 @@ public class MockEntitlementDaoMemory implements EntitlementDao, MockEntitlement
     }
 
     @Override
-    public void uncancelSubscription(UUID subscriptionId, List<EntitlementEvent> uncancelEvents) {
+    public void uncancelSubscription(UUID subscriptionId,
+                                     List<EntitlementEvent> uncancelEvents) {
 
         synchronized (events) {
             boolean foundCancel = false;
@@ -348,7 +357,8 @@ public class MockEntitlementDaoMemory implements EntitlementDao, MockEntitlement
 
 
     @Override
-    public void migrate(final UUID accountId, final AccountMigrationData accountData) {
+    public void migrate(final UUID accountId,
+                        final AccountMigrationData accountData) {
         synchronized (events) {
 
             undoMigration(accountId);

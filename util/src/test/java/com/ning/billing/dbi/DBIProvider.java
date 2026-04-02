@@ -36,7 +36,8 @@ public class DBIProvider implements Provider<DBI> {
     private final DbiConfig config;
 
     @Inject
-    public DBIProvider(final MetricsRegistry metricsRegistry, final DbiConfig config) {
+    public DBIProvider(final MetricsRegistry metricsRegistry,
+                       final DbiConfig config) {
         this.metricsRegistry = metricsRegistry;
         this.config = config;
     }

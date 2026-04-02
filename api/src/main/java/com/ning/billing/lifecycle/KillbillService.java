@@ -26,7 +26,8 @@ public interface KillbillService {
             super();
         }
 
-        public ServiceException(String msg, Throwable e) {
+        public ServiceException(String msg,
+                                Throwable e) {
             super(msg, e);
         }
 

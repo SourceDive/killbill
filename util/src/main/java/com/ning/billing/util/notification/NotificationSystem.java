@@ -24,7 +24,8 @@ public class NotificationSystem {
     Hashtable<Class<? extends INotification>, List<INotificationHandler<?>>> handlers =
             new Hashtable<Class<? extends INotification>, List<INotificationHandler<?>>>();
 
-    public <T extends INotification> void register(INotificationHandler<T> handler, Class<T> clazz) {
+    public <T extends INotification> void register(INotificationHandler<T> handler,
+                                                   Class<T> clazz) {
         List<INotificationHandler<?>> hList = handlers.get(clazz);
         if (hList == null) {
             hList = new ArrayList<INotificationHandler<?>>();

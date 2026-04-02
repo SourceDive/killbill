@@ -25,7 +25,9 @@ import java.util.UUID;
 
 public class UuidMapper implements ResultSetMapper<UUID> {
     @Override
-    public UUID map(final int index, ResultSet resultSet, StatementContext statementContext) throws SQLException {
+    public UUID map(final int index,
+                    ResultSet resultSet,
+                    StatementContext statementContext) throws SQLException {
         return UUID.fromString(resultSet.getString(1));
     }
 }

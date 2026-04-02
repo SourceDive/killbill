@@ -41,7 +41,8 @@ public class DefaultPriceListSet extends ValidatingConfig<StandaloneCatalog> {
         }
     }
 
-    public DefaultPriceListSet(PriceListDefault defaultPricelist, DefaultPriceList[] childPriceLists) {
+    public DefaultPriceListSet(PriceListDefault defaultPricelist,
+                               DefaultPriceList[] childPriceLists) {
         this.defaultPricelist = defaultPricelist;
         this.childPriceLists = childPriceLists;
     }
@@ -73,7 +74,8 @@ public class DefaultPriceListSet extends ValidatingConfig<StandaloneCatalog> {
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         defaultPricelist.validate(catalog, errors);
         //Check that the default pricelist name is not in use in the children
         for (DefaultPriceList pl : childPriceLists) {

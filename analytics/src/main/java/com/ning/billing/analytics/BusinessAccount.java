@@ -37,7 +37,15 @@ public class BusinessAccount {
     private String creditCardType;
     private String billingAddressCountry;
 
-    public BusinessAccount(final String key, final BigDecimal balance, final List<String> tags, final DateTime lastInvoiceDate, final BigDecimal totalInvoiceBalance, final String lastPaymentStatus, final String paymentMethod, final String creditCardType, final String billingAddressCountry) {
+    public BusinessAccount(final String key,
+                           final BigDecimal balance,
+                           final List<String> tags,
+                           final DateTime lastInvoiceDate,
+                           final BigDecimal totalInvoiceBalance,
+                           final String lastPaymentStatus,
+                           final String paymentMethod,
+                           final String creditCardType,
+                           final String billingAddressCountry) {
         this.key = key;
         this.balance = balance;
         this.billingAddressCountry = billingAddressCountry;

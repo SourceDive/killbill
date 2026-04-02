@@ -73,14 +73,16 @@ public class VersionedCatalogLoader implements ICatalogLoader {
         }
     }
 
-    protected List<URI> findXmlReferences(String directoryContents, URL url) throws URISyntaxException {
+    protected List<URI> findXmlReferences(String directoryContents,
+                                          URL url) throws URISyntaxException {
         if (url.getProtocol().equals(PROTOCOL_FOR_FILE)) {
             return findXmlFileReferences(directoryContents, url);
         }
         return findXmlUrlReferences(directoryContents, url);
     }
 
-    protected List<URI> findXmlUrlReferences(String directoryContents, URL url) throws URISyntaxException {
+    protected List<URI> findXmlUrlReferences(String directoryContents,
+                                             URL url) throws URISyntaxException {
         List<URI> results = new ArrayList<URI>();
         List<String> urlFragments = extractHrefs(directoryContents);
         for (String u : urlFragments) {
@@ -125,7 +127,8 @@ public class VersionedCatalogLoader implements ICatalogLoader {
         return results;
     }
 
-    protected List<URI> findXmlFileReferences(String directoryContents, URL url) throws URISyntaxException {
+    protected List<URI> findXmlFileReferences(String directoryContents,
+                                              URL url) throws URISyntaxException {
         List<URI> results = new ArrayList<URI>();
         String[] filenames = directoryContents.split("\\n");
         for (String filename : filenames) {
@@ -136,7 +139,8 @@ public class VersionedCatalogLoader implements ICatalogLoader {
         return results;
     }
 
-    protected URI appendToURI(final URL url, final String filename) throws URISyntaxException {
+    protected URI appendToURI(final URL url,
+                              final String filename) throws URISyntaxException {
         String f = filename;
         if (!url.toString().endsWith("/")) {
             f = "/" + filename;

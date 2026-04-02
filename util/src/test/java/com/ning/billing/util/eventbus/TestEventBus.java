@@ -46,7 +46,8 @@ public class TestEventBus {
         String name;
         Long value;
 
-        public MyEvent(String name, Long value) {
+        public MyEvent(String name,
+                       Long value) {
             this.name = name;
             this.value = value;
         }

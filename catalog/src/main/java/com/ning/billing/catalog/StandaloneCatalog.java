@@ -122,7 +122,9 @@ public class StandaloneCatalog extends ValidatingConfig<StandaloneCatalog> imple
      * @see com.ning.billing.catalog.ICatalog#getPlan(java.lang.String, java.lang.String)
      */
     @Override
-    public DefaultPlan findPlan(String productName, BillingPeriod period, String priceListName) throws CatalogApiException {
+    public DefaultPlan findPlan(String productName,
+                                BillingPeriod period,
+                                String priceListName) throws CatalogApiException {
         Product product = findProduct(productName);
         DefaultPlan result = priceLists.getPlanListFrom(priceListName, product, period);
         if (result == null) {
@@ -180,12 +182,14 @@ public class StandaloneCatalog extends ValidatingConfig<StandaloneCatalog> imple
 
     /// ///////////////////////////////////////////////////////////////////////////
     @Override
-    public ActionPolicy planChangePolicy(PlanPhaseSpecifier from, PlanSpecifier to) throws CatalogApiException {
+    public ActionPolicy planChangePolicy(PlanPhaseSpecifier from,
+                                         PlanSpecifier to) throws CatalogApiException {
         return planRules.getPlanChangePolicy(from, to, this);
     }
 
     @Override
-    public PlanAlignmentChange planChangeAlignment(PlanPhaseSpecifier from, PlanSpecifier to) throws CatalogApiException {
+    public PlanAlignmentChange planChangeAlignment(PlanPhaseSpecifier from,
+                                                   PlanSpecifier to) throws CatalogApiException {
         return planRules.getPlanChangeAlignment(from, to, this);
     }
 
@@ -211,7 +215,8 @@ public class StandaloneCatalog extends ValidatingConfig<StandaloneCatalog> imple
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         validate(catalog, errors, products);
         validate(catalog, errors, plans);
         priceLists.validate(catalog, errors);
@@ -229,7 +234,8 @@ public class StandaloneCatalog extends ValidatingConfig<StandaloneCatalog> imple
 
 
     @Override
-    public void initialize(StandaloneCatalog catalog, URI sourceURI) {
+    public void initialize(StandaloneCatalog catalog,
+                           URI sourceURI) {
         catalogURI = sourceURI;
         super.initialize(catalog, sourceURI);
         planRules.initialize(catalog, sourceURI);

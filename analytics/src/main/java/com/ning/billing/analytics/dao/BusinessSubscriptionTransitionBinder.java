@@ -33,7 +33,9 @@ public @interface BusinessSubscriptionTransitionBinder {
     public static class BstBinderFactory implements BinderFactory {
         public Binder build(final Annotation annotation) {
             return new Binder<BusinessSubscriptionTransitionBinder, BusinessSubscriptionTransition>() {
-                public void bind(final SQLStatement q, final BusinessSubscriptionTransitionBinder bind, final BusinessSubscriptionTransition arg) {
+                public void bind(final SQLStatement q,
+                                 final BusinessSubscriptionTransitionBinder bind,
+                                 final BusinessSubscriptionTransition arg) {
                     q.bind("event_key", arg.getKey());
                     q.bind("account_key", arg.getAccountKey());
                     q.bind("requested_timestamp", arg.getRequestedTimestamp().getMillis());

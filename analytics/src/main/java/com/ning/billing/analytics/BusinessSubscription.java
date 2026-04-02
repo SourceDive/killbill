@@ -53,7 +53,20 @@ public class BusinessSubscription {
     private final UUID subscriptionId;
     private final UUID bundleId;
 
-    public BusinessSubscription(final String productName, final String productType, final ProductCategory productCategory, final String slug, final String phase, final String billingPeriod, final BigDecimal price, final String priceList, final BigDecimal mrr, final String currency, final DateTime startDate, final SubscriptionState state, final UUID subscriptionId, final UUID bundleId) {
+    public BusinessSubscription(final String productName,
+                                final String productType,
+                                final ProductCategory productCategory,
+                                final String slug,
+                                final String phase,
+                                final String billingPeriod,
+                                final BigDecimal price,
+                                final String priceList,
+                                final BigDecimal mrr,
+                                final String currency,
+                                final DateTime startDate,
+                                final SubscriptionState state,
+                                final UUID subscriptionId,
+                                final UUID bundleId) {
         this.productName = productName;
         this.productType = productType;
         this.productCategory = productCategory;
@@ -83,7 +96,14 @@ public class BusinessSubscription {
         this(subscription.getCurrentPriceList(), subscription.getCurrentPlan(), subscription.getCurrentPhase(), currency, subscription.getStartDate(), subscription.getState(), subscription.getId(), subscription.getBundleId());
     }
 
-    public BusinessSubscription(final String priceList, final Plan currentPlan, final PlanPhase currentPhase, final Currency currency, final DateTime startDate, final SubscriptionState state, final UUID subscriptionId, final UUID bundleId) {
+    public BusinessSubscription(final String priceList,
+                                final Plan currentPlan,
+                                final PlanPhase currentPhase,
+                                final Currency currency,
+                                final DateTime startDate,
+                                final SubscriptionState state,
+                                final UUID subscriptionId,
+                                final UUID bundleId) {
         this.priceList = priceList;
 
         // Record plan information

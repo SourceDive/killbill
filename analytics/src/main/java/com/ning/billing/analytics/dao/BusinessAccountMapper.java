@@ -34,7 +34,9 @@ public class BusinessAccountMapper implements ResultSetMapper<BusinessAccount> {
     private final Splitter splitter = Splitter.on(";").trimResults().omitEmptyStrings();
 
     @Override
-    public BusinessAccount map(final int index, final ResultSet r, final StatementContext ctx) throws SQLException {
+    public BusinessAccount map(final int index,
+                               final ResultSet r,
+                               final StatementContext ctx) throws SQLException {
         final List<String> tags = new ArrayList<String>();
         Iterables.addAll(tags, splitter.split(r.getString(5)));
 

@@ -50,7 +50,8 @@ public class DefaultDuration extends ValidatingConfig<StandaloneCatalog> impleme
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         //TODO MDW - Validation TimeUnit UNLIMITED iff number == -1
         return errors;
     }

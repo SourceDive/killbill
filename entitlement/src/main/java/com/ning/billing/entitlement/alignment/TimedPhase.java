@@ -25,7 +25,8 @@ public final class TimedPhase {
     private final PlanPhase phase;
     private final DateTime startPhase;
 
-    public TimedPhase(PlanPhase phase, DateTime startPhase) {
+    public TimedPhase(PlanPhase phase,
+                      DateTime startPhase) {
         super();
         this.phase = phase;
         this.startPhase = startPhase;

@@ -72,7 +72,8 @@ public class DefaultProduct extends ValidatingConfig<StandaloneCatalog> implemen
     public DefaultProduct() {
     }
 
-    public DefaultProduct(String name, ProductCategory category) {
+    public DefaultProduct(String name,
+                          ProductCategory category) {
         this.category = category;
         this.name = name;
     }
@@ -101,12 +102,14 @@ public class DefaultProduct extends ValidatingConfig<StandaloneCatalog> implemen
     }
 
     @Override
-    public void initialize(StandaloneCatalog catalog, URI sourceURI) {
+    public void initialize(StandaloneCatalog catalog,
+                           URI sourceURI) {
         catalogName = catalog.getCatalogName();
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         //TODO: MDW validation: inclusion and exclusion lists can only contain addon products
         //TODO: MDW validation: a given product can only be in, at most, one of inclusion and exclusion lists
         return errors;

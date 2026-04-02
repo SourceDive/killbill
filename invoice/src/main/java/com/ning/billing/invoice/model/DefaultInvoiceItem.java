@@ -34,11 +34,26 @@ public class DefaultInvoiceItem implements InvoiceItem {
     private final BigDecimal rate;
     private final Currency currency;
 
-    public DefaultInvoiceItem(UUID invoiceId, UUID subscriptionId, DateTime startDate, DateTime endDate, String description, BigDecimal amount, BigDecimal rate, Currency currency) {
+    public DefaultInvoiceItem(UUID invoiceId,
+                              UUID subscriptionId,
+                              DateTime startDate,
+                              DateTime endDate,
+                              String description,
+                              BigDecimal amount,
+                              BigDecimal rate,
+                              Currency currency) {
         this(UUID.randomUUID(), invoiceId, subscriptionId, startDate, endDate, description, amount, rate, currency);
     }
 
-    public DefaultInvoiceItem(UUID id, UUID invoiceId, UUID subscriptionId, DateTime startDate, DateTime endDate, String description, BigDecimal amount, BigDecimal rate, Currency currency) {
+    public DefaultInvoiceItem(UUID id,
+                              UUID invoiceId,
+                              UUID subscriptionId,
+                              DateTime startDate,
+                              DateTime endDate,
+                              String description,
+                              BigDecimal amount,
+                              BigDecimal rate,
+                              Currency currency) {
         this.id = id;
         this.invoiceId = invoiceId;
         this.subscriptionId = subscriptionId;
@@ -50,7 +65,8 @@ public class DefaultInvoiceItem implements InvoiceItem {
         this.currency = currency;
     }
 
-    public DefaultInvoiceItem(InvoiceItem that, UUID invoiceId) {
+    public DefaultInvoiceItem(InvoiceItem that,
+                              UUID invoiceId) {
         this.id = UUID.randomUUID();
         this.invoiceId = invoiceId;
         this.subscriptionId = that.getSubscriptionId();

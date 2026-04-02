@@ -57,7 +57,9 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
     protected volatile boolean isProcessingEvents;
 
     @Inject
-    public ApiEventProcessorBase(Clock clock, EntitlementDao dao, EntitlementConfig config) {
+    public ApiEventProcessorBase(Clock clock,
+                                 EntitlementDao dao,
+                                 EntitlementConfig config) {
         this.clock = clock;
         this.dao = dao;
         this.config = config;
@@ -100,7 +102,8 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
                     //th.setDaemon(true);
                     th.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
                         @Override
-                        public void uncaughtException(Thread t, Throwable e) {
+                        public void uncaughtException(Thread t,
+                                                      Throwable e) {
                             log.error("Uncaught exception for thread " + t.getName(), e);
                         }
                     });
@@ -186,7 +189,9 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
     // This is not necessarily pretty
     //
     @Override
-    public void processAllReadyEvents(final UUID[] subscriptionsIds, final Boolean recursive, final Boolean oneEventOnly) {
+    public void processAllReadyEvents(final UUID[] subscriptionsIds,
+                                      final Boolean recursive,
+                                      final Boolean oneEventOnly) {
         processAllReadyEventsRecursively(subscriptionsIds, recursive, oneEventOnly);
     }
 
@@ -249,5 +254,6 @@ public abstract class ApiEventProcessorBase implements EventNotifier {
 
     protected abstract boolean doProcessEvents(int sequenceId);
 
-    protected abstract boolean doProcessEventsFromList(int sequenceId, Collection<EntitlementEvent> events);
+    protected abstract boolean doProcessEventsFromList(int sequenceId,
+                                                       Collection<EntitlementEvent> events);
 }

@@ -63,7 +63,8 @@ public class VersionedCatalog extends ValidatingConfig<StandaloneCatalog> implem
         versions.add(e);
         Collections.sort(versions, new Comparator<StandaloneCatalog>() {
             @Override
-            public int compare(StandaloneCatalog c1, StandaloneCatalog c2) {
+            public int compare(StandaloneCatalog c1,
+                               StandaloneCatalog c2) {
                 return c1.getEffectiveDate().compareTo(c2.getEffectiveDate());
             }
         });
@@ -124,14 +125,16 @@ public class VersionedCatalog extends ValidatingConfig<StandaloneCatalog> implem
     }
 
     @Override
-    public void initialize(StandaloneCatalog catalog, URI sourceURI) {
+    public void initialize(StandaloneCatalog catalog,
+                           URI sourceURI) {
         for (StandaloneCatalog c : versions) {
             c.initialize(catalog, sourceURI);
         }
     }
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         for (StandaloneCatalog c : versions) {
             errors.addAll(c.validate(c, errors));
         }

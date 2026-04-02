@@ -115,7 +115,8 @@ public interface EventSqlDao extends Transactional<EventSqlDao>, CloseMe, Transm
 
     public static class IEventSqlMapper implements ResultSetMapper<EntitlementEvent> {
 
-        private DateTime getDate(ResultSet r, String fieldName) throws SQLException {
+        private DateTime getDate(ResultSet r,
+                                 String fieldName) throws SQLException {
             final Timestamp resultStamp = r.getTimestamp(fieldName);
             return r.wasNull() ? null : new DateTime(resultStamp).toDateTime(DateTimeZone.UTC);
         }

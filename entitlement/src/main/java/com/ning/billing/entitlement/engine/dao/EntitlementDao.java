@@ -53,26 +53,34 @@ public interface EntitlementDao {
     public void updateSubscription(SubscriptionData subscription);
 
     // Event apis
-    public void createNextPhaseEvent(UUID subscriptionId, EntitlementEvent nextPhase);
+    public void createNextPhaseEvent(UUID subscriptionId,
+                                     EntitlementEvent nextPhase);
 
     public List<EntitlementEvent> getEventsForSubscription(UUID subscriptionId);
 
     public List<EntitlementEvent> getPendingEventsForSubscription(UUID subscriptionId);
 
-    public List<EntitlementEvent> getEventsReady(UUID ownerId, int sequenceId);
+    public List<EntitlementEvent> getEventsReady(UUID ownerId,
+                                                 int sequenceId);
 
-    public void clearEventsReady(UUID ownerId, Collection<EntitlementEvent> cleared);
+    public void clearEventsReady(UUID ownerId,
+                                 Collection<EntitlementEvent> cleared);
 
     // Subscription creation, cancellation, changePlan apis
-    public void createSubscription(SubscriptionData subscription, List<EntitlementEvent> initialEvents);
+    public void createSubscription(SubscriptionData subscription,
+                                   List<EntitlementEvent> initialEvents);
 
-    public void cancelSubscription(UUID subscriptionId, EntitlementEvent cancelEvent);
+    public void cancelSubscription(UUID subscriptionId,
+                                   EntitlementEvent cancelEvent);
 
-    public void uncancelSubscription(UUID subscriptionId, List<EntitlementEvent> uncancelEvents);
+    public void uncancelSubscription(UUID subscriptionId,
+                                     List<EntitlementEvent> uncancelEvents);
 
-    public void changePlan(UUID subscriptionId, List<EntitlementEvent> changeEvents);
+    public void changePlan(UUID subscriptionId,
+                           List<EntitlementEvent> changeEvents);
 
-    public void migrate(UUID acountId, AccountMigrationData data);
+    public void migrate(UUID acountId,
+                        AccountMigrationData data);
 
     public void undoMigration(UUID accountId);
 }

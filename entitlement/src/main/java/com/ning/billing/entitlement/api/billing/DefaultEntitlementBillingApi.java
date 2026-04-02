@@ -49,7 +49,8 @@ public class DefaultEntitlementBillingApi implements EntitlementBillingApi {
     }
 
     @Override
-    public void setChargedThroughDate(UUID subscriptionId, DateTime ctd) {
+    public void setChargedThroughDate(UUID subscriptionId,
+                                      DateTime ctd) {
         SubscriptionData subscription = (SubscriptionData) dao.getSubscriptionFromId(subscriptionId);
         if (subscription == null) {
             new EntitlementBillingApiException(String.format("Unknown subscription %s", subscriptionId));

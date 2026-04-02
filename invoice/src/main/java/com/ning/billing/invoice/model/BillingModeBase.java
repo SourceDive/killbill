@@ -23,7 +23,11 @@ import java.math.BigDecimal;
 
 public abstract class BillingModeBase implements BillingMode {
     @Override
-    public BigDecimal calculateNumberOfBillingCycles(final DateTime startDate, final DateTime endDate, final DateTime targetDate, final int billingCycleDay, final BillingPeriod billingPeriod) throws InvalidDateSequenceException {
+    public BigDecimal calculateNumberOfBillingCycles(final DateTime startDate,
+                                                     final DateTime endDate,
+                                                     final DateTime targetDate,
+                                                     final int billingCycleDay,
+                                                     final BillingPeriod billingPeriod) throws InvalidDateSequenceException {
         if (endDate.isBefore(startDate)) {
             throw new InvalidDateSequenceException();
         }
@@ -48,7 +52,10 @@ public abstract class BillingModeBase implements BillingMode {
     }
 
     @Override
-    public BigDecimal calculateNumberOfBillingCycles(final DateTime startDate, final DateTime targetDate, final int billingCycleDay, final BillingPeriod billingPeriod) throws InvalidDateSequenceException {
+    public BigDecimal calculateNumberOfBillingCycles(final DateTime startDate,
+                                                     final DateTime targetDate,
+                                                     final int billingCycleDay,
+                                                     final BillingPeriod billingPeriod) throws InvalidDateSequenceException {
         if (targetDate.isBefore(startDate)) {
             throw new InvalidDateSequenceException();
         }
@@ -70,21 +77,44 @@ public abstract class BillingModeBase implements BillingMode {
         return (targetDate.isBefore(startDate) || !targetDate.isBefore(endDate));
     }
 
-    public abstract DateTime calculateEffectiveEndDate(final DateTime startDate, final DateTime targetDate, final int billingCycleDay, final BillingPeriod billingPeriod);
+    public abstract DateTime calculateEffectiveEndDate(final DateTime startDate,
+                                                       final DateTime targetDate,
+                                                       final int billingCycleDay,
+                                                       final BillingPeriod billingPeriod);
 
-    public abstract DateTime calculateEffectiveEndDate(final DateTime startDate, final DateTime endDate, final DateTime targetDate, final int billingCycleDay, final BillingPeriod billingPeriod);
+    public abstract DateTime calculateEffectiveEndDate(final DateTime startDate,
+                                                       final DateTime endDate,
+                                                       final DateTime targetDate,
+                                                       final int billingCycleDay,
+                                                       final BillingPeriod billingPeriod);
 
-    protected abstract BigDecimal calculateNumberOfWholeBillingPeriods(final DateTime startDate, final DateTime endDate, final BillingPeriod billingPeriod);
+    protected abstract BigDecimal calculateNumberOfWholeBillingPeriods(final DateTime startDate,
+                                                                       final DateTime endDate,
+                                                                       final BillingPeriod billingPeriod);
 
-    protected abstract DateTime calculateBillingCycleDateOnOrAfter(final DateTime date, final int billingCycleDay);
+    protected abstract DateTime calculateBillingCycleDateOnOrAfter(final DateTime date,
+                                                                   final int billingCycleDay);
 
-    protected abstract DateTime calculateBillingCycleDateAfter(final DateTime date, final DateTime billingCycleDate, final int billingCycleDay, final BillingPeriod billingPeriod);
+    protected abstract DateTime calculateBillingCycleDateAfter(final DateTime date,
+                                                               final DateTime billingCycleDate,
+                                                               final int billingCycleDay,
+                                                               final BillingPeriod billingPeriod);
 
-    protected abstract DateTime calculateLastBillingCycleDateBefore(final DateTime date, final DateTime previousBillCycleDate, final int billingCycleDay, final BillingPeriod billingPeriod);
+    protected abstract DateTime calculateLastBillingCycleDateBefore(final DateTime date,
+                                                                    final DateTime previousBillCycleDate,
+                                                                    final int billingCycleDay,
+                                                                    final BillingPeriod billingPeriod);
 
-    protected abstract BigDecimal calculateProRationBeforeFirstBillingPeriod(final DateTime startDate, final int billingCycleDay, final BillingPeriod billingPeriod);
+    protected abstract BigDecimal calculateProRationBeforeFirstBillingPeriod(final DateTime startDate,
+                                                                             final int billingCycleDay,
+                                                                             final BillingPeriod billingPeriod);
 
-    protected abstract BigDecimal calculateProRationAfterLastBillingCycleDate(final DateTime endDate, final DateTime previousBillThroughDate, final BillingPeriod billingPeriod);
+    protected abstract BigDecimal calculateProRationAfterLastBillingCycleDate(final DateTime endDate,
+                                                                              final DateTime previousBillThroughDate,
+                                                                              final BillingPeriod billingPeriod);
 
-    protected abstract DateTime calculateEffectiveEndDate(final DateTime billCycleDate, final DateTime targetDate, final DateTime endDate, final BillingPeriod billingPeriod);
+    protected abstract DateTime calculateEffectiveEndDate(final DateTime billCycleDate,
+                                                          final DateTime targetDate,
+                                                          final DateTime endDate,
+                                                          final BillingPeriod billingPeriod);
 }

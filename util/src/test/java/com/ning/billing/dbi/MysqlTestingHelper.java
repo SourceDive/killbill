@@ -63,6 +63,13 @@ public class MysqlTestingHelper {
         dbDir = File.createTempFile("mysql", "");
         dbDir.delete();
         dbDir.mkdir();
+
+        final String originalOsArch = System.getProperty("os.arch");
+        if ("aarch64".equalsIgnoreCase(originalOsArch)) {
+            // mxj 5.0.12 doesn't ship Mac_OS_X-aarch64 resources.
+            // Force it to resolve the legacy Mac_OS_X-i386 resource path.
+            System.setProperty("os.arch", "i386");
+        }
         mysqldResource = new MysqldResource(dbDir);
 
         final Map<String, String> dbOpts = new HashMap<String, String>();
@@ -71,7 +78,13 @@ public class MysqlTestingHelper {
         dbOpts.put(MysqldResourceI.INITIALIZE_USER_NAME, USERNAME);
         dbOpts.put(MysqldResourceI.INITIALIZE_PASSWORD, PASSWORD);
 
-        mysqldResource.start("test-mysqld-thread", dbOpts);
+        try {
+            mysqldResource.start("test-mysqld-thread", dbOpts);
+        } finally {
+            if ("aarch64".equalsIgnoreCase(originalOsArch)) {
+                System.setProperty("os.arch", originalOsArch);
+            }
+        }
         if (!mysqldResource.isRunning()) {
             throw new IllegalStateException("MySQL did not start.");
         } else {
@@ -107,6 +120,18 @@ public class MysqlTestingHelper {
     public DBI getDBI() {
         final String dbiString = "jdbc:mysql://localhost:" + port + "/" + DB_NAME + "?createDatabaseIfNotExist=true";
         return new DBI(dbiString, USERNAME, PASSWORD);
+    }
+
+    public String getJdbcUrl() {
+        return "jdbc:mysql://localhost:" + port + "/" + DB_NAME + "?createDatabaseIfNotExist=true";
+    }
+
+    public String getUsername() {
+        return USERNAME;
+    }
+
+    public String getPassword() {
+        return PASSWORD;
     }
 
     public void initDb(final String ddl) throws IOException {

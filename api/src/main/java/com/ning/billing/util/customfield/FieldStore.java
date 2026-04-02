@@ -19,7 +19,8 @@ package com.ning.billing.util.customfield;
 import com.ning.billing.util.entity.EntityCollection;
 
 public interface FieldStore extends EntityCollection<CustomField> {
-    public void setValue(String fieldName, String fieldValue);
+    public void setValue(String fieldName,
+                         String fieldValue);
 
     public String getValue(String fieldName);
 }

@@ -59,7 +59,8 @@ public class BusinessSubscriptionEvent {
         throw new IllegalArgumentException("Unable to parse event string: " + eventString);
     }
 
-    public BusinessSubscriptionEvent(final EventType eventType, final ProductCategory category) {
+    public BusinessSubscriptionEvent(final EventType eventType,
+                                     final ProductCategory category) {
         this.eventType = eventType;
         this.category = category;
     }
@@ -92,7 +93,8 @@ public class BusinessSubscriptionEvent {
         return eventFromType(EventType.RESUME, plan);
     }
 
-    public static BusinessSubscriptionEvent subscriptionPhaseChanged(final Plan plan, final SubscriptionState state) {
+    public static BusinessSubscriptionEvent subscriptionPhaseChanged(final Plan plan,
+                                                                     final SubscriptionState state) {
         if (state != null && state.equals(SubscriptionState.CANCELLED)) {
             return eventFromType(EventType.SYSTEM_CANCEL, plan);
         } else {
@@ -100,7 +102,8 @@ public class BusinessSubscriptionEvent {
         }
     }
 
-    private static BusinessSubscriptionEvent eventFromType(final EventType eventType, final Plan plan) {
+    private static BusinessSubscriptionEvent eventFromType(final EventType eventType,
+                                                           final Plan plan) {
         final ProductCategory category = getTypeFromSubscription(plan);
         return new BusinessSubscriptionEvent(eventType, category);
     }

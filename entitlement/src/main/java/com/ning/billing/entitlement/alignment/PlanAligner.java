@@ -64,8 +64,8 @@ public class PlanAligner {
      */
     public TimedPhase[] getCurrentAndNextTimedPhaseOnCreate(SubscriptionData subscription,
                                                             Plan plan, PhaseType initialPhase, String priceList, DateTime effectiveDate)
-            throws CatalogApiException, EntitlementUserApiException {
-        List<TimedPhase> timedPhases = getTimedPhaseOnCreate(subscription, plan, initialPhase, priceList, effectiveDate);
+                                                            throws CatalogApiException, EntitlementUserApiException {
+                                                            List<TimedPhase> timedPhases = getTimedPhaseOnCreate(subscription, plan, initialPhase, priceList, effectiveDate);
         TimedPhase[] result = new TimedPhase[2];
         result[0] = getTimedPhase(timedPhases, effectiveDate, WhichPhase.CURRENT);
         result[1] = getTimedPhase(timedPhases, effectiveDate, WhichPhase.NEXT);
@@ -87,8 +87,8 @@ public class PlanAligner {
      */
     public TimedPhase getCurrentTimedPhaseOnChange(SubscriptionData subscription,
                                                    Plan plan, String priceList, DateTime effectiveDate)
-            throws CatalogApiException, EntitlementUserApiException {
-        return getTimedPhaseOnChange(subscription, plan, priceList, effectiveDate, WhichPhase.CURRENT);
+                                                   throws CatalogApiException, EntitlementUserApiException {
+                                                   return getTimedPhaseOnChange(subscription, plan, priceList, effectiveDate, WhichPhase.CURRENT);
     }
 
     /**
@@ -105,8 +105,8 @@ public class PlanAligner {
      */
     public TimedPhase getNextTimedPhaseOnChange(SubscriptionData subscription,
                                                 Plan plan, String priceList, DateTime effectiveDate)
-            throws CatalogApiException, EntitlementUserApiException {
-        return getTimedPhaseOnChange(subscription, plan, priceList, effectiveDate, WhichPhase.NEXT);
+                                                throws CatalogApiException, EntitlementUserApiException {
+                                                return getTimedPhaseOnChange(subscription, plan, priceList, effectiveDate, WhichPhase.NEXT);
     }
 
     /**
@@ -131,9 +131,9 @@ public class PlanAligner {
 
     private List<TimedPhase> getTimedPhaseOnCreate(SubscriptionData subscription,
                                                    Plan plan, PhaseType initialPhase, String priceList, DateTime effectiveDate)
-            throws CatalogApiException, EntitlementUserApiException {
+                                                   throws CatalogApiException, EntitlementUserApiException {
 
-        Catalog catalog = catalogService.getCatalog();
+                                                   Catalog catalog = catalogService.getCatalog();
 
         PlanSpecifier planSpecifier = new PlanSpecifier(plan.getProduct().getName(),
                 plan.getProduct().getCategory(),
@@ -159,9 +159,9 @@ public class PlanAligner {
 
     private TimedPhase getTimedPhaseOnChange(SubscriptionData subscription,
                                              Plan plan, String priceList, DateTime effectiveDate, WhichPhase which)
-            throws CatalogApiException, EntitlementUserApiException {
+                                             throws CatalogApiException, EntitlementUserApiException {
 
-        Catalog catalog = catalogService.getCatalog();
+                                             Catalog catalog = catalogService.getCatalog();
 
         PlanPhase currentPhase = subscription.getCurrentPhase();
         Plan currentPlan = subscription.getCurrentPlan();
@@ -236,7 +236,9 @@ public class PlanAligner {
         return result;
     }
 
-    private TimedPhase getTimedPhase(List<TimedPhase> timedPhases, DateTime effectiveDate, WhichPhase which) {
+    private TimedPhase getTimedPhase(List<TimedPhase> timedPhases,
+                                     DateTime effectiveDate,
+                                     WhichPhase which) {
         TimedPhase cur = null;
         TimedPhase next = null;
         for (TimedPhase phase : timedPhases) {

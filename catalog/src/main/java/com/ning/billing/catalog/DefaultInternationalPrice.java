@@ -84,7 +84,8 @@ public class DefaultInternationalPrice extends ValidatingConfig<StandaloneCatalo
 
 
     @Override
-    public ValidationErrors validate(StandaloneCatalog catalog, ValidationErrors errors) {
+    public ValidationErrors validate(StandaloneCatalog catalog,
+                                     ValidationErrors errors) {
         Currency[] supportedCurrencies = catalog.getSupportedCurrencies();
         for (Price p : prices) {
             Currency currency = p.getCurrency();
@@ -110,7 +111,8 @@ public class DefaultInternationalPrice extends ValidatingConfig<StandaloneCatalo
         return errors;
     }
 
-    private boolean currencyIsSupported(Currency currency, Currency[] supportedCurrencies) {
+    private boolean currencyIsSupported(Currency currency,
+                                        Currency[] supportedCurrencies) {
         for (Currency c : supportedCurrencies) {
             if (c == currency) {
                 return true;
@@ -121,7 +123,8 @@ public class DefaultInternationalPrice extends ValidatingConfig<StandaloneCatalo
 
 
     @Override
-    public void initialize(StandaloneCatalog root, URI uri) {
+    public void initialize(StandaloneCatalog root,
+                           URI uri) {
         if (prices == null) {
             prices = getZeroPrice(root);
         }

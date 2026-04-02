@@ -45,7 +45,9 @@ public interface FieldStoreDao extends EntityCollectionDao<CustomField>, Transmo
 
     public class CustomFieldMapper implements ResultSetMapper<CustomField> {
         @Override
-        public CustomField map(int index, ResultSet result, StatementContext context) throws SQLException {
+        public CustomField map(int index,
+                               ResultSet result,
+                               StatementContext context) throws SQLException {
             UUID id = UUID.fromString(result.getString("id"));
             String fieldName = result.getString("field_name");
             String fieldValue = result.getString("field_value");
@@ -60,7 +62,9 @@ public interface FieldStoreDao extends EntityCollectionDao<CustomField>, Transmo
         public static class CustomFieldBinderFactory implements BinderFactory {
             public Binder build(Annotation annotation) {
                 return new Binder<CustomFieldBinder, CustomField>() {
-                    public void bind(SQLStatement q, CustomFieldBinder bind, CustomField customField) {
+                    public void bind(SQLStatement q,
+                                     CustomFieldBinder bind,
+                                     CustomField customField) {
                         q.bind("id", customField.getId().toString());
                         q.bind("fieldName", customField.getName());
                         q.bind("fieldValue", customField.getValue());

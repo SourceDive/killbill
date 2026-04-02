@@ -34,7 +34,9 @@ import static com.ning.billing.entitlement.api.user.Subscription.SubscriptionSta
 
 public class BusinessSubscriptionTransitionMapper implements ResultSetMapper<BusinessSubscriptionTransition> {
     @Override
-    public BusinessSubscriptionTransition map(final int index, final ResultSet r, final StatementContext ctx) throws SQLException {
+    public BusinessSubscriptionTransition map(final int index,
+                                              final ResultSet r,
+                                              final StatementContext ctx) throws SQLException {
         BusinessSubscription prev = new BusinessSubscription(
                 r.getString(5), // productName
                 r.getString(6), // productType

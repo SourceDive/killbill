@@ -46,8 +46,17 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.UUID;
 
@@ -76,6 +85,10 @@ public abstract class TestApiBase {
     protected Catalog catalog;
     protected ApiTestListener testListener;
     protected SubscriptionBundle bundle;
+    private static final String TEST_DB_NAME = "killbill";
+    private static final String TEST_DB_USER = "root";
+    private static final String TEST_DB_PASSWORD = "root";
+    private static final String TEST_DB_PORT = "64327";
 
     public static void loadSystemPropertiesFromClasspath(final String resource) {
         final URL url = TestApiBase.class.getResource(resource);
@@ -95,6 +108,8 @@ public abstract class TestApiBase {
             ((DefaultEventBusService) busService).stopBus();
         } catch (Exception e) {
             log.warn("Failed to tearDown test properly ", e);
+        } finally {
+            stopEmbeddedMysql();
         }
 
     }
@@ -103,6 +118,9 @@ public abstract class TestApiBase {
     public void setup() {
 
         loadSystemPropertiesFromClasspath("/entitlement.properties");
+        if (shouldStartEmbeddedMysql()) {
+            startEmbeddedMysql();
+        }
         final Injector g = getInjector();
 
         entitlementService = g.getInstance(EntitlementService.class);
@@ -122,6 +140,152 @@ public abstract class TestApiBase {
         } catch (ServiceException e) {
             Assert.fail(e.getMessage());
         }
+    }
+
+    protected void startEmbeddedMysql() {
+        try {
+            runDockerComposeUp();
+
+            final String jdbcUrl = "jdbc:mysql://127.0.0.1:" + TEST_DB_PORT + "/" + TEST_DB_NAME + "?createDatabaseIfNotExist=true&allowMultiQueries=true";
+            System.setProperty("com.ning.billing.dbi.jdbc.url", jdbcUrl);
+            System.setProperty("com.ning.billing.dbi.jdbc.user", TEST_DB_USER);
+            System.setProperty("com.ning.billing.dbi.jdbc.password", TEST_DB_PASSWORD);
+
+            waitForMysqlReady(jdbcUrl, TEST_DB_USER, TEST_DB_PASSWORD);
+
+            final String entitlementDdl = readResourceAsString("/com/ning/billing/entitlement/ddl.sql");
+            final String accountDdl = readResourceAsString("/com/ning/billing/account/ddl.sql");
+            final String invoiceDdl = readResourceAsString("/com/ning/billing/invoice/ddl.sql");
+            final String utilDdl = readResourceAsString("/com/ning/billing/util/ddl.sql");
+
+            executeSqlScript(jdbcUrl, TEST_DB_USER, TEST_DB_PASSWORD, entitlementDdl);
+            executeSqlScript(jdbcUrl, TEST_DB_USER, TEST_DB_PASSWORD, accountDdl);
+            executeSqlScript(jdbcUrl, TEST_DB_USER, TEST_DB_PASSWORD, invoiceDdl);
+            executeSqlScript(jdbcUrl, TEST_DB_USER, TEST_DB_PASSWORD, utilDdl);
+        } catch (Exception e) {
+            Assert.fail("Failed to prepare docker MySQL for tests: " + e.getMessage(), e);
+        }
+    }
+
+    protected void stopEmbeddedMysql() {
+        // Keep the container running for faster iterative debug runs.
+    }
+
+    protected boolean shouldStartEmbeddedMysql() {
+        return !getClass().getSimpleName().contains("Memory");
+    }
+
+    private void runDockerComposeUp() throws Exception {
+        final File composeFile = resolveComposeFile();
+        final ProcessBuilder pb = new ProcessBuilder("docker", "compose", "-f", composeFile.getAbsolutePath(), "up", "-d");
+        pb.directory(composeFile.getParentFile());
+        pb.redirectErrorStream(true);
+
+        final Process process = pb.start();
+        final String output = readProcessOutput(process.getInputStream());
+        final int exitCode = process.waitFor();
+        if (exitCode != 0) {
+            throw new IllegalStateException("docker compose up failed: " + output);
+        }
+    }
+
+    private File resolveComposeFile() {
+        final File inModuleRoot = new File("docker-compose.test-mysql.yml");
+        if (inModuleRoot.exists()) {
+            return inModuleRoot.getAbsoluteFile();
+        }
+
+        final File inRepoRoot = new File("entitlement/docker-compose.test-mysql.yml");
+        if (inRepoRoot.exists()) {
+            return inRepoRoot.getAbsoluteFile();
+        }
+
+        throw new IllegalStateException("Missing docker compose file: docker-compose.test-mysql.yml");
+    }
+
+    private void waitForMysqlReady(final String jdbcUrl,
+                                   final String user,
+                                   final String password) throws Exception {
+        Exception lastError = null;
+        for (int i = 0; i < 60; i++) {
+            Connection connection = null;
+            Statement statement = null;
+            try {
+                connection = DriverManager.getConnection(jdbcUrl, user, password);
+                statement = connection.createStatement();
+                statement.execute("SELECT 1");
+                return;
+            } catch (Exception e) {
+                lastError = e;
+                Thread.sleep(1000L);
+            } finally {
+                if (statement != null) {
+                    try {
+                        statement.close();
+                    } catch (Exception ignore) {
+                    }
+                }
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (Exception ignore) {
+                    }
+                }
+            }
+        }
+        throw new IllegalStateException("MySQL is not ready after 60s", lastError);
+    }
+
+    private void executeSqlScript(final String jdbcUrl,
+                                  final String user,
+                                  final String password,
+                                  final String ddl) throws SQLException {
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = DriverManager.getConnection(jdbcUrl, user, password);
+            statement = connection.createStatement();
+            statement.execute(ddl);
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (Exception ignore) {
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception ignore) {
+                }
+            }
+        }
+    }
+
+    private String readProcessOutput(final InputStream inputStream) throws IOException {
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        final StringBuilder builder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            builder.append(line).append('\n');
+        }
+        return builder.toString();
+    }
+
+    private String readResourceAsString(final String resourcePath) throws IOException {
+        final InputStream inputStream = TestApiBase.class.getResourceAsStream(resourcePath);
+        if (inputStream == null) {
+            throw new IOException("Resource not found: " + resourcePath);
+        }
+
+        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        final byte[] buffer = new byte[4096];
+        int read;
+        while ((read = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, read);
+        }
+        inputStream.close();
+        return outputStream.toString("UTF-8");
     }
 
     protected abstract Injector getInjector();
@@ -171,7 +335,9 @@ public abstract class TestApiBase {
         log.warn("DONE WITH TEST\n");
     }
 
-    protected SubscriptionData createSubscription(final String productName, final BillingPeriod term, final String planSet) throws EntitlementUserApiException {
+    protected SubscriptionData createSubscription(final String productName,
+                                                  final BillingPeriod term,
+                                                  final String planSet) throws EntitlementUserApiException {
         testListener.pushExpectedEvent(NextEvent.CREATE);
         SubscriptionData subscription = (SubscriptionData) entitlementApi.createSubscription(bundle.getId(),
                 new PlanPhaseSpecifier(productName, ProductCategory.BASE, term, planSet, null),
@@ -181,7 +347,9 @@ public abstract class TestApiBase {
         return subscription;
     }
 
-    protected void checkNextPhaseChange(SubscriptionData subscription, int expPendingEvents, DateTime expPhaseChange) {
+    protected void checkNextPhaseChange(SubscriptionData subscription,
+                                        int expPendingEvents,
+                                        DateTime expPhaseChange) {
 
         List<EntitlementEvent> events = dao.getPendingEventsForSubscription(subscription.getId());
         assertNotNull(events);
@@ -209,7 +377,9 @@ public abstract class TestApiBase {
     }
 
 
-    protected void assertDateWithin(DateTime in, DateTime lower, DateTime upper) {
+    protected void assertDateWithin(DateTime in,
+                                    DateTime lower,
+                                    DateTime upper) {
         assertTrue(in.isEqual(lower) || in.isAfter(lower));
         assertTrue(in.isEqual(upper) || in.isBefore(upper));
     }
@@ -305,7 +475,10 @@ public abstract class TestApiBase {
         return accountData;
     }
 
-    protected PlanPhaseSpecifier getProductSpecifier(final String productName, final String priceList, final BillingPeriod term, final PhaseType phaseType) {
+    protected PlanPhaseSpecifier getProductSpecifier(final String productName,
+                                                     final String priceList,
+                                                     final BillingPeriod term,
+                                                     final PhaseType phaseType) {
         return new PlanPhaseSpecifier(productName, ProductCategory.BASE, term, priceList, phaseType);
     }
 

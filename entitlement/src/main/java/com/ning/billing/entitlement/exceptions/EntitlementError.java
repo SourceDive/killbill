@@ -24,7 +24,8 @@ public class EntitlementError extends Error {
         super();
     }
 
-    public EntitlementError(String msg, Throwable arg1) {
+    public EntitlementError(String msg,
+                            Throwable arg1) {
         super(msg, arg1);
     }
 

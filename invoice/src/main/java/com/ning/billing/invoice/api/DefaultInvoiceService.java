@@ -25,7 +25,8 @@ public class DefaultInvoiceService implements InvoiceService {
     private final InvoicePaymentApi paymentApi;
 
     @Inject
-    public DefaultInvoiceService(InvoiceUserApi userApi, InvoicePaymentApi paymentApi) {
+    public DefaultInvoiceService(InvoiceUserApi userApi,
+                                 InvoicePaymentApi paymentApi) {
         this.userApi = userApi;
         this.paymentApi = paymentApi;
     }

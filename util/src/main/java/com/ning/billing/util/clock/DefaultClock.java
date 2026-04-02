@@ -42,7 +42,9 @@ public class DefaultClock implements Clock {
     }
 
 
-    public static DateTime addOrRemoveDuration(DateTime input, List<Duration> durations, boolean add) {
+    public static DateTime addOrRemoveDuration(DateTime input,
+                                               List<Duration> durations,
+                                               boolean add) {
         DateTime result = input;
         for (Duration cur : durations) {
             switch (cur.getUnit()) {
@@ -65,21 +67,25 @@ public class DefaultClock implements Clock {
         return result;
     }
 
-    public static DateTime addDuration(DateTime input, List<Duration> durations) {
+    public static DateTime addDuration(DateTime input,
+                                       List<Duration> durations) {
         return addOrRemoveDuration(input, durations, true);
     }
 
-    public static DateTime removeDuration(DateTime input, List<Duration> durations) {
+    public static DateTime removeDuration(DateTime input,
+                                          List<Duration> durations) {
         return addOrRemoveDuration(input, durations, false);
     }
 
-    public static DateTime addDuration(DateTime input, Duration duration) {
+    public static DateTime addDuration(DateTime input,
+                                       Duration duration) {
         List<Duration> list = new ArrayList<Duration>();
         list.add(duration);
         return addOrRemoveDuration(input, list, true);
     }
 
-    public static DateTime removeDuration(DateTime input, Duration duration) {
+    public static DateTime removeDuration(DateTime input,
+                                          Duration duration) {
         List<Duration> list = new ArrayList<Duration>();
         list.add(duration);
         return addOrRemoveDuration(input, list, false);
