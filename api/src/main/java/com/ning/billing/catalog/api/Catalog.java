@@ -18,6 +18,9 @@ package com.ning.billing.catalog.api;
 
 import java.util.Date;
 
+/**
+ * 产品目录。
+ */
 public interface Catalog {
 
     public abstract Product[] getProducts();

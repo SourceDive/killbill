@@ -18,6 +18,9 @@ package com.ning.billing.catalog.api;
 
 import java.util.Iterator;
 
+/**
+ * 计划。
+ */
 public interface Plan {
 
     public abstract PlanPhase[] getInitialPhases();

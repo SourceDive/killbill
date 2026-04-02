@@ -21,6 +21,9 @@ import com.ning.billing.util.tag.Taggable;
 
 import java.math.BigDecimal;
 
+/**
+ * 账户。
+ */
 public interface Account extends AccountData, CustomizableEntity, Taggable {
     public BigDecimal getBalance();
 }
