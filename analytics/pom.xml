@@ -31,13 +31,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>management</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>management-dbfiles</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-mxj</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
