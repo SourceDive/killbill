@@ -44,6 +44,7 @@
         <module>catalog</module>
         <module>entitlement</module>
         <module>invoice</module>
+        <module>my-debug-module</module>
         <module>payment</module>
         <module>util</module>
     </modules>
